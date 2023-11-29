@@ -19,6 +19,7 @@ TODO:
 
 * Model:
   * User
+  * Guesses
   * Current track
   * Current score
   * scores 
