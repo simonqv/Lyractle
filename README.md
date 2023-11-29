@@ -20,7 +20,8 @@ TODO:
 * Model:
   * User
   * Guesses
-  * Current track
+  * Current track (song name and artist)
+  * Current lyrics
   * Current score
   * scores 
   * scoresPromiseState
