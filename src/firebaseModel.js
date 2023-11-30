@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import {GoogleAuthProvider} from "firebase/auth"
+import {GoogleAuthProvider, onAuthStateChanged} from "firebase/auth"
 import { getDatabase, ref, get, set} from "/src/teacherFirebase.js";
 import firebaseConfig from "./firebaseConfig";
 
@@ -13,6 +13,14 @@ const rf = ref(db, PATH)
 
 function modelToPersistence(model){
     // TODO
+    return {
+        currScore: model.currentScore,
+        currTrack: model.currentTrack,
+        currLyrics: model.currentLyrics,
+        userScores: model.scores,
+        userGuesses: model.guesses,
+        userGameState: model.gameState, // Playing, won, given up
+    }
 }
 
 function persistenceToModel(data, model){
@@ -20,11 +28,40 @@ function persistenceToModel(data, model){
 }
 
 function saveToFirebase(model){
-    // TODO:
+    if (model.ready) {
+        set(rf, modelToPersistence(model))
+    }
+}
+
+function readFromFirebase(model){
+    model.ready = false;
+    return get(rf)
+                .then(function convertACB(snapshot) {
+                    return persistenceToModel(snapshot.val(), model)
+                })
+                .then(function setModelReadyACB() {
+                    model.ready = true;
+                })
 }
 
 function connectToFirebase(model, watchFunction){
-    // TODO:
+    readFromFirebase(model)
+    watchFunction(checkChangeACB, updateFirebaseACB)
+
+    function checkChangeACB() {
+        return [model.currentScore, model.currentTrack, model.currentLyrics, 
+            model.scores, model.guesses, model.gameState]
+    }
+
+    function updateFirebaseACB() {
+        saveToFirebase(model)
+    }
+}
+
+onAuthStateChanged(auth, loginOrOutACB)
+
+function loginOrOutACB(user) {
+    return
 }
 
 

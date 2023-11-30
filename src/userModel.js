@@ -1,81 +1,85 @@
 import resolvePromise from "./resolvePromise";
-import { searchDishes, getDishDetails } from "./dishSource";
+import { searchArtist } from "../geniusSource";
 
 /* 
    The Model keeps only abstract data and has no notions of graphics or interaction
 */
-export default {  // we export a JavaScript object: { p1:v1, p2:v2, method(param){ statements; }, }
-        // other model properties will be initialized here in the coming lab steps
+export default {
     user: null,
     currentScore: null,
+    currentTrack: {},
+    currentLyrics: [],
     scores: [],
-    currentTrack: null,
+    guesses: [],
+    gameState: null, // Playing, won, given up
     searchParams: {},
-    searchResultsPromiseState: {},
     currentTrackPromiseState: {},
+    scoresPromiseState: {},
+    searchResultsPromiseState: {},
 
-    setNumberOfGuests(nr){
-        // if() and throw exercise
+    setUser(user) {
+        this.user = user
+    },
 
-        // work with this.numberOfGuests
-        
-        // throw an Error /* new Error(someMessage) */ if the argument is smaller than 1 or not an integer
-        if(!Number.isInteger(nr) || nr < 1 ) {
-            throw new Error("number of guests not a positive integer");
+    setCurrentScore(nr) {
+        if(!Number.isInteger(nr) || nr < 0 ) {
+            throw new Error("current score is not a positive integer")
         }
-        // The error message must be exactly "number of guests not a positive integer"
-        // To learn how to check for integer, test at the Developer Tools Console: Number.isInteger(3.14)
-        
-        // if the argument is a valid number of guests, store it in this.numberOfGuests
-        this.numberOfGuests = nr
-        // When this is done, the Unit test "TW1.1 DinnerModel/can set the number of guests" should pass
-        // also "number of guests is a positive integer"
+        this.currentScore = nr
+    },
+
+    setCurrentTrack() {
+        // TODO
+    },
+
+    setCurrentLyrics(lyrics) {
+        this.currentLyrics = lyrics
+    },
+
+    addToScores(newScore) {
+        this.scores = [...this.scores, newScore]
     },
     
-    addToMenu(dishToAdd){
-        // array spread syntax example. Make sure you understand the code below.
-        // It sets this.dishes to a new array [   ] where we spread (...) the previous value
-        this.dishes= [...this.dishes, dishToAdd];
+    removeFromScores() {
+        if (this.scores.length > 100) {
+            this.scores.splice(100)
+        }
+    },
+
+    addToGuesses(newGuess) {
+        this.guesses = [...this.guesses, newGuess]
+    },
+
+    resetGuesses() {
+        this.guesses = []
+    },
+
+    setGameState(state) {
+        this.gameState = state
     },
     
-    removeFromMenu(dishToRemove){
-        // callback exercise! Also return keyword exercise
-        function shouldWeKeepDishCB(dish){
-            // return true if the id property of dish is _different_ from the dishToRemove's id property
-            return dishToRemove.id !== dish.id;
-            // This will keep the dish when we filter below.
-            // That is, we will not keep the dish that has the same id as dishToRemove (if any)
-        }
-        this.dishes= this.dishes.filter(shouldWeKeepDishCB);
-        // the test "can remove dishes" should pass
-    },
-    
-    /* 
-       setting the ID of dish currently checked by the user.
-       A strict MVC/MVP Model would not keep such data, 
-       but we take a more relaxed, "Application state" approach. 
-       So we store also abstract data that will influence the application status.
-     */
-    setCurrentDish(id){
-        if (id && id !== this.currentDish){
-            this.currentDish=id;
-            this.currentDishPromiseState =  resolvePromise(getDishDetails(id), this.currentDishPromiseState) 
-        }
+    // /* 
+    //    setting the ID of dish currently checked by the user.
+    //    A strict MVC/MVP Model would not keep such data, 
+    //    but we take a more relaxed, "Application state" approach. 
+    //    So we store also abstract data that will influence the application status.
+    //  */
+    // setCurrentDish(id){
+    //     if (id && id !== this.currentDish){
+    //         this.currentDish=id;
+    //         this.currentDishPromiseState =  resolvePromise(getDishDetails(id), this.currentDishPromiseState) 
+    //     }
         
-        // note that we are adding a new object property (currentDish) which was not initialized in the constructor
-    },
-    // more methods will be added here, don't forget to separate them with comma!
+    //     // note that we are adding a new object property (currentDish) which was not initialized in the constructor
+    // },
+    // // more methods will be added here, don't forget to separate them with comma!
     
     setSearchQuery(query) {
         this.searchParams.query = query;
     },
 
-    setSearchType(type) {
-        this.searchParams.type = type;
-    },
-
     doSearch(searchParams) {
-        this.searchResultsPromiseState = resolvePromise(searchDishes(searchParams), this.searchResultsPromiseState)
+        this.searchResultsPromiseState = resolvePromise(searchArtist("adele"), this.searchResultsPromiseState)
     },
 
     
