@@ -25,7 +25,11 @@ function modelToPersistence(model){
 }
 
 function persistenceToModel(data, model){
-    // TODO
+    const new_user = null;  // TODO something else should be here I think? Like when we authenticate as a new user... aka the ID is not present in the firebase database
+    model.setUser(data?.userID || new_user);    
+    model.setScores(data?.userScores ||[])
+
+    return model // ???
 }
 
 function saveToFirebase(model){

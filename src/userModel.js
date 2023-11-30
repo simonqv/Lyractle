@@ -47,6 +47,11 @@ export default {
         this.currentLyrics = lyrics
     },
 
+
+    setScores(scores) {
+        this.scores = scores
+    },
+
     addToScores(newScore) {
         this.scores = sortScores([...this.scores, newScore])
     },
