@@ -1,24 +1,22 @@
 import { initializeApp } from "firebase/app";
-import {GoogleAuthProvider, onAuthStateChanged} from "firebase/auth"
+import {getAuth, onAuthStateChanged} from "firebase/auth"
 import { getDatabase, ref, get, set} from "/src/teacherFirebase.js";
 import firebaseConfig from "./firebaseConfig";
 
 const app = initializeApp(firebaseConfig)
+const auth = getAuth(app)
 const db = getDatabase(app)
 
-const provider = new GoogleAuthProvider()
-
-const PATH = "temp" // TODO: change this thing
-const rf = ref(db, PATH)
+const PATH = "users/"
 
 function modelToPersistence(model){
     // TODO In firebase, I think we only want to store userID and their highscores... ? so maybe we don't need so many variables?
     return {
         // currScore: model.currentScore,
-        // currTrack: model.currentTrack,
         // currLyrics: model.currentLyrics,
-        // userGuesses: model.guesses,
-        // userGameState: model.gameState, // Playing, won, given up
+        currTrack: model.currentTrack,
+        userGuesses: model.guesses,
+        userGameState: model.gameState, // Playing, won, given up
         userID: model.user,
         userScores: model.scores,
     }
@@ -33,13 +31,23 @@ function persistenceToModel(data, model){
 }
 
 function saveToFirebase(model){
+    if (!model.user) {
+        model.wipeModel()
+    }
     if (model.ready) {
+        const rf = ref(db, PATH + model.user.uid)
         set(rf, modelToPersistence(model))
     }
 }
 
 function readFromFirebase(model){
+    if (!model.user) {
+        model.wipeModel()
+        model.ready = true
+        return
+    }
     model.ready = false;
+    const rf = ref(db, PATH + model.user.uid)
     return get(rf)
                 .then(function convertACB(snapshot) {
                     return persistenceToModel(snapshot.val(), model)
@@ -50,7 +58,8 @@ function readFromFirebase(model){
 }
 
 function connectToFirebase(model, watchFunction){
-    readFromFirebase(model)
+    console.log("connect to fb")
+    onAuthStateChanged(auth, loginOrOutACB)
     watchFunction(checkChangeACB, updateFirebaseACB)
 
     function checkChangeACB() {
@@ -61,15 +70,21 @@ function connectToFirebase(model, watchFunction){
     function updateFirebaseACB() {
         saveToFirebase(model)
     }
+
+    function loginOrOutACB(user) {
+        console.log("in loginorout")
+        if (user) {
+            model.user = user
+            readFromFirebase(model)
+        }
+        else {
+            model.user = null
+        }
+    }
 }
 
-onAuthStateChanged(auth, loginOrOutACB)
-
-function loginOrOutACB(user) {
-    return
-}
 
 
-export {modelToPersistence, persistenceToModel, saveToFirebase, readFromFirebase}
+export {modelToPersistence, persistenceToModel, saveToFirebase, readFromFirebase, auth}
 
 export default connectToFirebase;

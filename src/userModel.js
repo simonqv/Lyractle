@@ -12,7 +12,7 @@ const GameStates = Object.freeze({
   });
 
 export default {
-    user: null,
+    user: undefined,
     currentTrack: null,
     currentLyrics: [],
     
@@ -20,7 +20,7 @@ export default {
     guesses: [],
     scores: [],
     
-    gameState: null, // Playing, won, given up
+    gameState: null, // Playing, win, given up
     searchArtistQuery: null,
     
     currentTrackPromiseState: {},
@@ -46,7 +46,6 @@ export default {
         // Done with lyricsgenius python module
         this.currentLyrics = lyrics
     },
-
 
     setScores(scores) {
         this.scores = scores
@@ -89,6 +88,14 @@ export default {
     doSearch(searchArtistQuery) {
         this.searchResultsPromiseState = resolvePromise(searchArtist(searchArtistQuery), this.searchResultsPromiseState)
     },
+
+    wipeModel() {
+        this.setCurrentScore(0)
+        this.setCurrentTrack(null)
+        this.setCurrentLyrics(null)
+        this.setScores([])
+        this.resetGuesses()
+    }
     
 }
 
