@@ -1,5 +1,6 @@
 import { observer } from "mobx-react-lite"
 import MainMenuView from "../views/mainMenuView"
+import GeniusView from "../views/GeniusView"
 
 export default
 observer(
@@ -24,6 +25,7 @@ observer(
             if (state.error) {
                 return state.error
             }
+            console.log("STATE DATA", state.data)
             return <GeniusView res={state.data}></GeniusView>
         }
 

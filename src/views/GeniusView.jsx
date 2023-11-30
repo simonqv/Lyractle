@@ -2,9 +2,10 @@
 import "/src/style.css"
 
 function GeniusView(props) {
+    console.log("test: ", props.res)
     return (
         <div className="search-result">
-            {props.res.response}
+            {props.res.target.response}
         </div>
     )
     
