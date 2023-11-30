@@ -25,15 +25,10 @@ function searchArtist(searchTerm) {
 
 // ACB to get json
 function getJSON_ACB(resp) {
-    console.log("ran json thing")
     if (!resp.ok) {
         throw new Error("Could not get genius information.")
     }
-    //console.log("json resp: ", resp.json())
-    //console.log("not json:", resp)
-    const respjson = resp.json()
-    console.log("resp json" , respjson)
-    return respjson
+    return resp.json()
 }
 
 export {searchArtist}

@@ -7,12 +7,19 @@ function MainMenuView(props) {
 
     return (
         <div>
+            <input onChange={artistInputACB} defaultValue="Search for artist"/>
             <button onClick={searchACB}>Search</button>
         </div>
     )
 
+    function artistInputACB(evt) {
+        console.log("artist input", evt.target.value)
+        props.onArtistInputACB(evt.target.value)
+    }
+
+
     function searchACB() {
-        props.test()
+        props.onSearchClick()
     }
 
 }

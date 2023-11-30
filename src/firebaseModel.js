@@ -12,14 +12,15 @@ const PATH = "temp" // TODO: change this thing
 const rf = ref(db, PATH)
 
 function modelToPersistence(model){
-    // TODO
+    // TODO In firebase, I think we only want to store userID and their highscores... ? so maybe we don't need so many variables?
     return {
-        currScore: model.currentScore,
-        currTrack: model.currentTrack,
-        currLyrics: model.currentLyrics,
+        // currScore: model.currentScore,
+        // currTrack: model.currentTrack,
+        // currLyrics: model.currentLyrics,
+        // userGuesses: model.guesses,
+        // userGameState: model.gameState, // Playing, won, given up
+        userID: model.user,
         userScores: model.scores,
-        userGuesses: model.guesses,
-        userGameState: model.gameState, // Playing, won, given up
     }
 }
 

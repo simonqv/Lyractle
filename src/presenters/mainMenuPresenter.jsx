@@ -7,13 +7,12 @@ observer(
     function MainMenu(props) {
         return <div>
             <div>HEJ</div>
-            <MainMenuView test={searchACB}></MainMenuView>
-            {trash(props.model.searchResultsPromiseState)}
+            <MainMenuView onArtistInputACB={searchArtistACB} onSearchClick={searchACB}></MainMenuView>
+            {place_holder(props.model.searchResultsPromiseState)}
             
         </div>
 
-        function trash(state) {
-            console.log("state: ", state)
+        function place_holder(state) {
             if (!state.promise) {
                 return "No data"
             }
@@ -25,12 +24,16 @@ observer(
             if (state.error) {
                 return state.error
             }
-            console.log("STATE DATA", state.data)
+            
             return <GeniusView res={state.data}></GeniusView>
         }
 
+        function searchArtistACB(artistQuery) {
+            props.model.setSearchQuery(artistQuery)
+        }
+
         function searchACB() {
-            props.model.doSearch("props.model.searchParams")
+            props.model.doSearch(props.model.searchArtistQuery)
         }
     }
 )

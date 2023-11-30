@@ -2,19 +2,20 @@
 import "/src/style.css"
 
 function GeniusView(props) {
-    console.log("test: ", props.res)
+    console.log("props res ", props.res)
     return (
         <div className="search-result">
-            {props.res.target.response}
+            {props.res.response.hits.map(renderSearchResCB)}
         </div>
     )
     
-    function renderSearchResCB(dish) {
+    function renderSearchResCB(artist) {
+        console.log(artist)
         return (
-            <span key={dish.id} className="search-result-object" onClick={dishClickACB}>
-                <img src={dish.image} height="100" onClick={dishClickACB} />
-                <div onClick={dishClickACB}>{dish.title}</div>
-            </span>
+            <div key={artist.result.id}>
+                {artist.result.artist_names}
+                {artist.result.title}
+            </div>
         )
         function dishClickACB() {
             props.onDishSelect(dish)

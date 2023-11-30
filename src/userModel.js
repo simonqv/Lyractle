@@ -4,15 +4,25 @@ import { searchArtist } from "../geniusSource";
 /* 
    The Model keeps only abstract data and has no notions of graphics or interaction
 */
+
+const GameStates = Object.freeze({ 
+    PLAYING: "playing", 
+    WIN: "win", 
+    GIVEN_UP: "given up" 
+  });
+
 export default {
     user: null,
-    currentScore: null,
-    currentTrack: {},
+    currentTrack: null,
     currentLyrics: [],
-    scores: [],
+    
+    currentScore: null,
     guesses: [],
+    scores: [],
+    
     gameState: null, // Playing, won, given up
-    searchParams: {},
+    searchArtistQuery: null,
+    
     currentTrackPromiseState: {},
     scoresPromiseState: {},
     searchResultsPromiseState: {},
@@ -23,21 +33,22 @@ export default {
 
     setCurrentScore(nr) {
         if(!Number.isInteger(nr) || nr < 0 ) {
-            throw new Error("current score is not a positive integer")
+            throw new Error("Current score is not a positive integer")
         }
         this.currentScore = nr
     },
 
-    setCurrentTrack() {
-        // TODO
+    setCurrentTrack(track) {
+        this.currentTrack = track
     },
 
     setCurrentLyrics(lyrics) {
+        // Done with lyricsgenius python module
         this.currentLyrics = lyrics
     },
 
     addToScores(newScore) {
-        this.scores = [...this.scores, newScore]
+        this.scores = sortScores([...this.scores, newScore])
     },
     
     removeFromScores() {
@@ -47,7 +58,7 @@ export default {
     },
 
     addToGuesses(newGuess) {
-        this.guesses = [...this.guesses, newGuess]
+        this.guesses = [newGuess, ...this.guesses]
     },
 
     resetGuesses() {
@@ -55,33 +66,24 @@ export default {
     },
 
     setGameState(state) {
-        this.gameState = state
+        /*
+         playing, win or give up
+         when calling, use yourObject.setGameState(GameStates.PLAYING);
+        */
+        if (Object.values(GameStates).includes(state)) {
+            this.gameState = state;
+        } else {
+            throw new Error(`Invalid game state: ${state}`);
+        }
     },
-    
-    // /* 
-    //    setting the ID of dish currently checked by the user.
-    //    A strict MVC/MVP Model would not keep such data, 
-    //    but we take a more relaxed, "Application state" approach. 
-    //    So we store also abstract data that will influence the application status.
-    //  */
-    // setCurrentDish(id){
-    //     if (id && id !== this.currentDish){
-    //         this.currentDish=id;
-    //         this.currentDishPromiseState =  resolvePromise(getDishDetails(id), this.currentDishPromiseState) 
-    //     }
-        
-    //     // note that we are adding a new object property (currentDish) which was not initialized in the constructor
-    // },
-    // // more methods will be added here, don't forget to separate them with comma!
-    
+       
     setSearchQuery(query) {
-        this.searchParams.query = query;
+        this.searchArtistQuery = query;
     },
 
-    doSearch(searchParams) {
-        this.searchResultsPromiseState = resolvePromise(searchArtist("adele"), this.searchResultsPromiseState)
+    doSearch(searchArtistQuery) {
+        this.searchResultsPromiseState = resolvePromise(searchArtist(searchArtistQuery), this.searchResultsPromiseState)
     },
-
     
 }
 
