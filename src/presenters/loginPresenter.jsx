@@ -3,10 +3,19 @@ import { useNavigate } from "react-router-dom";
 import { auth } from "../firebaseModel";
 import { observer } from "mobx-react-lite";
 import LoginView from "../views/loginView";
+import { useEffect } from "react";
 
 export default observer(function Login(props) {
   const provider = new GoogleAuthProvider();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    // Check if the user is already logged in
+    if (props.model.user !== null) {
+      // User is already logged in, navigate to the main menu
+      navigate("/mainMenu");
+    }
+  }, [props.model.user, navigate]);
 
   function loginLogic() {
     signInWithPopup(auth, provider)
