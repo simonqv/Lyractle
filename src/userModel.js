@@ -13,6 +13,8 @@ const GameStates = Object.freeze({
 
 export default {
     user: undefined,
+    userID: undefined,
+    userAccessToken: null,
     currentTrack: null,
     currentLyrics: [],
     
@@ -28,7 +30,15 @@ export default {
     searchResultsPromiseState: {},
 
     setUser(user) {
-        this.user = user
+        this.user = user;
+    },
+
+    setUserID(id) {
+        this.userID = id;
+    },
+
+    setUserAccessToken(token) {
+        this.userAccessToken = token;
     },
 
     setCurrentScore(nr) {
