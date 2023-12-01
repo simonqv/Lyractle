@@ -32,3 +32,28 @@
 }
 
 /* Adjust these styles according to your design and preferences */
+/* Your existing styles */
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px; /* Adjust as needed */
+  background-color: #f0f0f0; /* Set a background color if needed */
+}
+
+.app-name {
+  /* Style your app name as needed */
+}
+
+.menu {
+  /* Style your drop-down menu as needed */
+  display: flex;
+}
+
+.menu button {
+  /* Style your menu buttons as needed */
+  margin-left: 10px; /* Add margin between buttons */
+}
+
+/* Additional styles for other components in your app */

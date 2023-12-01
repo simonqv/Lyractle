@@ -3,12 +3,13 @@ import React from 'react';
 
 function HamburgerView() {
   return (
-    <div className="hamburger-view">
+    <div className="header">
       <div className="app-name">Lyractle</div>
-      <div className="dropdown-menu">
-        {/* Implement your dropdown menu here */}
-        <button>Log Out</button>
-        <button>Go Back to Menu</button>
+      <div className="menu">
+        <select>
+          <option value="logout">Log Out</option>
+          <option value="mainMenu">Back to Menu</option>
+        </select>
       </div>
     </div>
   );
