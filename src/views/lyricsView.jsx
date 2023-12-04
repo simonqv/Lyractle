@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import "/src/style.css";
+
 
 function LyricsView({ title, lyrics }) {
   // State to keep track of guessed words
@@ -23,17 +25,19 @@ function LyricsView({ title, lyrics }) {
 
   return (
     <div className="lyrics-view">
+
       <h2>{replaceWithEmptyBoxes(title)}</h2>
       <p>{replaceWithEmptyBoxes(lyrics)}</p>
-      <div>
-        <input
-          type="text"
-          placeholder="Type in your guess.."
-          value={currentGuess}
-          onChange={(e) => setCurrentGuess(e.target.value)}
-        />
-        <button onClick={handleGuess}>Guess</button>
+
+      <div class="textarea-container">
+        <textarea class="search-bar" placeholder="Write your guess..."></textarea>
+      
+        <div class="button-container">
+          <button class="guess-button">Guess</button>
+        </div>
+        
       </div>
+   
     </div>
   );
 }
