@@ -38,9 +38,6 @@ body {
 }
 
 
-
-
-
 /* Style for the GuessBarView */
 .guess-bar-view {
   flex: 1;
@@ -181,3 +178,59 @@ button:hover {
   outline: none; /* Remove the default focus outline */
   border-color: #1B4D89; /* Border color on focus */
 }
+
+
+/* Basic styling for the navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: white;
+  padding: 15px;
+  height: 3%;
+}
+
+/* Hamburger menu styling */
+.hamburger-menu {
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+}
+
+.bar {
+  width: 30px;
+  height: 4px;
+  background-color: #1B4D89;
+  margin: 3px 0;
+  transition: 0.4s;
+}
+
+/* Navigation list styling */
+.nav-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #1B4D89;
+  position: absolute;
+  top: 0;
+  right: 0; /* Adjusted to place it on the right side */
+  width: 100%;
+  text-align: center;
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 0.4s ease-in-out;
+}
+
+.nav-list a {
+  display: block;
+  padding: 15px;
+  color: #FFFFFF;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+/* Show/hide the nav list on hamburger click */
+.navbar.active .nav-list {
+  transform: scaleY(1);
+}
+
