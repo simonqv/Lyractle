@@ -1,5 +1,5 @@
 import resolvePromise from "./resolvePromise"
-import { searchArtist } from "../geniusSource"
+import { getTrack, searchArtist } from "../geniusSource"
 
 /* 
    The Model keeps only abstract data and has no notions of graphics or interaction
@@ -15,7 +15,7 @@ export default {
     user: undefined,
     guest: null,
 
-    currentTrack: null,
+    currentTrack: null, // track ID (6 digits)
     currentLyrics: [],
     
     currentScore: null,
@@ -31,7 +31,9 @@ export default {
 
     setUser(user) {
         this.user = user
+        this.removeGuest();
     },
+
 
     setGuest() {
         this.guest = true
@@ -75,28 +77,72 @@ export default {
         this.guesses = [newGuess, ...this.guesses]
     },
 
-    resetGuesses() {
-        this.guesses = []
-    },
-
+    
     setGameState(state) {
         /*
-         playing, win or give up
-         when calling, use yourObject.setGameState(GameStates.PLAYING);
+        playing, win or give up
+        when calling, use yourObject.setGameState(GameStates.PLAYING);
         */
-        if (Object.values(GameStates).includes(state)) {
-            this.gameState = state
+       if (Object.values(GameStates).includes(state)) {
+           this.gameState = state
         } else {
             throw new Error(`Invalid game state: ${state}`)
         }
     },
-       
+    
     setSearchQuery(query) {
         this.searchArtistQuery = query
     },
-
+    
     doSearch(searchArtistQuery) {
         this.searchResultsPromiseState = resolvePromise(searchArtist(searchArtistQuery), this.searchResultsPromiseState)
+    },
+
+    getRandomSong() {
+        // let id = Math.floor(Math.random() * 1000000) + 1
+        // resolvePromise(getTrack(id.toString()), this.currentTrackPromiseState)
+        // .then(tryGetTrack)
+       
+        const tryGetTrack = () => {
+            const id = Math.floor(Math.random() * 1000000) + 1
+            
+            this.currentTrackPromiseState = resolvePromise(getTrack(id.toString()), this.currentTrackPromiseState)
+            if (!this.currentTrackPromiseState.data) {
+                console.log("in if")
+                console.log("track state in if: ", this.currentTrackPromiseState)
+                // TODO: Fix so that it find random song <3
+
+            }
+            console.log("track prms", this.currentTrackPromiseState)
+
+            // return getTrack(id.toString()).then(track => {
+            //   if (track) {
+            //     // Valid track found
+            //     console.log("track: ", track)
+            //     this.currentTrackPromiseState = resolvePromise(track, this.currentTrackPromiseState)
+            //     console.log("hello hello", this.currentTrackPromiseState.data)
+            //   } else {
+            //     // Invalid track, try again
+            //     return tryGetTrack()
+            //   }
+            // })
+          }
+        
+          // Start the recursive function
+          tryGetTrack()
+    },
+    
+    clearScores() {
+        this.scores.length = 0
+    },
+    
+    
+    clearLyrics() {
+        this.lyrics.length = 0;
+    },
+    
+    clearGuesses() {
+        this.guesses.length = 0
     },
 
     wipeModel() {
@@ -104,9 +150,9 @@ export default {
         this.removeGuest()
         this.setCurrentScore(0)
         this.setCurrentTrack(null)
-        this.setCurrentLyrics(null)
-        this.setScores([])
-        this.resetGuesses()
+        this.clearLyrics()
+        this.clearScores()
+        this.clearGuesses()
     }
     
 }

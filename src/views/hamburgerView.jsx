@@ -2,7 +2,7 @@
 function HamburgerView(props) {
     return (
         <div>
-            <button onClick={logoutACB()}>Log out</button>
+            <button onClick={logoutACB}>log out</button>
         </div>
     )
 
@@ -10,3 +10,5 @@ function HamburgerView(props) {
         props.onLogout()
     }
 }
+
+export default HamburgerView

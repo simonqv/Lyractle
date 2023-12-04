@@ -89,6 +89,7 @@ function connectToFirebase(model, watchFunction) {
       readFromFirebase(model);
     } else {
       model.user = null;
+      model.ready = true;
     }
   }
 }

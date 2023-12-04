@@ -4,6 +4,8 @@ function LoginView(props) {
     
     return (
         <div>
+            <h1>Lyractle</h1>
+            <h3>Can you guess the song?</h3>
             <button id="login_button" onClick={loginACB}>log in</button>
             <button id="guest_button" onClick={guestACB}>play as guest</button>
         </div>

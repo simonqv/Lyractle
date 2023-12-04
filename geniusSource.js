@@ -4,10 +4,9 @@
 import { CLIENT_ACCESS_TOKEN } from "./src/apiConfig";
 
 //const apiKey = process.env.CLIENT_ACCESS_TOKEN
-const accessToken = "&access_token=" + CLIENT_ACCESS_TOKEN
+const accessToken = "access_token=" + CLIENT_ACCESS_TOKEN
 
-const baseUrl = "https://api.genius.com/search?q="
-
+const baseUrl = "https://api.genius.com/"
 
 // Do not use, creates CORS problems 
 const options = {
@@ -18,7 +17,13 @@ const options = {
 };
 
 function searchArtist(searchTerm) {
-    const url = baseUrl + searchTerm + accessToken 
+    const url = baseUrl + "search?q=" + searchTerm + "&" + accessToken 
+    console.log(url)
+    return fetch(url).then(getJSON_ACB)
+}
+
+function getTrack(trackID) {
+    const url = baseUrl + "songs/" + trackID + "?" + accessToken 
     console.log(url)
     return fetch(url).then(getJSON_ACB)
 }
@@ -31,4 +36,4 @@ function getJSON_ACB(resp) {
     return resp.json()
 }
 
-export {searchArtist}
+export {searchArtist, getTrack}
