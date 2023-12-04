@@ -4,13 +4,19 @@ function LoginView(props) {
     
     return (
         <div>
-            <button id="login_button" onClick={loginACB}>Log in</button>
+            <button id="login_button" onClick={loginACB}>log in</button>
+            <button id="guest_button" onClick={guestACB}>play as guest</button>
         </div>
     )
 
     function loginACB() {
         props.onLoginClick()
         console.log("login")
+    }
+
+    function guestACB() {
+        props.onGuestClick()
+        console.log("Guest")
     }
 
 }

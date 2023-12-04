@@ -1,5 +1,5 @@
-import resolvePromise from "./resolvePromise";
-import { searchArtist } from "../geniusSource";
+import resolvePromise from "./resolvePromise"
+import { searchArtist } from "../geniusSource"
 
 /* 
    The Model keeps only abstract data and has no notions of graphics or interaction
@@ -9,12 +9,12 @@ const GameStates = Object.freeze({
     PLAYING: "playing", 
     WIN: "win", 
     GIVEN_UP: "given up" 
-  });
+  })
 
 export default {
     user: undefined,
-    userID: undefined,
-    userAccessToken: null,
+    guest: null,
+
     currentTrack: null,
     currentLyrics: [],
     
@@ -30,15 +30,15 @@ export default {
     searchResultsPromiseState: {},
 
     setUser(user) {
-        this.user = user;
+        this.user = user
     },
 
-    setUserID(id) {
-        this.userID = id;
+    setGuest() {
+        this.guest = true
     },
 
-    setUserAccessToken(token) {
-        this.userAccessToken = token;
+    removeGuest() {
+        this.guest = false
     },
 
     setCurrentScore(nr) {
@@ -85,14 +85,14 @@ export default {
          when calling, use yourObject.setGameState(GameStates.PLAYING);
         */
         if (Object.values(GameStates).includes(state)) {
-            this.gameState = state;
+            this.gameState = state
         } else {
-            throw new Error(`Invalid game state: ${state}`);
+            throw new Error(`Invalid game state: ${state}`)
         }
     },
        
     setSearchQuery(query) {
-        this.searchArtistQuery = query;
+        this.searchArtistQuery = query
     },
 
     doSearch(searchArtistQuery) {
@@ -100,6 +100,8 @@ export default {
     },
 
     wipeModel() {
+        this.setUser(null)
+        this.removeGuest()
         this.setCurrentScore(0)
         this.setCurrentTrack(null)
         this.setCurrentLyrics(null)

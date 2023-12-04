@@ -2,12 +2,13 @@ import { observer } from "mobx-react-lite"
 import MainMenuView from "../views/mainMenuView"
 import GeniusView from "../views/GeniusView"
 
+
 export default
 observer(
     function MainMenu(props) {
         return <div>
             <div>HEJ</div>
-            <MainMenuView onArtistInputACB={searchArtistACB} onSearchClick={searchACB}></MainMenuView>
+            <MainMenuView model={props.model} onArtistInputACB={searchArtistACB} onSearchClick={searchACB}></MainMenuView>
             {place_holder(props.model.searchResultsPromiseState)}
             
         </div>

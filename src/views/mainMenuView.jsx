@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 import { searchArtist } from "../../geniusSource"
 import resolvePromise from "../resolvePromise"
+import Hamburger from '../presenters/hamburgerPresenter';
 
 function MainMenuView(props) {
 

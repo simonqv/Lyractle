@@ -9,6 +9,7 @@ import { observer } from "mobx-react-lite";
 function makeRouter(model) {
   return (
     <Routes>
+      <Route path="/" element={<PrivateRoute element={<MainMenu model={model} />} authenticated={model.user !== null} />} />
       <Route
         path="/mainMenu/*"
         //element={<MainMenu model={model}/>}
@@ -40,6 +41,7 @@ export default observer(function ReactRoot(props) {
       ) : (
         props.model.ready ? (
           <Routes>
+            <Route path="/*" element={<PrivateRoute element={<MainMenu model={props.model} />} authenticated={props.model.user !== null} />} />
             <Route path="/mainMenu/*" element={<PrivateRoute element={<MainMenu model={props.model} />} authenticated={props.model.user !== null} />} />
             <Route path="/login" element={<Login model={props.model} />} />
           </Routes>

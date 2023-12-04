@@ -22,11 +22,9 @@ export default observer(function Login(props) {
       .then((result) => {
         console.log("RESULT", result)
         const accessToken = result.user.accessToken;
-        props.model.setUserAccessToken(accessToken);
 
         const user = result.user;
         props.model.setUser(user);
-        props.model.setUserID(user.uid);
         // TODO: props.model.setScores, .setGuesses, and other model updates
 
         // Navigate to the desired page after a successful login
@@ -38,5 +36,10 @@ export default observer(function Login(props) {
       });
   }
 
-  return <LoginView onLoginClick={loginLogic} />;
+  function playAsGuest() {
+    console.log("login presenter guest")
+    props.model.setGuest()
+  }
+
+  return <LoginView onLoginClick={loginLogic} onGuestClick={playAsGuest}/>;
 });
