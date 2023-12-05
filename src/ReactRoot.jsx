@@ -33,8 +33,6 @@ function makeRouter(model) {
 }
 
 export default observer(function ReactRoot(props) {
-  console.log('PROPS MODEL', props.model);
-  console.log('MODEL USER ', props.model.user);
 
   if (props.model.user === undefined) {
     // Firebase auth layers not yet initialized

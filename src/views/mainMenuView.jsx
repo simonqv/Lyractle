@@ -20,7 +20,6 @@ function MainMenuView(props) {
     }
 
     function artistInputACB(evt) {
-        console.log("artist input", evt.target.value)
         props.onArtistInputACB(evt.target.value)
     }
 

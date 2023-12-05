@@ -3,6 +3,9 @@ import { initializeApp } from "firebase/app";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { getDatabase, ref, get, set } from "/src/teacherFirebase.js";
 import firebaseConfig from "./firebaseConfig";
+import { getTrack } from "../geniusSource";
+import { GameStates } from "./userModel";
+
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
@@ -11,21 +14,38 @@ const db = getDatabase(app);
 const PATH = "users/";
 
 function modelToPersistence(model) {
+  console.log("model to pers curr track: ", model.currentTrack)
   return {
-    currTrack: model.currentTrack,
+    currTrack: model.currentTrack.id ? model.currentTrack.id : 0,
     userGuesses: model.guesses,
     userGameState: model.gameState,
-    userID: model.user ? model.user.uid : null,
     userScores: model.scores,
   };
 }
 
 function persistenceToModel(data, model) {
-  const new_user = null;
-  //model.setUser(data?.userID || new_user);
-  //model.setScores(data?.userScores || []);
+  console.log("in persistence to model")
+  //model.setUser(data?.userID || null)
+  
+  data?.userScores ? model.setScores(data?.userScores) : model.clearScores()
+  
+  if (data?.currTrack) {
+    console.log("data curr track: ", data?.currTrack)
+    getTrack(data?.currTrack).then(saveToModelACB)
+  }
+  else {
+    model.setCurrentTrack(null)
+  }
 
-  return model;
+  function saveToModelACB(track) {
+    model.setCurrentTrack(track)
+  }
+
+  model.setGuesses(data?.userGuesses || [])
+
+  model.setGameState(data?.userGameState || GameStates.PLAYING)
+    
+  return null;
 }
 
 function saveToFirebase(model) {
@@ -33,7 +53,7 @@ function saveToFirebase(model) {
     model.wipeModel();
   }
   if (model.ready) {
-    const uid = model.user ? model.user.uid : null;
+    const uid = model.user ? model.user : null;
     if (uid) {
       const rf = ref(db, PATH + uid);
       set(rf, modelToPersistence(model)).catch((error) => {
@@ -44,13 +64,17 @@ function saveToFirebase(model) {
 }
 
 function readFromFirebase(model) {
+  console.log("in read form fb")
   if (!model.user) {
+    console.log("wipe model")
     model.wipeModel();
     model.ready = true;
     return;
   }
+  console.log(model)
   model.ready = false;
-  const uid = model.user.uid;
+  console.log("model.user: ", model.user)
+  const uid = model.user;
   const rf = ref(db, PATH + uid);
   get(rf)
     .then((snapshot) => persistenceToModel(snapshot.val(), model))
@@ -83,9 +107,8 @@ function connectToFirebase(model, watchFunction) {
   }
 
   function loginOrOutACB(user) {
-    console.log("in loginorout");
     if (user) {
-      model.user = user;
+      model.user = user.uid;
       readFromFirebase(model);
     } else {
       model.user = null;

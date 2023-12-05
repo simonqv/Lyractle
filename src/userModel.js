@@ -1,11 +1,12 @@
 import resolvePromise from "./resolvePromise"
-import { getTrack, searchArtist } from "../geniusSource"
+import { getTrack, searchArtist, getArtistTracks } from "../geniusSource"
+import artists from "./artists"
 
 /* 
    The Model keeps only abstract data and has no notions of graphics or interaction
 */
 
-const GameStates = Object.freeze({ 
+export const GameStates = Object.freeze({ 
     PLAYING: "playing", 
     WIN: "win", 
     GIVEN_UP: "given up" 
@@ -15,9 +16,10 @@ export default {
     user: undefined,
     guest: null,
 
-    currentTrack: null, // track ID (6 digits)
+    currentTrack: null, // Full track
     currentLyrics: [],
     
+
     currentScore: null,
     guesses: [],
     scores: [],
@@ -26,6 +28,7 @@ export default {
     searchArtistQuery: null,
     
     currentTrackPromiseState: {},
+    artistTrackPromiseState: {},
     scoresPromiseState: {},
     searchResultsPromiseState: {},
 
@@ -77,6 +80,9 @@ export default {
         this.guesses = [newGuess, ...this.guesses]
     },
 
+    setGuesses(guesses) {
+        this.guesses = guesses
+    },
     
     setGameState(state) {
         /*
@@ -98,51 +104,63 @@ export default {
         this.searchResultsPromiseState = resolvePromise(searchArtist(searchArtistQuery), this.searchResultsPromiseState)
     },
 
+    getArtistSongs(artistID, nbrSongs) {
+        this.artistTrackPromiseState = resolvePromise(getArtistTracks(artistID, nbrSongs), this.artistTrackPromiseState)
+    },
+
     getRandomSong() {
-        // let id = Math.floor(Math.random() * 1000000) + 1
-        // resolvePromise(getTrack(id.toString()), this.currentTrackPromiseState)
-        // .then(tryGetTrack)
-       
-        const tryGetTrack = () => {
-            const id = Math.floor(Math.random() * 1000000) + 1
-            
-            this.currentTrackPromiseState = resolvePromise(getTrack(id.toString()), this.currentTrackPromiseState)
-            if (!this.currentTrackPromiseState.data) {
-                console.log("in if")
-                console.log("track state in if: ", this.currentTrackPromiseState)
-                // TODO: Fix so that it find random song <3
 
-            }
-            console.log("track prms", this.currentTrackPromiseState)
+        function getRandomElement(list) {
+            const randomIndex = Math.floor(Math.random() * list.length);
+            return list[randomIndex];
+        }
 
-            // return getTrack(id.toString()).then(track => {
-            //   if (track) {
-            //     // Valid track found
-            //     console.log("track: ", track)
-            //     this.currentTrackPromiseState = resolvePromise(track, this.currentTrackPromiseState)
-            //     console.log("hello hello", this.currentTrackPromiseState.data)
-            //   } else {
-            //     // Invalid track, try again
-            //     return tryGetTrack()
-            //   }
-            // })
-          }
+        this.setCurrentTrack(null)
+        const ranArtist = getRandomElement(artists)
+        this.doSearch(ranArtist)
         
-          // Start the recursive function
-          tryGetTrack()
+        this.searchResultsPromiseState.promise.then(() => {
+
+            const foundArtists = this.searchResultsPromiseState.data.response.hits
+            let artistID = null
+
+            // Make sure the searched artist is the same as the found artist
+            for (let i = 0; i < foundArtists.length; i++) {
+                if (ranArtist === foundArtists[i].result.primary_artist.name) {
+                    artistID = foundArtists[i].result.primary_artist.id
+                    break
+                }
+            }
+
+            // Get a random song from the artist
+            this.getArtistSongs(artistID, 30)
+            this.artistTrackPromiseState.promise.then(() => {
+                const randomSong = getRandomElement(this.artistTrackPromiseState.data.response.songs)
+                randomSong.title
+                this.setCurrentTrack(randomSong)
+                console.log("random song:", this.currentTrack)
+            })
+          });
+        
     },
     
     clearScores() {
-        this.scores.length = 0
+        if (this.scores) {
+            this.scores.length = 0
+        }
     },
     
     
     clearLyrics() {
-        this.lyrics.length = 0;
+        if (this.lyrics) {
+            this.lyrics.length = 0;
+        }
     },
     
     clearGuesses() {
-        this.guesses.length = 0
+        if (this.guesses) {
+            this.guesses.length = 0
+        }
     },
 
     wipeModel() {

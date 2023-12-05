@@ -24,7 +24,8 @@ export default observer(function Login(props) {
         //const accessToken = result.user.accessToken;
     
         const user = result.user
-        props.model.setUser(user)
+        console.log("login user: ", user.uid)
+        props.model.setUser(user.uid)
         
         // TODO: props.model.setScores, .setGuesses, and other model updates
 

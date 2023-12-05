@@ -17,14 +17,18 @@ const options = {
 };
 
 function searchArtist(searchTerm) {
-    const url = baseUrl + "search?q=" + searchTerm + "&" + accessToken 
-    console.log(url)
+    const url = baseUrl + "search?q=" + new URLSearchParams(searchTerm) + "&" + accessToken 
+    return fetch(url).then(getJSON_ACB)
+}
+
+// Get "nbrSongs" tracks from one artist
+function getArtistTracks(artistID, nbrSongs) {
+    const url = baseUrl + "artists/" + artistID + "/songs?sort=popularity&per_page=" + nbrSongs + "&" + accessToken 
     return fetch(url).then(getJSON_ACB)
 }
 
 function getTrack(trackID) {
     const url = baseUrl + "songs/" + trackID + "?" + accessToken 
-    console.log(url)
     return fetch(url).then(getJSON_ACB)
 }
 
@@ -36,4 +40,4 @@ function getJSON_ACB(resp) {
     return resp.json()
 }
 
-export {searchArtist, getTrack}
+export {searchArtist, getTrack, getArtistTracks}
