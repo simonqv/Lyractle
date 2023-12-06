@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import '/src/style.css';
 
-function LyricsView() {
+function LyricsView(props) {
   const [guessedWords, setGuessedWords] = useState([]);
   const [currentGuess, setCurrentGuess] = useState('');
   const [lyrics, setLyrics] = useState('');
@@ -27,7 +27,7 @@ function LyricsView() {
       And though my heart is strong
       It's never easy to tell right from wrong`;
 
-    const words = Array.from(new Set(testLyrics.toLowerCase().match(/\w+/g)));
+    const words = Array.from(new Set(props.currentLyrics.toLowerCase().match(/\w+/g)));
 
     const hidePercentage = 40;
 
@@ -37,7 +37,8 @@ function LyricsView() {
 
     const initialRevealedTitle = Array(title.split(/\s+/).length).fill(false);
 
-    setLyrics(testLyrics);
+    setLyrics(props.currentLyrics);
+    console.log("lyrics view curr track: ", props.currentTrack)
     setTitle('Freedom Song'); // Replace with the actual title
     setRevealedWords(initialRevealedWords);
     setRevealedTitle(initialRevealedTitle);

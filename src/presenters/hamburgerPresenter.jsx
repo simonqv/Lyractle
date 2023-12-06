@@ -1,17 +1,26 @@
-// HamburgerPresenter.jsx
 import { useState } from 'react';
+import { signOut } from "firebase/auth"
+import { observer } from "mobx-react-lite"
+import { auth } from "../firebaseModel";
+import { useNavigate } from "react-router-dom";
+import HamburgerView from "../views/hamburgerView";
 
-function useHamburgerPresenter() {
-  const [isActive, setIsActive] = useState(false);
+export default observer(function Hamburger(props) {
+    const navigate = useNavigate()
+    
+    const [isActive, setIsActive] = useState(false)
 
-  const toggleDropdown = () => {
-    setIsActive(!isActive);
-  };
+    const toggleDropdown = () => {
+      setIsActive(!isActive);
+    }
+    
+    function logout() {
+        signOut(auth).then((result) => {
+            console.log("SIGN OUT", props.model)
+            props.model.wipeModel()
 
-  return {
-    isActive,
-    toggleDropdown,
-  };
-}
-
-export default useHamburgerPresenter;
+            navigate("/login")
+        })
+      }
+    return <HamburgerView active={isActive} dropdown={toggleDropdown} onLogout={logout} />
+})

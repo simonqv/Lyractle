@@ -1,5 +1,66 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap');
 
+:root {
+    --primary: #98D4D2;
+    --secondary: #1B4D89;
+    --accent: #F9E45B;
+    --white: #FFFFFF;
+    --red: #B76D6D;
+    --green: #6DB784;
+    --hoverColor: #6DB784;
+}
+
+/* General style */
+
+.button {
+  margin: 4px;
+  padding: 20px;
+  margin-bottom: 15px;
+  min-width: 240px;
+  color: var(--secondary);
+  font-family: 'Lexend peta', sans-serif;
+  font-size: 20px;
+  background-color: var(--accent);
+  border-radius: 20px;
+  border: none;
+  cursor: pointer;
+}
+
+.button:hover {
+    background-color: var(--hoverColor); /* Define hover color using another variable */
+ }
+
+.h1 {
+  margin-bottom: 0px;
+  color: var(--white);
+  font-family: 'Kameron', serif;
+  font-size: 150px;
+  font-weight: bold;
+}
+
+.h3 {
+  margin-top: 0px;
+  color: var(--white);
+  font-family: 'Kameron', serif;
+  font-size: 40px;
+}
+
+/* LoginView style*/
+
+.login-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* MainMenuView style*/
+
+.main-menu-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
 
 /* gameView.css */
 
@@ -18,7 +79,6 @@ body {
   flex: 1; /* Takes up remaining vertical space */
 }
 
-/* Adjust these styles in your CSS file or use inline styles in your React components */
 
 /* Main container for the game view */
 .game-view {
@@ -27,7 +87,7 @@ body {
 }
 
 .game-title{
-  font-family: 'Playfair Display', serif;
+  font-family: 'Kameron', serif;
   text-align: left;
   font-size: 5vh;
   color: #98D4D2;
@@ -38,7 +98,7 @@ body {
 }
 
 
-/* Style for the GuessBarView */
+/* GuessBarView style */
 .guess-bar-view {
   flex: 1;
   padding: 20px;
@@ -46,10 +106,7 @@ body {
   align-items: center;
 }
 
-/* Adjust these styles according to your design and preferences */
-
-/* Style for the LyricsView */
-
+/* LyricsView style*/
 
 .lyrics-view {
   flex: 2;
@@ -80,9 +137,8 @@ body {
   right: 0;
 }
 
-
 .guess-button {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Lexend peta', sans-serif;
     text-align: center;
     font-size: 4vh;
     letter-spacing: tight;
@@ -104,7 +160,7 @@ body {
 }
 
 .hint-button {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Lexend peta', sans-serif;
   text-align: center;
   font-size: 4vh;
   letter-spacing: tight;
@@ -127,7 +183,7 @@ body {
 }
 
 .giveup-button {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Lexend peta', sans-serif;
   text-align: center;
   font-size: 4vh;
   letter-spacing: tight;
@@ -232,7 +288,6 @@ button:hover {
   transform: scaleY(1);
 }
 
-/* Add this at the end of style.css */
 /* Hoverable dropdown styling */
 .nav-list {
   display: flex;
@@ -252,5 +307,3 @@ button:hover {
 .navbar:hover .nav-list {
   transform: scaleY(1);
 }
-
-
