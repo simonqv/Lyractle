@@ -38,7 +38,7 @@ function LyricsView() {
     const initialRevealedTitle = Array(title.split(/\s+/).length).fill(false);
 
     setLyrics(testLyrics);
-    setTitle('Freedom Song'); 
+    setTitle('Freedom Song'); // Replace with the actual title
     setRevealedWords(initialRevealedWords);
     setRevealedTitle(initialRevealedTitle);
     setGuessedWords([]);
