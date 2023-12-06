@@ -1,10 +1,8 @@
-// HamburgerView.jsx
-import React from 'react';
-import useHamburgerPresenter from '../presenters/hamburgerPresenter';
 import '/src/style.css';
 
-function HamburgerView() {
-  const { isActive, toggleDropdown } = useHamburgerPresenter();
+function HamburgerView(props) {
+  const isActive = props.active
+  const toggleDropdown = props.dropdown
 
   return (
     <div className={`navbar ${isActive ? 'active' : ''}`}>
@@ -17,12 +15,25 @@ function HamburgerView() {
       </div>
 
       <ul className="nav-list">
-        <li><a href="#">Main Menu</a></li>
-        <li><a href="#">High Scores</a></li>
-        <li><a href="#">Log out</a></li>
+        <li><button onClick={mainMenuACB}>main menu</button></li>
+        <li><button onClick={highScoresACB}>high scores</button></li>
+        <li><button onClick={logoutACB}>log out</button></li>
       </ul>
     </div>
-  );
+  )
+
+  function mainMenuACB() {
+    props.onMainMenu()
+  }
+
+  function highScoresACB() {
+    props.onHighScores()
+  }
+  
+  function logoutACB() {
+        props.onLogout()
+    }
+  
 }
 
-export default HamburgerView;
+export default HamburgerView

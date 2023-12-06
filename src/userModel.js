@@ -1,84 +1,191 @@
-import resolvePromise from "./resolvePromise";
-import { searchDishes, getDishDetails } from "./dishSource";
+import resolvePromise from "./resolvePromise"
+import { getGeniusTrack, searchArtist, getArtistTracks, getGeniusLyrics } from "../geniusSource"
+import artists from "./artists"
 
 /* 
    The Model keeps only abstract data and has no notions of graphics or interaction
 */
-export default {  // we export a JavaScript object: { p1:v1, p2:v2, method(param){ statements; }, }
-        // other model properties will be initialized here in the coming lab steps
-    user: null,
+
+export const GameStates = Object.freeze({ 
+    PLAYING: "playing", 
+    WIN: "win", 
+    GIVEN_UP: "given up" 
+  })
+
+export default {
+    user: undefined,
+    guest: null,
+
+    currentTrack: null, // Full track
+    currentLyrics: null,
+    
+
     currentScore: null,
+    guesses: [],
     scores: [],
-    currentTrack: null,
-    searchParams: {},
-    searchResultsPromiseState: {},
+    
+    gameState: null, // Playing, win, given up
+    searchArtistQuery: null,
+    
     currentTrackPromiseState: {},
+    artistTrackPromiseState: {},
+    lyricsPromiseState: {},
+    scoresPromiseState: {},
+    searchResultsPromiseState: {},
 
-    setNumberOfGuests(nr){
-        // if() and throw exercise
+    setUser(user) {
+        this.user = user
+        this.removeGuest();
+    },
 
-        // work with this.numberOfGuests
-        
-        // throw an Error /* new Error(someMessage) */ if the argument is smaller than 1 or not an integer
-        if(!Number.isInteger(nr) || nr < 1 ) {
-            throw new Error("number of guests not a positive integer");
+
+    setGuest() {
+        this.guest = true
+    },
+
+    removeGuest() {
+        this.guest = false
+    },
+
+    setCurrentScore(nr) {
+        if(!Number.isInteger(nr) || nr < 0 ) {
+            throw new Error("Current score is not a positive integer")
         }
-        // The error message must be exactly "number of guests not a positive integer"
-        // To learn how to check for integer, test at the Developer Tools Console: Number.isInteger(3.14)
-        
-        // if the argument is a valid number of guests, store it in this.numberOfGuests
-        this.numberOfGuests = nr
-        // When this is done, the Unit test "TW1.1 DinnerModel/can set the number of guests" should pass
-        // also "number of guests is a positive integer"
+        this.currentScore = nr
+    },
+
+    setCurrentTrack(track) {
+        this.currentTrack = track
+    },
+
+    setCurrentLyrics(lyrics) {
+        this.currentLyrics = lyrics
+    },
+
+    setScores(scores) {
+        this.scores = scores
+    },
+
+    addToScores(newScore) {
+        this.scores = sortScores([...this.scores, newScore])
     },
     
-    addToMenu(dishToAdd){
-        // array spread syntax example. Make sure you understand the code below.
-        // It sets this.dishes to a new array [   ] where we spread (...) the previous value
-        this.dishes= [...this.dishes, dishToAdd];
+    removeFromScores() {
+        if (this.scores.length > 100) {
+            this.scores.splice(100)
+        }
+    },
+
+    addToGuesses(newGuess) {
+        this.guesses = [newGuess, ...this.guesses]
+    },
+
+    setGuesses(guesses) {
+        this.guesses = guesses
     },
     
-    removeFromMenu(dishToRemove){
-        // callback exercise! Also return keyword exercise
-        function shouldWeKeepDishCB(dish){
-            // return true if the id property of dish is _different_ from the dishToRemove's id property
-            return dishToRemove.id !== dish.id;
-            // This will keep the dish when we filter below.
-            // That is, we will not keep the dish that has the same id as dishToRemove (if any)
+    setGameState(state) {
+        /*
+        playing, win or give up
+        when calling, use yourObject.setGameState(GameStates.PLAYING);
+        */
+       if (Object.values(GameStates).includes(state)) {
+           this.gameState = state
+        } else {
+            throw new Error(`Invalid game state: ${state}`)
         }
-        this.dishes= this.dishes.filter(shouldWeKeepDishCB);
-        // the test "can remove dishes" should pass
     },
-    
-    /* 
-       setting the ID of dish currently checked by the user.
-       A strict MVC/MVP Model would not keep such data, 
-       but we take a more relaxed, "Application state" approach. 
-       So we store also abstract data that will influence the application status.
-     */
-    setCurrentDish(id){
-        if (id && id !== this.currentDish){
-            this.currentDish=id;
-            this.currentDishPromiseState =  resolvePromise(getDishDetails(id), this.currentDishPromiseState) 
-        }
-        
-        // note that we are adding a new object property (currentDish) which was not initialized in the constructor
-    },
-    // more methods will be added here, don't forget to separate them with comma!
     
     setSearchQuery(query) {
-        this.searchParams.query = query;
+        this.searchArtistQuery = query
+    },
+    
+    doSearch(searchArtistQuery) {
+        this.searchResultsPromiseState = resolvePromise(searchArtist(searchArtistQuery), this.searchResultsPromiseState)
     },
 
-    setSearchType(type) {
-        this.searchParams.type = type;
+    getArtistSongs(artistID, nbrSongs) {
+        this.artistTrackPromiseState = resolvePromise(getArtistTracks(artistID, nbrSongs), this.artistTrackPromiseState)
     },
 
-    doSearch(searchParams) {
-        this.searchResultsPromiseState = resolvePromise(searchDishes(searchParams), this.searchResultsPromiseState)
+    getLyrics(geniusURL) {
+        this.lyricsPromiseState = resolvePromise(getGeniusLyrics(geniusURL), this.lyricsPromiseState)
     },
 
+    getRandomSong() {
+
+        function getRandomElement(list) {
+            const randomIndex = Math.floor(Math.random() * list.length);
+            return list[randomIndex];
+        }
+
+        this.setCurrentTrack(null)
+        this.setCurrentLyrics(null)
+        const ranArtist = getRandomElement(artists)
+        this.doSearch(ranArtist)
+        
+        this.searchResultsPromiseState.promise.then(() => {
+
+            const foundArtists = this.searchResultsPromiseState.data.response.hits
+            let artistID = null
+
+            // Make sure the searched artist is the same as the found artist
+            for (const foundArtist of foundArtists) {
+                if (ranArtist.toLowerCase() === foundArtist.result.primary_artist.name.toLowerCase()) {
+                    artistID = foundArtist.result.primary_artist.id
+                    break
+                }
+            }
+
+            // Get a random song from the artist
+            this.getArtistSongs(artistID, 30)
+            this.artistTrackPromiseState.promise.then(() => {
+                const randomSong = getRandomElement(this.artistTrackPromiseState.data.response.songs)
+                this.setCurrentTrack(randomSong)
+                this.getLyrics(this.currentTrack.url)
+                this.lyricsPromiseState.promise.then(() => {
+                    this.setCurrentLyrics(this.lyricsPromiseState.data)
+                })
+            })
+
+          });
+        
+    },
+    
+    clearScores() {
+        if (this.scores) {
+            this.scores.length = 0
+        }
+    },
+    
+    
+    clearLyrics() {
+        // if (this.lyrics) {
+        //     this.lyrics.length = 0;
+        // }
+    },
+    
+    clearGuesses() {
+        if (this.guesses) {
+            this.guesses.length = 0
+        }
+    },
+
+    wipeModel() {
+        this.setUser(null)
+        this.removeGuest()
+        this.setCurrentScore(0)
+        this.setCurrentTrack(null)
+        this.setCurrentLyrics(nul)
+        this.clearScores()
+        this.clearGuesses()
+        this.gameState = null
+        this.searchArtistQuery = null
+        this.currentTrackPromiseState = {}
+        this.lyricsPromiseState = {}
+        this.artistTrackPromiseState = {}
+        this.scoresPromiseState = {}
+        this.searchResultsPromiseState = {}
+    }
     
 }
-
-
