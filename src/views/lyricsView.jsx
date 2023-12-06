@@ -1,4 +1,6 @@
+// LyricsView.js
 import React, { useState, useEffect } from 'react';
+import LyricsPresenter from '../presenters/lyricsPresenter';
 import '/src/style.css';
 
 function LyricsView() {
@@ -38,7 +40,7 @@ function LyricsView() {
     const initialRevealedTitle = Array(title.split(/\s+/).length).fill(false);
 
     setLyrics(testLyrics);
-    setTitle('Freedom Song'); // Replace with the actual title
+    setTitle('Freedom Song');
     setRevealedWords(initialRevealedWords);
     setRevealedTitle(initialRevealedTitle);
     setGuessedWords([]);
@@ -83,23 +85,13 @@ function LyricsView() {
   };
 
   return (
-    <div className="lyrics-view">
-      <h2>
-        {title
-          .split(/\s+/)
-          .map((word, index) =>
-            revealedTitle[index] ? word : '_'.repeat(word.length)
-          )
-          .join(' ')}
-      </h2>
-      <p>
-        {lyrics
-          .split(/\s+/)
-          .map((word, index) =>
-            revealedWords.includes(word.toLowerCase()) ? word : '_'.repeat(word.length)
-          )
-          .join(' ')}
-      </p>
+    <div>
+      <LyricsPresenter
+        title={title}
+        lyrics={lyrics}
+        revealedTitle={revealedTitle}
+        revealedWords={revealedWords}
+      />
 
       <div className="textarea-container">
         <textarea
