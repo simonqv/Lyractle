@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import LyricsPresenter from '../presenters/lyricsPresenter';
 import '/src/style.css'
 
 function LyricsView(props) {
@@ -67,23 +68,13 @@ function LyricsView(props) {
   }
 
   return (
-    <div className="lyrics-view">
-      <h3 className='h3'>
-        {title
-          .split(/\s+/)
-          .map((word, index) =>
-            revealedTitle[index] ? word : '_'.repeat(word.length)
-          )
-          .join(' ')}
-      </h3>
-      <p className='lyrics-text'>
-        {lyrics
-          .split(/\s+/)
-          .map((word, index) =>
-            revealedWords.includes(word.toLowerCase()) ? word : '_'.repeat(word.length)
-          )
-          .join(' ')}
-      </p>
+    <div>
+      <LyricsPresenter
+        title={title}
+        lyrics={lyrics}
+        revealedTitle={revealedTitle}
+        revealedWords={revealedWords}
+      />
 
       <div className="textarea-container">
         <textarea
