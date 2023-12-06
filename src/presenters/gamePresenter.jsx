@@ -1,6 +1,6 @@
 import { observer } from "mobx-react-lite"
-import GeniusView from "../views/GeniusView"
 import LyricsView from "../views/lyricsView"
+import GuessBarView from "../views/guessBarView"
 
 export default observer(function Game(props) {
     return <div>
@@ -10,21 +10,12 @@ export default observer(function Game(props) {
     function place_holder(currentTrack, currentLyrics) {     
 
         if (!currentTrack || !currentLyrics) {
-            return <img src="https://zingy-bublanina-005f23.netlify.app/playBarArtist.gif" /*"https://brfenergi.se/iprog/loading.gif"*/></img>
+            return <img src="https://zingy-bublanina-005f23.netlify.app/playBarArtist.gif"/>// "https://brfenergi.se/iprog/loading.gif"/>
         }
         return (
-            <div>
-                <span>{renderTrackACB(currentTrack, currentLyrics)}</span>
-            </div>
-        )
-    }
-
-    function renderTrackACB(track, lyrics) {
-        return (
-            <div key={track.id}>
-                {track.artist_names}
-                {track.title}
-                <LyricsView currentLyrics={lyrics}/>
+            <div className="game-view">
+                <LyricsView lyrics={props.model.currentLyrics} title={props.model.currentTrack.title}/>
+                <GuessBarView/>
             </div>
         )
     }

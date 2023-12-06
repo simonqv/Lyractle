@@ -13,6 +13,14 @@ export default observer(function Hamburger(props) {
     const toggleDropdown = () => {
       setIsActive(!isActive);
     }
+
+    function mainMenu() {
+      navigate("/")
+    }
+
+    function highScores() {
+      navigate("/highScores")
+    }
     
     function logout() {
         signOut(auth).then((result) => {
@@ -22,5 +30,5 @@ export default observer(function Hamburger(props) {
             navigate("/login")
         })
       }
-    return <HamburgerView active={isActive} dropdown={toggleDropdown} onLogout={logout} />
+    return <HamburgerView active={isActive} dropdown={toggleDropdown} onMainMenu={mainMenu} onHighScores={highScores} onLogout={logout} />
 })

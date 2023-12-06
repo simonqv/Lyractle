@@ -1,5 +1,4 @@
-import React from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import MainMenu from "./presenters/mainMenuPresenter.jsx";
 import Login from "./presenters/loginPresenter.jsx";
 import Hamburger from "./presenters/hamburgerPresenter.jsx";

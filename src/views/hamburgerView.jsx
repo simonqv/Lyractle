@@ -15,12 +15,20 @@ function HamburgerView(props) {
       </div>
 
       <ul className="nav-list">
-        <li><a href="#">Main Menu</a></li>
-        <li><a href="#">High Scores</a></li>
+        <li><button onClick={mainMenuACB}>main menu</button></li>
+        <li><button onClick={highScoresACB}>high scores</button></li>
         <li><button onClick={logoutACB}>log out</button></li>
       </ul>
     </div>
   )
+
+  function mainMenuACB() {
+    props.onMainMenu()
+  }
+
+  function highScoresACB() {
+    props.onHighScores()
+  }
   
   function logoutACB() {
         props.onLogout()
