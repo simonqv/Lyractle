@@ -1,7 +1,7 @@
 
 function LyricsView(props) {
     return <div>
-        <p>{props.currentLyrics.map(displayLyricsCB)}</p>
+        <p>{props.currentLyrics/*.map(displayLyricsCB)*/}</p>
     </div>
 
 function displayLyricsCB(word, index) {

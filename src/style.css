@@ -1,3 +1,12 @@
+:root {
+    --primary: #98D4D2;
+    --secondary: #1B4D89;
+    --accent: #F9E45B;
+    --white: #FFFFFF;
+    --red: #B76D6D;
+    --green: #6DB784;
+    --hoverColor: #6DB784;
+  }
 
 .login-content {
     display: flex;
@@ -6,6 +15,42 @@
     justify-content: center;
 }
 
+.main-menu-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
 .button {
-    margin: 4px;
+  margin: 4px;
+  padding: 20px;
+  margin-bottom: 15px;
+  min-width: 240px;
+  color: var(--secondary);
+  font-family: 'Lexend peta', sans-serif;
+  font-size: 20px;
+  background-color: var(--accent);
+  border-radius: 20px;
+  border: none;
+  cursor: pointer;
+}
+
+.button:hover {
+    background-color: var(--hoverColor); /* Define hover color using another variable */
+  }
+
+.h1 {
+  margin-bottom: 0px;
+  color: var(--white);
+  font-family: 'Kameron', sans-serif;
+  font-size: 150px;
+  font-weight: bold;
+}
+
+.h3 {
+  margin-top: 0px;
+  color: var(--white);
+  font-family: 'Kameron', sans-serif;
+  font-size: 40px;
 }

@@ -11,17 +11,16 @@ observer(
 
         return <div>
             <MainMenuView model={props.model} onArtistInputACB={searchArtistACB} onHighScoresClick={goToHighScoresACB} onRandomClick={randomTrackACB} onSearchClick={searchACB}></MainMenuView>
-            {place_holder(props.model.searchResultsPromiseState)}
             
         </div>
-
+        /*
         function place_holder(state) {
             if (!state.promise) {
                 return "No data"
             }
 
             if (!state.data && !state.error) {
-                return <img src="https://brfenergi.se/iprog/loading.gif"></img>
+                return <img src= "https://zingy-bublanina-005f23.netlify.app/playBarArtist.gif"/*"https://brfenergi.se/iprog/loading.gif"*//*></img>
             }
 
             if (state.error) {
@@ -30,7 +29,8 @@ observer(
             
             return <GeniusView res={state.data}></GeniusView>
         }
-
+        */
+       
         function goToHighScoresACB() {
             navigate("/highScores")
         }

@@ -1,15 +1,14 @@
-import palette from "../palette";
-import { loginContentStyle, buttonStyle } from "../style"
+import "/src/style.css"
 
 function LoginView(props) {
-    document.body.style.backgroundColor = palette.primary;
+    document.body.style.backgroundColor = 'var(--primary)';
 
     return (
-        <div style={loginContentStyle}>
-            <h1>Lyractle</h1>
-            <h3>Can you guess the song?</h3>
-            <button id="login_button" style={buttonStyle} onClick={loginACB}>log in</button>
-            <button id="guest_button" style={buttonStyle} onClick={guestACB}>play as guest</button>
+        <div className="login-content">
+            <h1 className="h1">Lyractle</h1>
+            <h3 className="h3">Can you guess the song?</h3>
+            <button id="login_button" className="button" onClick={loginACB}>log in</button>
+            <button id="guest_button" className="button" onClick={guestACB}>play as guest</button>
         </div>
     )
 
