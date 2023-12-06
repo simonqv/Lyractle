@@ -1,32 +1,32 @@
 import { observer } from "mobx-react-lite"
 import GeniusView from "../views/GeniusView"
+import LyricsView from "../views/lyricsView"
 
 export default observer(function Game(props) {
     return <div>
         <span>Game Presenter</span>
         <p></p>
-        {console.log("game log" , props.model)}
-        {place_holder(props.model.currentTrack)}
+        {place_holder(props.model.currentTrack, props.model.currentLyrics)}
             
         </div>
-    function place_holder(state) {
-        console.log("staet" , state)
-     
+    function place_holder(currentTrack, currentLyrics) {     
 
-        if (!state) {
+        if (!currentTrack || !currentLyrics) {
             return <img src="https://brfenergi.se/iprog/loading.gif"></img>
         }
-        return  <div>
-            <span>{renderTrackACB(state)}</span>
-        </div> // <GeniusView res={state.data}></GeniusView>
+        return (
+            <div>
+                <span>{renderTrackACB(currentTrack, currentLyrics)}</span>
+            </div>
+        )
     }
 
-    function renderTrackACB(track) {
-        console.log("Track: ", track)
+    function renderTrackACB(track, lyrics) {
         return (
             <div key={track.id}>
                 {track.artist_names}
                 {track.title}
+                <LyricsView currentLyrics={lyrics}/>
             </div>
         )
     }

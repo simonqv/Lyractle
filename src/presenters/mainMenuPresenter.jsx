@@ -44,9 +44,8 @@ observer(
         }
 
         function randomTrackACB() {
-            // TODO: MAKE RANDOM
             props.model.getRandomSong()
-            // props.model.setCurrentTrack(888764)   // Needs to be ID from tracks...
+            
             navigate("/game")
 
         }

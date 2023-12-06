@@ -3,8 +3,9 @@ import { initializeApp } from "firebase/app";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { getDatabase, ref, get, set } from "/src/teacherFirebase.js";
 import firebaseConfig from "./firebaseConfig";
-import { getTrack } from "../geniusSource";
+import { getGeniusLyrics, getGeniusTrack } from "../geniusSource";
 import { GameStates } from "./userModel";
+import resolvePromise from "./resolvePromise";
 
 
 const app = initializeApp(firebaseConfig);
@@ -14,9 +15,8 @@ const db = getDatabase(app);
 const PATH = "users/";
 
 function modelToPersistence(model) {
-  console.log("model to pers curr track: ", model.currentTrack)
   return {
-    currTrack: model.currentTrack.id ? model.currentTrack.id : 0,
+    currTrack: model.currentTrack ? model.currentTrack.id : 0,
     userGuesses: model.guesses,
     userGameState: model.gameState,
     userScores: model.scores,
@@ -24,21 +24,30 @@ function modelToPersistence(model) {
 }
 
 function persistenceToModel(data, model) {
-  console.log("in persistence to model")
-  //model.setUser(data?.userID || null)
   
   data?.userScores ? model.setScores(data?.userScores) : model.clearScores()
   
   if (data?.currTrack) {
-    console.log("data curr track: ", data?.currTrack)
-    getTrack(data?.currTrack).then(saveToModelACB)
+    getGeniusTrack(data?.currTrack).then(saveToModelACB).then(getLyricsACB)
   }
   else {
     model.setCurrentTrack(null)
   }
 
   function saveToModelACB(track) {
-    model.setCurrentTrack(track)
+    model.setCurrentTrack(track.response.song)
+  }
+
+  function getLyricsACB() {
+    const lyricsPromiseState = resolvePromise(getGeniusLyrics(model.currentTrack.url), {})
+    
+    lyricsPromiseState.promise
+      .then(() => {
+        model.setCurrentLyrics(lyricsPromiseState.data.split(" "))
+      })
+      .catch((error) => {
+        console.error("Error fetching lyrics from fb to model:", error)
+      });
   }
 
   model.setGuesses(data?.userGuesses || [])
@@ -64,16 +73,12 @@ function saveToFirebase(model) {
 }
 
 function readFromFirebase(model) {
-  console.log("in read form fb")
   if (!model.user) {
-    console.log("wipe model")
     model.wipeModel();
     model.ready = true;
     return;
   }
-  console.log(model)
   model.ready = false;
-  console.log("model.user: ", model.user)
   const uid = model.user;
   const rf = ref(db, PATH + uid);
   get(rf)

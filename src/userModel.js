@@ -1,5 +1,5 @@
 import resolvePromise from "./resolvePromise"
-import { getTrack, searchArtist, getArtistTracks } from "../geniusSource"
+import { getGeniusTrack, searchArtist, getArtistTracks, getGeniusLyrics } from "../geniusSource"
 import artists from "./artists"
 
 /* 
@@ -29,6 +29,7 @@ export default {
     
     currentTrackPromiseState: {},
     artistTrackPromiseState: {},
+    lyricsPromiseState: {},
     scoresPromiseState: {},
     searchResultsPromiseState: {},
 
@@ -58,7 +59,6 @@ export default {
     },
 
     setCurrentLyrics(lyrics) {
-        // Done with lyricsgenius python module
         this.currentLyrics = lyrics
     },
 
@@ -108,6 +108,10 @@ export default {
         this.artistTrackPromiseState = resolvePromise(getArtistTracks(artistID, nbrSongs), this.artistTrackPromiseState)
     },
 
+    getLyrics(geniusURL) {
+        this.lyricsPromiseState = resolvePromise(getGeniusLyrics(geniusURL), this.lyricsPromiseState)
+    },
+
     getRandomSong() {
 
         function getRandomElement(list) {
@@ -138,8 +142,12 @@ export default {
                 const randomSong = getRandomElement(this.artistTrackPromiseState.data.response.songs)
                 randomSong.title
                 this.setCurrentTrack(randomSong)
-                console.log("random song:", this.currentTrack)
+                this.getLyrics(this.currentTrack.url)
+                this.lyricsPromiseState.promise.then(() => {
+                    this.setCurrentLyrics(this.lyricsPromiseState.data.split(" "))
+                })
             })
+
           });
         
     },
@@ -171,8 +179,13 @@ export default {
         this.clearLyrics()
         this.clearScores()
         this.clearGuesses()
+        this.gameState = null
+        this.searchArtistQuery = null
+        this.currentTrackPromiseState = {}
+        this.lyricsPromiseState = {}
+        this.artistTrackPromiseState = {}
+        this.scoresPromiseState = {}
+        this.searchResultsPromiseState = {}
     }
     
 }
-
-

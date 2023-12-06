@@ -1,20 +1,9 @@
-// const dotenv = require('dotenv')
-
-// dotenv.config()
 import { CLIENT_ACCESS_TOKEN } from "./src/apiConfig";
+import { getLyrics, getSong } from 'genius-lyrics-api';
 
-//const apiKey = process.env.CLIENT_ACCESS_TOKEN
 const accessToken = "access_token=" + CLIENT_ACCESS_TOKEN
 
 const baseUrl = "https://api.genius.com/"
-
-// Do not use, creates CORS problems 
-const options = {
-    method: 'GET',
-    headers: {
-        'Authorization': `Bearer ${CLIENT_ACCESS_TOKEN}`,
-    }
-};
 
 function searchArtist(searchTerm) {
     const url = baseUrl + "search?q=" + new URLSearchParams(searchTerm) + "&" + accessToken 
@@ -27,7 +16,7 @@ function getArtistTracks(artistID, nbrSongs) {
     return fetch(url).then(getJSON_ACB)
 }
 
-function getTrack(trackID) {
+function getGeniusTrack(trackID) {
     const url = baseUrl + "songs/" + trackID + "?" + accessToken 
     return fetch(url).then(getJSON_ACB)
 }
@@ -40,4 +29,13 @@ function getJSON_ACB(resp) {
     return resp.json()
 }
 
-export {searchArtist, getTrack, getArtistTracks}
+function getGeniusLyrics(geniusURL) {
+    return getLyrics(geniusURL).then(
+        (lyrics) => {
+            return lyrics 
+            // returnLyrics
+        }
+        ).catch((error) => console.log("Error getting lyrics: ", error))
+}
+
+export {searchArtist, getGeniusTrack, getArtistTracks, getGeniusLyrics}

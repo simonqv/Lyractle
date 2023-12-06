@@ -10,6 +10,8 @@ Use Genius API for tracks and artists etc.
 
 Use lyricsgenius to get the actual lyrics for the tracks. 
 
+https://www.npmjs.com/package/genius-lyrics-api
+npm install --save genius-lyrics-api
 
 TODO:
 

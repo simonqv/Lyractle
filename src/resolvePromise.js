@@ -1,7 +1,6 @@
 
 export default function resolvePromise(prms, promiseState) {
     if (prms) {
-        console.log("prms: ", prms)
         promiseState.promise = prms;
         promiseState.data = null;
         promiseState.error = null;

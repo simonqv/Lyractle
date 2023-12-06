@@ -15,10 +15,6 @@ function GeniusView(props) {
                 {artist.result.title}
             </div>
         )
-        function dishClickACB() {
-            props.onDishSelect(dish)
-            window.location.hash="#/details"
-        } 
     }
 
 }

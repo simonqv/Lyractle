@@ -20,7 +20,6 @@ export default observer(function Login(props) {
   function loginLogic() {
     signInWithPopup(auth, provider)
       .then((result) => {
-        console.log("RESULT", result)
         //const accessToken = result.user.accessToken;
     
         const user = result.user
