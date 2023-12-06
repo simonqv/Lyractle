@@ -12,8 +12,6 @@ const testData = {
 const App = () => {
   return (
     <div>
-      
-
       {/* GameView component with hard-coded data */}
       <GameView title={testData.title} lyrics={testData.lyrics} />
     </div>
