@@ -7,6 +7,7 @@ const baseUrl = "https://api.genius.com/"
 
 function searchArtist(searchTerm) {
     const url = baseUrl + "search?q=" + new URLSearchParams(searchTerm) + "&" + accessToken 
+    console.log("url: ", url)
     return fetch(url).then(getJSON_ACB)
 }
 

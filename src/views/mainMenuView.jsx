@@ -3,15 +3,16 @@ import React, { useState, useEffect } from 'react';
 import { searchArtist } from "../../geniusSource"
 
 function MainMenuView(props) {
+    document.body.style.backgroundColor = 'var(--primary)';
 
     return (
-        <div>
-            <h1>Lyractle</h1>
-            <button onClick={randomSongACB}>start random game</button>
-            <button onClick={playByArtistACB}>play by artist</button>
-            {props.model.user ? <button onClick={highScoresACB}>high scores</button> : <div/>} 
-            <input onChange={artistInputACB} defaultValue="Search for artist"/>
-            <button onClick={searchACB}>Search</button>
+        <div className='main-menu-content'>
+            <h1 className='h1' style={{marginBottom: '100px'}}>Lyractle</h1>
+            <button className='button' onClick={randomSongACB}>start random game</button>
+            <button className='button' style={{minWidth: "326px"}} onClick={playByArtistACB}>play by artist</button>
+            {props.model.user ? <button className='button' style={{minWidth: "326px"}} onClick={highScoresACB}>high scores</button> : <div/>} 
+            {/* <input onChange={artistInputACB} defaultValue="Search for artist"/> */}
+            {/* <button className='button' onClick={searchACB}>Search</button> */}
         </div>
     )
 
@@ -27,7 +28,7 @@ function MainMenuView(props) {
         return (
         <div>
             <input onChange={artistInputACB} defaultValue="search for artist"/>
-            <button onClick={searchACB}>search</button>
+            <button className='button' onClick={searchACB}>search</button>
         </div>
         )
     }

@@ -43,7 +43,7 @@ function persistenceToModel(data, model) {
     
     lyricsPromiseState.promise
       .then(() => {
-        model.setCurrentLyrics(lyricsPromiseState.data.split(" "))
+        model.setCurrentLyrics(lyricsPromiseState.data)
       })
       .catch((error) => {
         console.error("Error fetching lyrics from fb to model:", error)

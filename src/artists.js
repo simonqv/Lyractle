@@ -80,7 +80,7 @@ var artists = [
     "Morgan Wallen",
     "Tyler, The Creator",
     "Pop Smoke",
-    "$uicideboy$",
+    "%24uicideboy%24",
     "Metallica",
     "Elton John",
     "Lil Peep",

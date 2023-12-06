@@ -4,15 +4,13 @@ import LyricsView from "../views/lyricsView"
 
 export default observer(function Game(props) {
     return <div>
-        <span>Game Presenter</span>
-        <p></p>
         {place_holder(props.model.currentTrack, props.model.currentLyrics)}
             
         </div>
     function place_holder(currentTrack, currentLyrics) {     
 
         if (!currentTrack || !currentLyrics) {
-            return <img src="https://brfenergi.se/iprog/loading.gif"></img>
+            return <img src="https://zingy-bublanina-005f23.netlify.app/playBarArtist.gif" /*"https://brfenergi.se/iprog/loading.gif"*/></img>
         }
         return (
             <div>

@@ -39,7 +39,7 @@ export default observer(function ReactRoot(props) {
     return (
       // Loading gif
       <img
-        src="https://cdn.dribbble.com/users/379146/screenshots/7958815/media/f9132d75f0f4eeb9a7f63bc7e80e02dc.gif"
+        src="https://zingy-bublanina-005f23.netlify.app/playBarArtist.gif" //"https://cdn.dribbble.com/users/379146/screenshots/7958815/media/f9132d75f0f4eeb9a7f63bc7e80e02dc.gif"
         alt="Loading..."
       />
     );
@@ -57,7 +57,7 @@ export default observer(function ReactRoot(props) {
         </div>
         
       ) : (
-        <img src="https://cdn.dribbble.com/users/379146/screenshots/7958815/media/f9132d75f0f4eeb9a7f63bc7e80e02dc.gif" />
+        <img src="https://zingy-bublanina-005f23.netlify.app/playBarArtist.gif" /*"https://cdn.dribbble.com/users/379146/screenshots/7958815/media/f9132d75f0f4eeb9a7f63bc7e80e02dc.gif"*//>
       )}
     </BrowserRouter>
   );

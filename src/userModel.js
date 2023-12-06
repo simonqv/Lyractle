@@ -17,7 +17,7 @@ export default {
     guest: null,
 
     currentTrack: null, // Full track
-    currentLyrics: [],
+    currentLyrics: null,
     
 
     currentScore: null,
@@ -120,6 +120,7 @@ export default {
         }
 
         this.setCurrentTrack(null)
+        this.setCurrentLyrics(null)
         const ranArtist = getRandomElement(artists)
         this.doSearch(ranArtist)
         
@@ -129,9 +130,9 @@ export default {
             let artistID = null
 
             // Make sure the searched artist is the same as the found artist
-            for (let i = 0; i < foundArtists.length; i++) {
-                if (ranArtist === foundArtists[i].result.primary_artist.name) {
-                    artistID = foundArtists[i].result.primary_artist.id
+            for (const foundArtist of foundArtists) {
+                if (ranArtist.toLowerCase() === foundArtist.result.primary_artist.name.toLowerCase()) {
+                    artistID = foundArtist.result.primary_artist.id
                     break
                 }
             }
@@ -140,11 +141,10 @@ export default {
             this.getArtistSongs(artistID, 30)
             this.artistTrackPromiseState.promise.then(() => {
                 const randomSong = getRandomElement(this.artistTrackPromiseState.data.response.songs)
-                randomSong.title
                 this.setCurrentTrack(randomSong)
                 this.getLyrics(this.currentTrack.url)
                 this.lyricsPromiseState.promise.then(() => {
-                    this.setCurrentLyrics(this.lyricsPromiseState.data.split(" "))
+                    this.setCurrentLyrics(this.lyricsPromiseState.data)
                 })
             })
 
@@ -160,9 +160,9 @@ export default {
     
     
     clearLyrics() {
-        if (this.lyrics) {
-            this.lyrics.length = 0;
-        }
+        // if (this.lyrics) {
+        //     this.lyrics.length = 0;
+        // }
     },
     
     clearGuesses() {
@@ -176,7 +176,7 @@ export default {
         this.removeGuest()
         this.setCurrentScore(0)
         this.setCurrentTrack(null)
-        this.clearLyrics()
+        this.setCurrentLyrics(nul)
         this.clearScores()
         this.clearGuesses()
         this.gameState = null
