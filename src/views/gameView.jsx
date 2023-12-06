@@ -1,14 +1,12 @@
-import LyricsView from './lyricsView'; // Adjust the import path as needed
+import Lyrics from '../presenters/lyricsPresenter'
 import GuessBarView from './guessBarView'
 import '/src/style.css'
 
 function GameView(props) {
-
   return (
     <div className="game-view">
-
       <div className="main-content">
-        <LyricsView lyrics={pcurrentLyrics} trackTitle={currentTrack}/>
+        <Lyrics currentLyrics={props.lyrics} currentTitle={props.title}/>
         <GuessBarView />
       </div>
     </div>
