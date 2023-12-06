@@ -1,6 +1,6 @@
 import { observer } from "mobx-react-lite"
-import LyricsView from "../views/lyricsView"
 import GuessBarView from "../views/guessBarView"
+import GameView from "../views/gameView"
 
 export default observer(function Game(props) {
     return <div>
@@ -14,8 +14,8 @@ export default observer(function Game(props) {
         }
         return (
             <div className="game-view">
-                <LyricsView lyrics={props.model.currentLyrics} title={props.model.currentTrack.title}/>
-                <GuessBarView/>
+                {/*Lyrics lyrics={props.model.currentLyrics} title={props.model.currentTrack.title}/>*/}
+                <GameView lyrics={currentLyrics} title={currentTrack.title}></GameView>
             </div>
         )
     }
