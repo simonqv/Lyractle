@@ -1,7 +1,5 @@
-// GuessesView.js
-import React from 'react';
 
-function GuessBarView() {
+function GuessBarView(props) {
   return (
     <div className="guess-bar-view">
       {/* Display the list of guessed words and the number of occurrences */}

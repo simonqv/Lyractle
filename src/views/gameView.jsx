@@ -1,18 +1,14 @@
-// GameView.jsx
-import React from 'react';
-import HamburgerView from './hamburgerView'; // Adjust the import path as needed
 import LyricsView from './lyricsView'; // Adjust the import path as needed
-import GuessBarView from './guessBarView'; // Adjust the import path as needed
+import GuessBarView from './guessBarView'
 import '/src/style.css'
-// GameView.jsx
 
-function GameView() {
+function GameView(props) {
+
   return (
     <div className="game-view">
-      <HamburgerView />
 
       <div className="main-content">
-        <LyricsView title="Your Song Title" lyrics="Your song lyrics go here." />
+        <LyricsView lyrics={pcurrentLyrics} trackTitle={currentTrack}/>
         <GuessBarView />
       </div>
     </div>
@@ -20,4 +16,4 @@ function GameView() {
 }
 
 
-export default GameView;
+export default GameView
