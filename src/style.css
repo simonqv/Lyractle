@@ -1,3 +1,4 @@
+
 :root {
     --primary: #98D4D2;
     --secondary: #1B4D89;
@@ -6,21 +7,9 @@
     --red: #B76D6D;
     --green: #6DB784;
     --hoverColor: #6DB784;
-  }
-
-.login-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
 }
 
-.main-menu-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
+/* General style */
 
 .button {
   margin: 4px;
@@ -38,12 +27,12 @@
 
 .button:hover {
     background-color: var(--hoverColor); /* Define hover color using another variable */
-  }
+ }
 
 .h1 {
   margin-bottom: 0px;
   color: var(--white);
-  font-family: 'Kameron', sans-serif;
+  font-family: 'Kameron', serif;
   font-size: 150px;
   font-weight: bold;
 }
@@ -51,6 +40,270 @@
 .h3 {
   margin-top: 0px;
   color: var(--white);
-  font-family: 'Kameron', sans-serif;
+  font-family: 'Kameron', serif;
   font-size: 40px;
+}
+
+/* LoginView style*/
+
+.login-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* MainMenuView style*/
+
+.main-menu-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* gameView.css */
+
+body {
+  margin: 0;
+}
+
+.game-view {
+  display: flex;
+  flex-direction: column;
+  height: 100vh; /* Full height of the viewport */
+}
+
+.main-content {
+  display: flex;
+  flex: 1; /* Takes up remaining vertical space */
+}
+
+
+/* Main container for the game view */
+.game-view {
+  display: flex;
+  justify-content: space-between; /* Add this property to space the children */
+}
+
+.game-title{
+  font-family: 'Kameron', serif;
+  text-align: left;
+  font-size: 5vh;
+  color: #98D4D2;
+}
+
+.menu{
+  align-items: right;
+}
+
+
+/* GuessBarView style */
+.guess-bar-view {
+  flex: 1;
+  padding: 20px;
+  background-color: #98D4D2;
+  align-items: center;
+}
+
+/* LyricsView style*/
+
+.lyrics-view {
+  flex: 2;
+  padding: 20px;
+  background-color: #1B4D89;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0px;
+}
+
+/* .textarea-container {
+  width: 90%;
+  position: relative;
+  bottom: 0px;
+} */
+
+.textarea-container{
+  width: 60%;
+  position: absolute;
+  bottom: 20px;
+}
+
+
+.button-container {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.guess-button {
+    font-family: 'Lexend peta', sans-serif;
+    text-align: center;
+    font-size: 4vh;
+    letter-spacing: tight;
+    /* background-color: yellow; */
+    background-color: #F9E45B;
+    width: 100%;
+    justify-content: center;
+    align-items: stretch;
+    padding: 5px;
+    padding-right: 2px; /* Adjust as needed */
+    width: 164px; /* Adjust the width as needed */
+    height: 52px;
+    color: #1B4D89;
+    border-radius: 20px;
+    font-weight: bold;
+    line-height: 4vh;
+    border: 1px solid;
+  
+}
+
+.hint-button {
+  font-family: 'Lexend peta', sans-serif;
+  text-align: center;
+  font-size: 4vh;
+  letter-spacing: tight;
+  /* background-color: yellow; */
+  background-color: #F9E45B;
+  width: 100%;
+  justify-content: center;
+  align-items: stretch;
+  padding: 5px;
+  padding-right: 2px; /* Adjust as needed */
+  width: 164px; /* Adjust the width as needed */
+  height: 52px;
+  color: #1B4D89;
+  border-radius: 20px;
+  font-weight: bold;
+  line-height: 4vh;
+  border: 1px solid;
+  margin-right: 20px; 
+  margin-left: 60px;
+}
+
+.giveup-button {
+  font-family: 'Lexend peta', sans-serif;
+  text-align: center;
+  font-size: 4vh;
+  letter-spacing: tight;
+  /* background-color: yellow; */
+  background-color: #B76D6D;
+  width: 100%;
+  justify-content: center;
+  align-items: stretch;
+  padding: 5px;
+  padding-right: 2px; /* Adjust as needed */
+  width: 164px; /* Adjust the width as needed */
+  height: 52px;
+  color: #1B4D89;
+  border-radius: 20px;
+  font-weight: bold;
+  line-height: 4vh;
+  border: 1px solid;
+}
+
+button:hover {
+  transform: scale(1.05); /* Increase the size on hover */
+  font-weight: bolder; /* Make the text bolder on hover */
+}
+
+.search-bar {
+  width: 100%; /* Set the width as needed */
+  height: 52px; /* Set the height as needed */
+  padding: 10px; /* Adjust padding as needed */
+  background-color: #FFFFFF; /* White background color */
+  border: 1px solid #CCCCCC; /* Border color */
+  border-radius: 18px; /* Rounded corners */
+  font-family: 'Playfair Display', serif; /* Inherit font from the parent */
+  font-size: 4vh; /* Set the font size as needed */
+  font-weight: bold;
+  color: black; /* Default text color */
+  overflow: hidden; /* Hide the scrollbar */
+  resize: none;
+  line-height: 4vh;
+ 
+}
+
+.search-bar::placeholder {
+  color: black; /* Placeholder text color */
+}
+
+.search-bar:focus {
+  outline: none; /* Remove the default focus outline */
+  border-color: #1B4D89; /* Border color on focus */
+}
+
+/* Basic styling for the navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: white;
+  padding: 15px;
+  height: 3%;
+}
+
+/* Hamburger menu styling */
+.hamburger-menu {
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+}
+
+.bar {
+  width: 30px;
+  height: 4px;
+  background-color: #1B4D89;
+  margin: 3px 0;
+  transition: 0.4s;
+}
+
+/* Navigation list styling */
+.nav-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #1B4D89;
+  position: absolute;
+  top: 0;
+  right: 0; /* Adjusted to place it on the right side */
+  width: 100%;
+  text-align: center;
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 0.4s ease-in-out;
+}
+
+.nav-list a {
+  display: block;
+  padding: 15px;
+  color: #FFFFFF;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+/* Show/hide the nav list on hamburger click */
+.navbar.active .nav-list {
+  transform: scaleY(1);
+}
+
+/* Hoverable dropdown styling */
+.nav-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #1B4D89;
+  position: absolute;
+  top: 3%; /* Adjusted to place it below the navbar */
+  right: 0;
+  width: 100%;
+  text-align: center;
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 0.4s ease-in-out;
+}
+
+.navbar:hover .nav-list {
+  transform: scaleY(1);
 }
