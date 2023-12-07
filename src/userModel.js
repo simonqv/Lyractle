@@ -21,6 +21,7 @@ export default {
     
 
     currentScore: null,
+    currentGuess: "",
     guesses: [],
     scores: [],
     
@@ -52,6 +53,10 @@ export default {
             throw new Error("Current score is not a positive integer")
         }
         this.currentScore = nr
+    },
+
+    setCurrentGuess(guess) {
+        this.currentGuess = guess
     },
 
     setCurrentTrack(track) {
