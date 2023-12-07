@@ -3,7 +3,6 @@ import { useEffect } from "react";
 
 
 function LoginView(props) {
-    document.body.style.backgroundColor = 'var(--primary)';
 
     useEffect(() => {
         // Update body classList when the component mounts

@@ -12,7 +12,7 @@ observer(
         </div>
         
         function checkState(track) {
-            if (!track) {
+            if (!props.model.guest && !track) {
                 return <img src= "https://zingy-bublanina-005f23.netlify.app/playBarArtist.gif"></img>
             }
             

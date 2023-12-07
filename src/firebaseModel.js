@@ -61,7 +61,7 @@ function persistenceToModel(data, model) {
 }
 
 function saveToFirebase(model) {
-  if (!model.user) {
+  if (!model.user && !model.guest) {
     model.wipeModel();
   }
   if (model.ready) {
@@ -76,7 +76,7 @@ function saveToFirebase(model) {
 }
 
 function readFromFirebase(model) {
-  if (!model.user) {
+  if (!model.user && !model.guest) {
     model.wipeModel();
     model.ready = true;
     return;

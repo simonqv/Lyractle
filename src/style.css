@@ -108,6 +108,13 @@ body {
   align-items: right;
 }
 
+.lyrics-and-guess-input {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: stretch;
+  height: 100%; 
+}
 
 /* GuessBarView style */
 .guess-bar-view {
@@ -116,6 +123,7 @@ body {
   background-color: var(--primary);
   align-items: center;
 }
+
 
 /* LyricsView style*/
 
@@ -126,7 +134,8 @@ body {
   align-items: center;
   justify-content: center;
   margin: 0px;
-}
+  max-height: 70vh;
+  overflow: auto;}
 
 .lyrics-text {
   color: white;
@@ -140,14 +149,13 @@ body {
 
 .textarea-container{
   width: 60%;
-  position: absolute;
-  bottom: 20px;
+  position: relative;
 }
 
 
 .button-container {
   position: absolute;
-  top: 0;
+  bottom: 0;
   right: 0;
 }
 

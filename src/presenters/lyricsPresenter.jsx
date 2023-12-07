@@ -29,7 +29,7 @@ export default observer(function Lyrics(props) {
   }, [])
 
   return (
-    <div>
+    <div className='lyrics-and-guess-input'>
       <LyricsView title={title} lyrics={lyrics} revealedTitle={revealedTitle} revealedWords={revealedWords}/>
       <GuessInputView currentGuess={props.model.currentGuess} onHandleGuess={handleGuess} onSetGurrentGuess={setCurrentGuess} />
     </div>

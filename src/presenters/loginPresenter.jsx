@@ -25,6 +25,7 @@ export default observer(function Login(props) {
         const user = result.user
         console.log("login user: ", user.uid)
         props.model.setUser(user.uid)
+        props.model.removeGuest()
         
         // TODO: props.model.setScores, .setGuesses, and other model updates
 
@@ -38,7 +39,6 @@ export default observer(function Login(props) {
   }
 
   function playAsGuest() {
-    console.log("login presenter guest")
     props.model.setGuest()
     navigate("/mainMenu")
   }
