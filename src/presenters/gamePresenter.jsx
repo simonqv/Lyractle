@@ -19,7 +19,7 @@ export default observer(function Game(props) {
             <div className="game-view">
                 <div className="main-content">
                     <Lyrics model={props.model} currentLyrics={props.model.currentLyrics} currentTitle={props.model.currentTrack.title}/>
-                    <GuessBarView guesses={props.model.guesses} hints={props.model.nbrHints} onHintClick={getHint} onGiveUpClick={giveUp}/>
+                    <GuessBarView currentOccurence={props.model.currentOccurence} currentGuess= {props.model.currentGuess} guesses={props.model.guesses} hints={props.model.nbrHints} onHintClick={getHint} onGiveUpClick={giveUp}/>
                     
                 </div>
             </div>
@@ -33,6 +33,6 @@ export default observer(function Game(props) {
 
     function giveUp() {
         // TODO: Give up logic
-        console.log("give up")
+        window.location.href = "/login";
     }
 })

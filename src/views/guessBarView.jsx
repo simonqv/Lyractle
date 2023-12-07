@@ -3,7 +3,7 @@ import '/src/style.css';
 
 function GuessBarView(props) {
   
-  console.log(props.guesses);
+  console.log(props.currentGuess);
   return (
     <div className="guess-bar-view">
       {/* Display the list of guessed words and the number of occurrences */}
@@ -29,7 +29,7 @@ function GuessBarView(props) {
 
   function showGuessCB(guess, index) {
     // TODO: Write nbr of occurrences
-    return <li key={index}>{guess} (2 occurrences)</li>
+    return <li key={index}>{guess} ({props.currentOccurence} occurrences)</li>
 
   }
 

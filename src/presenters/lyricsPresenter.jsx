@@ -49,6 +49,9 @@ export default observer(function Lyrics(props) {
   }
 
   function handleGuess() {
+
+    props.model.currentOccurence = 30;
+
     if (props.model.currentGuess.trim() !== '') {
       const lowerCaseGuess = props.model.currentGuess.trim().toLowerCase()
       const lowerCaseLyrics = lyrics.toLowerCase()

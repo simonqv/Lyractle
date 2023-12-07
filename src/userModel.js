@@ -21,6 +21,7 @@ export default {
 
     currentScore: null,
     currentGuess: "",
+    currentOccurence: null,
     nbrHints: 0,
     guesses: [],
     scores: [],
