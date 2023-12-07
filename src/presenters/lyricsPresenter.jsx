@@ -67,6 +67,15 @@ export default observer(function Lyrics(props) {
     return count;
   }
 
+  function allWordsInArray(inputString, wordArray) {
+    // Split the input string into an array of words
+    const words = inputString.split(/\s+/);
+
+    // Check if every word is present in the array
+    const allWordsInArray = words.every(word => wordArray.includes(word));
+
+    return allWordsInArray;
+}
 
 
   function handleGuess() {
@@ -76,6 +85,14 @@ export default observer(function Lyrics(props) {
       const lowerCaseGuess = props.model.currentGuess.trim().toLowerCase()
       const lowerCaseLyrics = lyrics.toLowerCase()
       const lowerCaseTitle = title.toLowerCase()
+      props.model.guesses.push(lowerCaseGuess);
+
+      if (allWordsInArray(lowerCaseTitle, props.model.guesses)){
+        window.location.href = "/login"
+      }
+
+      
+
 
       props.model.currentOccurence = countOccurrences(lowerCaseLyrics, lowerCaseGuess) + countOccurrences(lowerCaseTitle, lowerCaseGuess)
 
