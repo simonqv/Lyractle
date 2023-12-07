@@ -10,7 +10,7 @@ function GuessBarView(props) {
         {/* Add more guessed words as needed */}
       </ul>
       {/* Include buttons for showing hints and quitting the game */}
-      <div className="button-container">
+      <div className="guess-bar-button-container">
         <button className='hint-button' onClick={getHintACB}>Hints {props.hints}/3</button>
         <button className='giveup-button'>Give up</button>
       </div>

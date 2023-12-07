@@ -11,11 +11,12 @@ function GuessInputView(props) {
           onChange={setCurrentGuessACB}
           ></textarea>
 
-        <div className="button-container">
+        <div className="guess-input-button-container">
           <button className="guess-button" onClick={handleGuessACB}>
-            Guess
+              Guess
           </button>
         </div>
+        
     </div>
   )
     function handleGuessACB() {
