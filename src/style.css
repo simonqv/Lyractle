@@ -123,6 +123,7 @@ body {
   padding: 20px;
   background-color: var(--primary);
   align-items: center;
+  position:relative;
 }
 
 
@@ -154,12 +155,6 @@ body {
 }
 
 
-.button-container {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-}
-
 .guess-button {
     font-family: 'Lexend peta', sans-serif;
     text-align: center;
@@ -180,10 +175,17 @@ body {
   
 }
 
+
+.button-container {
+  position: absolute;
+  bottom: 20px;
+  margin-left: 5px;
+}
+
 .hint-button {
   font-family: 'Lexend peta', sans-serif;
   text-align: center;
-  font-size: 4vh;
+  font-size: 3vh;
   letter-spacing: tight;
   background-color: var(--accent);
   justify-content: center;
@@ -198,13 +200,13 @@ body {
   line-height: 4vh;
   border: 1px solid;
   margin-right: 20px; 
-  margin-left: 60px;
+  margin-left: 40px;
 }
 
 .giveup-button {
   font-family: 'Lexend peta', sans-serif;
   text-align: center;
-  font-size: 4vh;
+  font-size: 3vh;
   letter-spacing: tight;
   background-color: var(--red);
   justify-content: center;
@@ -219,6 +221,9 @@ body {
   line-height: 4vh;
   border: 1px solid;
 }
+
+
+
 
 button:hover {
   transform: scale(1.05);
