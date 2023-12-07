@@ -1,5 +1,5 @@
 import resolvePromise from "./resolvePromise"
-import { getGeniusTrack, searchArtist, getArtistTracks, getGeniusLyrics } from "../geniusSource"
+import { searchArtist, getArtistTracks, getGeniusLyrics } from "../geniusSource"
 import artists from "./artists"
 
 /* 
@@ -18,10 +18,10 @@ export default {
 
     currentTrack: null, // Full track
     currentLyrics: null,
-    
 
     currentScore: null,
     currentGuess: "",
+    nbrHints: 0,
     guesses: [],
     scores: [],
     
@@ -53,6 +53,12 @@ export default {
             throw new Error("Current score is not a positive integer")
         }
         this.currentScore = nr
+    },
+
+    setNbrHints(nr) {
+        if (nr < 3) {
+            this.nbrHints = nr
+        }
     },
 
     setCurrentGuess(guess) {
@@ -165,9 +171,9 @@ export default {
     
     
     clearLyrics() {
-        // if (this.lyrics) {
-        //     this.lyrics.length = 0;
-        // }
+        if (this.lyrics) {
+            this.lyrics.length = 0;
+        }
     },
     
     clearGuesses() {
@@ -180,6 +186,7 @@ export default {
         this.setUser(null)
         this.removeGuest()
         this.setCurrentScore(0)
+        this.setNbrHints(0)
         this.setCurrentTrack(null)
         this.setCurrentLyrics(nul)
         this.clearScores()

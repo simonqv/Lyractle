@@ -4,8 +4,8 @@ import LyricsView from '../views/lyricsView'
 import '/src/style.css'
 import GuessInputView from '../views/guessInputView'
 
+// TODO: Always show guessed words, maybe implement a list of words that are always shown and not randomize
 export default observer(function Lyrics(props) {
-  const [guessedWords, setGuessedWords] = useState([])
   const [lyrics, setLyrics] = useState('')
   const [revealedWords, setRevealedWords] = useState([])
   const [title, setTitle] = useState('')
@@ -26,18 +26,26 @@ export default observer(function Lyrics(props) {
     setTitle(props.currentTitle)
     setRevealedWords(initialRevealedWords)
     setRevealedTitle(initialRevealedTitle)
-    setGuessedWords([])
   }, [])
 
   return (
     <div>
       <LyricsView title={title} lyrics={lyrics} revealedTitle={revealedTitle} revealedWords={revealedWords}/>
-      <GuessInputView currentGuess={props.model.currentGuess} onHandleGuess={handleGuess} onSetGurrentGuess={setCurrentGuessACB} />
+      <GuessInputView currentGuess={props.model.currentGuess} onHandleGuess={handleGuess} onSetGurrentGuess={setCurrentGuess} />
     </div>
   )
   
-  function setCurrentGuessACB(val) {
+  function setCurrentGuess(val) {
     props.model.setCurrentGuess(val)
+  }
+
+  function addGuess(guess) {
+    props.model.addToGuesses(guess)
+  }
+
+  function increaseScore() {
+    const nr = props.model.currentScore + 1
+    props.model.setCurrentScore(nr)
   }
 
   function handleGuess() {
@@ -73,7 +81,10 @@ export default observer(function Lyrics(props) {
         })
       }
       
-      setGuessedWords([...guessedWords, lowerCaseGuess])
+      if (!props.model.guesses.includes(lowerCaseGuess)) {
+        addGuess(lowerCaseGuess)
+        increaseScore()
+      }
     }
   }
   

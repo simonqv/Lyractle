@@ -21,7 +21,7 @@ observer(
         }
 
         function continueGameACB() {
-            navigate("game")
+            navigate("/game")
         }
        
         function goToHighScoresACB() {

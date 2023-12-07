@@ -9,6 +9,7 @@ export default observer(function Game(props) {
         {place_holder(props.model.currentTrack, props.model.currentLyrics)}
             
         </div>
+    
     function place_holder(currentTrack, currentLyrics) {     
 
         if (!currentTrack || !currentLyrics) {
@@ -18,9 +19,19 @@ export default observer(function Game(props) {
             <div className="game-view">
                 <div className="main-content">
                     <Lyrics model={props.model} currentLyrics={props.model.currentLyrics} currentTitle={props.model.currentTrack.title}/>
-                    <GuessBarView />
+                    <GuessBarView guesses={props.model.guesses} hints={props.model.nbrHints} onHintClick={getHint} onGiveUpClick={giveUp}/>
                 </div>
             </div>
         )
+    }
+
+    function getHint() {
+        // TODO: Hint logic
+        console.log("get hint")
+    }
+
+    function giveUp() {
+        // TODO: Give up logic
+        console.log("give up")
     }
 })
