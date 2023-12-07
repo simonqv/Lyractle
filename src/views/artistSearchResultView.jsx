@@ -1,7 +1,6 @@
-
 import "/src/style.css"
 
-function GeniusView(props) {
+function ArtistSearchResultView(props) {
     return (
         <div className="search-result">
             {props.res.response.hits.map(renderSearchResCB)}
@@ -20,4 +19,4 @@ function GeniusView(props) {
 }
 
 
-export default GeniusView
+export default ArtistSearchResultView

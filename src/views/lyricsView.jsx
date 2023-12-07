@@ -1,7 +1,6 @@
 import React from 'react';
 
 function LyricsView(props) {
-  console.log("props title: ", props.revealedTitle)
   return (
     <div className="lyrics-view">
       <h2 className='h2'>

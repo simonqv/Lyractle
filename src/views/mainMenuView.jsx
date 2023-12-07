@@ -1,7 +1,12 @@
+import { useEffect, useState } from "react"
+import Modal from "react-modal"
 import { searchArtist } from "../../geniusSource"
-import { useEffect } from "react";
+import PlayBarArtistView from "./playByArtistView"
+
 
 function MainMenuView(props) {
+
+    const [showModal, setShowModal] = useState(false);
 
     useEffect(() => {
         // Update body classList when the component mounts
@@ -20,6 +25,15 @@ function MainMenuView(props) {
             <button className='button' onClick={randomSongACB}>start random game</button>
             <button className='button' style={{minWidth: "326px"}} onClick={playByArtistACB}>play by artist</button>
             {props.model.user ? <button className='button' style={{minWidth: "326px"}} onClick={highScoresACB}>high scores</button> : <div/>} 
+            {/* <PlayBarArtistView model={props.model} isOpen={showModal} onRequestClose={closeModal} onSearch={search} onInputChange={artistInput}/> */}
+            {/* <Modal isOpen={showModal} onRequestClose={closeModal}>
+                <div>
+                    <input onChange={artistInput} defaultValue="search for artist"/>
+                    <button className='button' onClick={search}>search</button>
+                    <button onClick={closeModal}>Close</button>
+                    {awaitResults(props.model.searchResultsPromiseState)}
+                </div>
+            </Modal> */}
             {/* <input onChange={artistInputACB} defaultValue="Search for artist"/> */}
             {/* <button className='button' onClick={searchACB}>Search</button> */}
         </div>
@@ -33,25 +47,42 @@ function MainMenuView(props) {
         props.onRandomClick()
     }
 
-    function artistInputACB(evt) {
+    function artistInput(evt) {
         props.onArtistInputACB(evt.target.value)
     }
 
     function playByArtistACB() {
-        return (
-        <div>
-            <input onChange={artistInputACB} defaultValue="search for artist"/>
-            <button className='button' onClick={searchACB}>search</button>
-        </div>
-        )
+        console.log("Should search for artist")
+        // setShowModal(true)
+    }
+
+    function closeModal() {
+        setShowModal(false)
     }
 
     function highScoresACB() {
         props.onHighScoresClick()
     }
     
-    function searchACB() {
+    function search() {
         props.onSearchClick()
+    }
+
+    function awaitResults(state) {
+        console.log("state: ", state)
+        if (!state.promise) {
+            return "No data"
+        }
+
+        if (!state.data && !state.error) {
+            return <img src="https://brfenergi.se/iprog/loading.gif"></img>
+        }
+
+        if (state.error) {
+            return state.error
+        }
+    
+        return <ArtistSearchResultView res={state.data}></ArtistSearchResultView>
     }
 
 }

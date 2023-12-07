@@ -20,6 +20,7 @@ function modelToPersistence(model) {
     userGuesses: model.guesses,
     userGameState: model.gameState,
     userScores: model.scores,
+    userHints: model.nbrHints
   };
 }
 
@@ -49,6 +50,8 @@ function persistenceToModel(data, model) {
         console.error("Error fetching lyrics from fb to model:", error)
       });
   }
+
+  model.setNbrHints(data.userHints)
 
   model.setGuesses(data?.userGuesses || [])
 

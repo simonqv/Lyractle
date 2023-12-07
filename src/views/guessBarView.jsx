@@ -4,17 +4,31 @@ function GuessBarView(props) {
     <div className="guess-bar-view">
       {/* Display the list of guessed words and the number of occurrences */}
       <ul className="guessed-words">
-        <li>Guessed Word 1 (2 occurrences)</li>
-        <li>Guessed Word 2 (1 occurrence)</li>
+        {props.guesses.map(showGuessCB)}
         {/* Add more guessed words as needed */}
       </ul>
       {/* Include buttons for showing hints and quitting the game */}
       <div className="textarea-container">
-        <button className='hint-button'>Hints 0/3</button>
-        <button className='giveup-button'>Quit</button>
+        <button className='hint-button' onClick={getHintACB}>Hints {props.hints}/3</button>
+        <button className='giveup-button'>give up</button>
       </div>
     </div>
-  );
+  )
+
+  function getHintACB() {
+    props.onHintClick()
+  }
+
+  function giveUpACB() {
+    props.onGiveUpClick()
+  }
+
+  function showGuessCB(guess, index) {
+    // TODO: Write nbr of occurrences
+    return <li key={index}>{guess} (2 occurrences)</li>
+
+  }
+
 }
 
-export default GuessBarView;
+export default GuessBarView
