@@ -1,7 +1,7 @@
 import React from 'react';
 
 function LyricsView(props) {
-
+  console.log(props.lyrics)
 
   return (
     <div className="lyrics-view">

@@ -48,14 +48,37 @@ export default observer(function Lyrics(props) {
     props.model.setCurrentScore(nr)
   }
 
-  function handleGuess() {
 
-    props.model.currentOccurence = 30;
+  function countOccurrences(longString, word) {
+    // Use a regular expression to split the string into an array of words
+    // The regular expression \b ensures that only whole words are matched
+    let wordsArray = longString.split(/\b/);
+    
+    // Initialize a counter for occurrences
+    let count = 0;
+    
+    // Iterate through the array and count occurrences
+    for (let i = 0; i < wordsArray.length; i++) {
+        if (wordsArray[i] === word) {
+            count++;
+        }
+    }
+    
+    return count;
+  }
+
+
+
+  function handleGuess() {
+    
 
     if (props.model.currentGuess.trim() !== '') {
       const lowerCaseGuess = props.model.currentGuess.trim().toLowerCase()
       const lowerCaseLyrics = lyrics.toLowerCase()
       const lowerCaseTitle = title.toLowerCase()
+
+      props.model.currentOccurence = countOccurrences(lowerCaseLyrics, lowerCaseGuess) + countOccurrences(lowerCaseTitle, lowerCaseGuess)
+
       
       // Revealing only the guessed word in the title
       if (lowerCaseTitle.includes(lowerCaseGuess)) {
@@ -88,7 +111,10 @@ export default observer(function Lyrics(props) {
         addGuess(lowerCaseGuess)
         increaseScore()
       }
+
+
     }
+
   }
   
   
