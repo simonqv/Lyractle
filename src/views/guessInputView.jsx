@@ -1,3 +1,5 @@
+import '/src/style.css';
+
 
 function GuessInputView(props) {
   return (

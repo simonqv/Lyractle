@@ -20,6 +20,7 @@ export default observer(function Game(props) {
                 <div className="main-content">
                     <Lyrics model={props.model} currentLyrics={props.model.currentLyrics} currentTitle={props.model.currentTrack.title}/>
                     <GuessBarView guesses={props.model.guesses} hints={props.model.nbrHints} onHintClick={getHint} onGiveUpClick={giveUp}/>
+                    
                 </div>
             </div>
         )

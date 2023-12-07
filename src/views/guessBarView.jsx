@@ -1,3 +1,5 @@
+import '/src/style.css';
+
 
 function GuessBarView(props) {
   return (
@@ -10,7 +12,7 @@ function GuessBarView(props) {
       {/* Include buttons for showing hints and quitting the game */}
       <div className="textarea-container">
         <button className='hint-button' onClick={getHintACB}>Hints {props.hints}/3</button>
-        <button className='giveup-button'>give up</button>
+        <button className='giveup-button'>Give up</button>
       </div>
     </div>
   )
