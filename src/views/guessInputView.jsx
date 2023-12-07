@@ -16,7 +16,7 @@ function GuessInputView(props) {
             Guess
           </button>
         </div>
-      </div>
+    </div>
   )
     function handleGuessACB() {
         props.onHandleGuess()

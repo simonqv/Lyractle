@@ -150,8 +150,10 @@ body {
 } */
 
 .textarea-container{
-  width: 60%;
+  width: 80%;
   position: relative;
+  margin-bottom: 30px;
+  margin-left: 30px;
 }
 
 
