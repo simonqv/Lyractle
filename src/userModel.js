@@ -130,8 +130,8 @@ export default {
             return list[randomIndex];
         }
 
-        this.setCurrentTrack(null)
-        this.setCurrentLyrics(null)
+        this.wipeModelForNewGame()
+
         const ranArtist = getRandomElement(artists)
         this.doSearch(ranArtist)
         
@@ -147,7 +147,7 @@ export default {
                     break
                 }
             }
-
+            
             // Get a random song from the artist
             this.getArtistSongs(artistID, 30)
             this.artistTrackPromiseState.promise.then(() => {
@@ -182,13 +182,21 @@ export default {
         }
     },
 
+    wipeModelForNewGame() {
+        this.setCurrentScore(0)
+        this.setNbrHints(0)
+        this.setCurrentTrack(null)
+        this.setCurrentLyrics(null)
+        this.clearGuesses()
+    },
+
     wipeModel() {
         this.setUser(null)
         this.removeGuest()
         this.setCurrentScore(0)
         this.setNbrHints(0)
         this.setCurrentTrack(null)
-        this.setCurrentLyrics(nul)
+        this.setCurrentLyrics(null)
         this.clearScores()
         this.clearGuesses()
         this.gameState = null
