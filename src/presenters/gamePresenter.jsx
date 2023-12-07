@@ -28,7 +28,7 @@ export default observer(function Game(props) {
 
     function getHint() {
         // TODO: Hint logic
-        console.log("get hint")
+        props.model.nbrHints ++;
     }
 
     function giveUp() {

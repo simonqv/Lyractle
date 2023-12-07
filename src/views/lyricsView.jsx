@@ -3,6 +3,8 @@ import React from 'react';
 function LyricsView(props) {
   
   const processedLyrics = removeContentInsideBrackets(props.lyrics)
+
+  console.log(props.title)
   
 
   return (

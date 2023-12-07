@@ -3,7 +3,7 @@ import '/src/style.css';
 
 function GuessBarView(props) {
   
-  console.log(props.currentGuess);
+  
   return (
     <div className="guess-bar-view">
       {/* Display the list of guessed words and the number of occurrences */}
@@ -13,7 +13,7 @@ function GuessBarView(props) {
       </ul>
       {/* Include buttons for showing hints and quitting the game */}
       <div className="guess-bar-button-container">
-        <button className='hint-button' onClick={getHintACB}>Hints {props.hints}/3</button>
+        <button disabled={props.hints>=3} className='hint-button' onClick={getHintACB}>Hints {props.hints}/3</button>
         <button className='giveup-button' onClick={giveUpACB}>Give up</button>
       </div>
     </div>
