@@ -29,7 +29,7 @@ function GuessBarView(props) {
 
   function showGuessCB(guess, index) {
     // TODO: Write nbr of occurrences
-    return <li key={index}>{guess} ({props.currentOccurence} occurrences)</li>
+    return <li className="user-guesses" key={index}>{guess}: {props.currentOccurence} occurrences</li>
 
   }
 

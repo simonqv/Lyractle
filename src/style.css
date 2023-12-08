@@ -80,6 +80,10 @@ body {
   background-color: var(--secondary);
 }
 
+li{
+  list-style-type: none;
+}
+
 /* MainMenu.css */
 
 .game-view {
@@ -125,6 +129,14 @@ body {
   align-items: center;
   position:relative;
 }
+
+.user-guesses {
+  margin-top: 0px;
+  color: var(--secondary);
+  font-family: 'Kameron', serif;
+  font-size: 25px;
+}
+
 
 
 /* LyricsView style*/
