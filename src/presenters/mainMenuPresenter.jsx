@@ -12,9 +12,12 @@ observer(
         </div>
         
         function checkState(track) {
-            if (!props.model.guest && !track) {
+            /*
+            if (!track) {
+                console.log("track" , track)
+                console.log("guest", props.model.guest)
                 return <img src= "https://zingy-bublanina-005f23.netlify.app/playBarArtist.gif"></img>
-            }
+            }*/
             
             return <MainMenuView model={props.model} onArtistInputACB={searchArtistACB} onContinueGameClick={continueGameACB} onHighScoresClick={goToHighScoresACB} onRandomClick={randomTrackACB} onSearchClick={searchACB}></MainMenuView>
 
