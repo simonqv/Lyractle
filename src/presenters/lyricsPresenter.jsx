@@ -78,58 +78,57 @@ export default observer(function Lyrics(props) {
 }
 
 
-  function handleGuess() {
-    
-
+function handleGuess() {
     if (props.model.currentGuess.trim() !== '') {
-      const lowerCaseGuess = props.model.currentGuess.trim().toLowerCase()
-      const lowerCaseLyrics = lyrics.toLowerCase()
-      const lowerCaseTitle = title.toLowerCase()
-      //props.model.guesses.push(lowerCaseGuess);
-
-    
-      props.model.currentOccurence = countOccurrences(lowerCaseLyrics, lowerCaseGuess) + countOccurrences(lowerCaseTitle, lowerCaseGuess)
-
-      
+      const lowerCaseGuess = props.model.currentGuess.trim().toLowerCase();
+      const lowerCaseLyrics = lyrics.toLowerCase();
+      const lowerCaseTitle = title.toLowerCase();
+  
+      const occurrencesInLyrics = countOccurrences(lowerCaseLyrics, lowerCaseGuess);
+      const occurrencesInTitle = countOccurrences(lowerCaseTitle, lowerCaseGuess);
+  
+      props.model.currentOccurence = occurrencesInLyrics + occurrencesInTitle;
+  
       // Revealing only the guessed word in the title
       if (lowerCaseTitle.includes(lowerCaseGuess)) {
         setRevealedTitle((prevRevealedTitle) => {
-          const newRevealedTitle = [...prevRevealedTitle]
-          const titleWords = title.toLowerCase().split(/\s+/)
-          
+          const newRevealedTitle = [...prevRevealedTitle];
+          const titleWords = title.toLowerCase().split(/\s+/);
+  
           titleWords.forEach((word, index) => {
             if (word === lowerCaseGuess) {
-              newRevealedTitle[index] = true
+              newRevealedTitle[index] = true;
             }
-          })
-          
-          return newRevealedTitle
-        })
+          });
+  
+          return newRevealedTitle;
+        });
       }
-      
+  
       // Revealing words in the lyrics
       if (lowerCaseLyrics.includes(lowerCaseGuess)) {
         setRevealedWords((prevRevealedWords) => {
           if (!prevRevealedWords.includes(lowerCaseGuess)) {
-            return [...prevRevealedWords, lowerCaseGuess]
+            return [...prevRevealedWords, lowerCaseGuess];
           } else {
-            return prevRevealedWords
+            return prevRevealedWords;
           }
-        })
+        });
       }
-      
-      if (!props.model.guesses.includes(lowerCaseGuess)) {
-        addGuess(lowerCaseGuess)
-        if (allWordsInArray(lowerCaseTitle, props.model.guesses)){
-          window.location.href = "/login"
+  
+      const guessedWord = props.model.guesses.find((guess) => guess.word === lowerCaseGuess);
+  
+      if (!guessedWord) {
+        // If the guessed word doesn't exist in the guesses array, add it with occurrences
+        addGuess({ word: lowerCaseGuess, occurrences: props.model.currentOccurence });
+        if (allWordsInArray(lowerCaseTitle, props.model.guesses)) {
+          window.location.href = "/login";
         }
-        increaseScore()
+        increaseScore();
       }
-
-
     }
-
   }
+  
   
   
 })
