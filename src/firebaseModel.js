@@ -51,7 +51,7 @@ function persistenceToModel(data, model) {
       });
   }
 
-  model.setNbrHints(data.userHints)
+  model.setNbrHints(data?.userHints || 0)
 
   model.setGuesses(data?.userGuesses || [])
 
