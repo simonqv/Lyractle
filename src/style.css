@@ -84,6 +84,24 @@ li{
   list-style-type: none;
 }
 
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th, td {
+  border: none;
+  padding: 4px; /* Optional: Add some padding for better appearance */
+  text-align: left; /* Optional: Adjust text alignment */
+  color: var(--secondary);
+  font-family: 'Kameron', serif;
+  font-size: 15px;
+}
+
+tr {
+  margin-bottom: 1px; /* Adjust the margin to reduce row spacing */
+}
+
 /* MainMenu.css */
 
 .game-view {
@@ -134,7 +152,14 @@ li{
   margin-top: 0px;
   color: var(--secondary);
   font-family: 'Kameron', serif;
-  font-size: 25px;
+  font-size: 20px;
+}
+
+.guess-title{
+ 
+  color: var(--secondary);
+  font-family: 'Kameron', serif;
+  
 }
 
 
