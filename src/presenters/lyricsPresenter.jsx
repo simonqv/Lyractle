@@ -85,15 +85,9 @@ export default observer(function Lyrics(props) {
       const lowerCaseGuess = props.model.currentGuess.trim().toLowerCase()
       const lowerCaseLyrics = lyrics.toLowerCase()
       const lowerCaseTitle = title.toLowerCase()
-      props.model.guesses.push(lowerCaseGuess);
+      //props.model.guesses.push(lowerCaseGuess);
 
-      if (allWordsInArray(lowerCaseTitle, props.model.guesses)){
-        window.location.href = "/login"
-      }
-
-      
-
-
+    
       props.model.currentOccurence = countOccurrences(lowerCaseLyrics, lowerCaseGuess) + countOccurrences(lowerCaseTitle, lowerCaseGuess)
 
       
@@ -126,6 +120,9 @@ export default observer(function Lyrics(props) {
       
       if (!props.model.guesses.includes(lowerCaseGuess)) {
         addGuess(lowerCaseGuess)
+        if (allWordsInArray(lowerCaseTitle, props.model.guesses)){
+          window.location.href = "/login"
+        }
         increaseScore()
       }
 

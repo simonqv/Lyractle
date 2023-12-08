@@ -89,7 +89,8 @@ export default {
     },
 
     addToGuesses(newGuess) {
-        this.guesses = [newGuess, ...this.guesses]
+        // this.guesses = [newGuess, ...this.guesses]
+        this.guesses = [...this.guesses, newGuess]
     },
 
     setGuesses(guesses) {
