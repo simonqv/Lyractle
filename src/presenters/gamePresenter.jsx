@@ -5,12 +5,16 @@ import LyricsView from "../views/lyricsView"
 import Lyrics from "./lyricsPresenter"
 
 export default observer(function Game(props) {
-    return <div>
-        {place_holder(props.model.currentTrack, props.model.currentLyrics)}
-            
-        </div>
+
+    return  <div>
+    {place_holder(props.model.currentTrack, props.model.currentLyrics)}
+        
+    </div>
     
-    function place_holder(currentTrack, currentLyrics) {     
+    function place_holder(currentTrack, currentLyrics) {   
+        console.log("place_holder called");
+        console.log("currentTrack:", currentTrack);
+        console.log("currentLyrics:", currentLyrics);
 
         if (!currentTrack || !currentLyrics) {
             return <img src="https://zingy-bublanina-005f23.netlify.app/playBarArtist.gif"/>// "https://brfenergi.se/iprog/loading.gif"/>
@@ -19,19 +23,20 @@ export default observer(function Game(props) {
             <div className="game-view">
                 <div className="main-content">
                     <Lyrics model={props.model} currentLyrics={props.model.currentLyrics} currentTitle={props.model.currentTrack.title}/>
-                    <GuessBarView guesses={props.model.guesses} hints={props.model.nbrHints} onHintClick={getHint} onGiveUpClick={giveUp}/>
+                    <GuessBarView currentOccurence={props.model.currentOccurence} currentGuess= {props.model.currentGuess} guesses={props.model.guesses} hints={props.model.nbrHints} onHintClick={getHint} onGiveUpClick={giveUp}/>
+                    
                 </div>
             </div>
         )
     }
 
     function getHint() {
-        // TODO: Hint logic
-        console.log("get hint")
+        // TODO: Get hint logic
+       props.model.nbrHints ++;
     }
 
     function giveUp() {
         // TODO: Give up logic
-        console.log("give up")
+        window.location.href = "/login";
     }
 })

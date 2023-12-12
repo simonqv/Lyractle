@@ -1,6 +1,12 @@
 import React from 'react';
 
 function LyricsView(props) {
+  
+  const processedLyrics = removeContentInsideBrackets(props.lyrics)
+
+  console.log(props.title)
+  
+
   return (
     <div className="lyrics-view">
       <h2 className='h2'>
@@ -10,7 +16,7 @@ function LyricsView(props) {
           .join(' ')}
       </h2>
       <div>
-        {props.lyrics
+        {processedLyrics
           .split('\n') // Split the lyrics into lines
           .map((line, index) => (
             <p key={index} className='lyrics-text' >
@@ -28,5 +34,13 @@ function LyricsView(props) {
     </div>
   );
 };
+
+function removeContentInsideBrackets(longString) {
+  // Use a regular expression to match content inside square brackets and replace it with an empty string
+  const result = longString.replace(/\[[^\]]*\]/g, '');
+  return result;
+
+  
+}
 
 export default LyricsView;

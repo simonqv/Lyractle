@@ -81,6 +81,28 @@ body {
   background-color: var(--secondary);
 }
 
+li{
+  list-style-type: none;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th, td {
+  border: none;
+  padding: 4px; /* Optional: Add some padding for better appearance */
+  text-align: left; /* Optional: Adjust text alignment */
+  color: var(--secondary);
+  font-family: 'Kameron', serif;
+  font-size: 15px;
+}
+
+tr {
+  margin-bottom: 1px; /* Adjust the margin to reduce row spacing */
+}
+
 /* MainMenu.css */
 
 .game-view {
@@ -115,6 +137,12 @@ body {
   justify-content: space-between;
   align-items: stretch;
   height: 100%; 
+  width: 70%;
+}
+
+.guessed-word {
+  font-weight: bold;
+  /* Add any other styling you want for guessed words */
 }
 
 /* GuessBarView style */
@@ -123,7 +151,26 @@ body {
   padding: 20px;
   background-color: var(--primary);
   align-items: center;
+  position:relative;
+  
 }
+
+.user-guesses {
+  margin-top: 0px;
+  color: var(--secondary);
+  font-family: 'Kameron', serif;
+  font-size: 20px;
+  max-height: 50vh;
+  overflow: auto;
+}
+
+.guess-title{
+ 
+  color: var(--secondary);
+  font-family: 'Kameron', serif;
+  
+}
+
 
 
 /* LyricsView style*/
@@ -149,16 +196,20 @@ body {
 } */
 
 .textarea-container{
-  width: 60%;
+  width: 80%;
   position: relative;
+  margin-bottom: 30px;
+  margin-left: 30px;
+  
 }
 
 
-.button-container {
+.guess-input-button-container{
   position: absolute;
-  bottom: 0;
-  right: 0;
+  bottom: 0px;
+  right: 0px;
 }
+
 
 .guess-button {
     font-family: 'Lexend peta', sans-serif;
@@ -180,10 +231,17 @@ body {
   
 }
 
+
+.guess-bar-button-container {
+  position: absolute;
+  bottom: 20px;
+  margin-left: 5px;
+}
+
 .hint-button {
   font-family: 'Lexend peta', sans-serif;
   text-align: center;
-  font-size: 4vh;
+  font-size: 3vh;
   letter-spacing: tight;
   background-color: var(--accent);
   justify-content: center;
@@ -198,13 +256,13 @@ body {
   line-height: 4vh;
   border: 1px solid;
   margin-right: 20px; 
-  margin-left: 60px;
+  margin-left: 40px;
 }
 
 .giveup-button {
   font-family: 'Lexend peta', sans-serif;
   text-align: center;
-  font-size: 4vh;
+  font-size: 3vh;
   letter-spacing: tight;
   background-color: var(--red);
   justify-content: center;
@@ -220,6 +278,12 @@ body {
   border: 1px solid;
 }
 
+.red-button {
+  background-color: var(--red);
+}
+
+
+
 button:hover {
   transform: scale(1.05);
   font-weight: bolder;
@@ -234,7 +298,7 @@ button:hover {
   border-radius: 18px;
   font-family: 'Kameron', serif;
   font-size: 4vh;
-  font-weight: bold;
+  font-weight: normal;
   color: black;
   overflow: hidden;
   resize: none;
@@ -280,12 +344,12 @@ button:hover {
 .nav-list {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: right;
   background-color: var(--secondary);
   position: absolute;
-  top: 0;
-  right: 0;
-  width: 100%;
+  top: 50px;
+  right: 50px;
+  width: 50%;
   text-align: center;
   transform: scaleY(0);
   transform-origin: top;
@@ -309,19 +373,44 @@ button:hover {
 .nav-list {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  background-color: var(--secondary);
+  align-items: right;
+  background-color: transparent; 
+  
   position: absolute;
-  top: 3%; /* Adjusted to place it below the navbar */
+  top: 35px; /* Adjusted to place it below the navbar */
   right: 0;
-  width: 100%;
+  width: 10%;
   text-align: center;
   transform: scaleY(0);
   transform-origin: top;
   transition: transform 0.4s ease-in-out;
+  z-index: 2;
 }
 
-.navbar:hover .nav-list {
+.dropdown-button {
+  font-family: 'Lexend peta', sans-serif;
+  text-align: center;
+  font-size: 10px;
+  letter-spacing: tight;
+  background-color: white;
+  justify-content: center;
+  align-items: stretch;
+  padding: 5px;
+  padding-right: 2px;
+  width: 100%;
+  height: 20%;
+  color: var(--secondary);
+  border-radius: 5px;
+  font-weight: bold;
+  line-height: 4vh;
+  border: 0.5px solid;
+}
+
+/* .navbar:hover .nav-list {
+  transform: scaleY(1);
+} */
+
+.nav-list:hover {
   transform: scaleY(1);
 }
 

@@ -21,6 +21,7 @@ export default {
 
     currentScore: null,
     currentGuess: "",
+    currentOccurence: null,
     nbrHints: 0,
     guesses: [],
     scores: [],
@@ -88,7 +89,8 @@ export default {
     },
 
     addToGuesses(newGuess) {
-        this.guesses = [newGuess, ...this.guesses]
+        // this.guesses = [newGuess, ...this.guesses]
+        this.guesses = [...this.guesses, newGuess]
     },
 
     setGuesses(guesses) {

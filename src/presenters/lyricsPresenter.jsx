@@ -11,6 +11,7 @@ export default observer(function Lyrics(props) {
   const [title, setTitle] = useState('')
   const [revealedTitle, setRevealedTitle] = useState([])
   
+
   useEffect(() => {
     const words = Array.from(new Set(props.currentLyrics.toLowerCase().match(/\w+/g)))
     
@@ -26,7 +27,8 @@ export default observer(function Lyrics(props) {
     setTitle(props.currentTitle)
     setRevealedWords(initialRevealedWords)
     setRevealedTitle(initialRevealedTitle)
-  }, [])
+}, []);
+
 
   return (
     <div className='lyrics-and-guess-input'>
@@ -48,45 +50,86 @@ export default observer(function Lyrics(props) {
     props.model.setCurrentScore(nr)
   }
 
-  function handleGuess() {
+
+  function countOccurrences(longString, word) {
+    // Use a regular expression to split the string into an array of words
+    // The regular expression \b ensures that only whole words are matched
+    let wordsArray = longString.split(/\b/);
+    
+    // Initialize a counter for occurrences
+    let count = 0;
+    
+    // Iterate through the array and count occurrences
+    for (let i = 0; i < wordsArray.length; i++) {
+        if (wordsArray[i] === word) {
+            count++;
+        }
+    }
+    
+    return count;
+  }
+
+  function allWordsInArray(inputString, wordArray) {
+    // Split the input string into an array of words
+    const words = inputString.split(/\s+/);
+
+    // Check if every word is present in the array
+    const allWordsInArray = words.every(word => wordArray.includes(word));
+
+    return allWordsInArray;
+}
+
+function handleGuess() {
     if (props.model.currentGuess.trim() !== '') {
-      const lowerCaseGuess = props.model.currentGuess.trim().toLowerCase()
-      const lowerCaseLyrics = lyrics.toLowerCase()
-      const lowerCaseTitle = title.toLowerCase()
-      
+      const lowerCaseGuess = props.model.currentGuess.trim().toLowerCase();
+      const lowerCaseLyrics = lyrics.toLowerCase();
+      const lowerCaseTitle = title.toLowerCase();
+  
+      const occurrencesInLyrics = countOccurrences(lowerCaseLyrics, lowerCaseGuess);
+      const occurrencesInTitle = countOccurrences(lowerCaseTitle, lowerCaseGuess);
+  
+      props.model.currentOccurence = occurrencesInLyrics + occurrencesInTitle;
+  
       // Revealing only the guessed word in the title
       if (lowerCaseTitle.includes(lowerCaseGuess)) {
         setRevealedTitle((prevRevealedTitle) => {
-          const newRevealedTitle = [...prevRevealedTitle]
-          const titleWords = title.toLowerCase().split(/\s+/)
-          
+          const newRevealedTitle = [...prevRevealedTitle];
+          const titleWords = title.toLowerCase().split(/\s+/);
+  
           titleWords.forEach((word, index) => {
             if (word === lowerCaseGuess) {
-              newRevealedTitle[index] = true
+              newRevealedTitle[index] = true;
             }
-          })
-          
-          return newRevealedTitle
-        })
+          });
+  
+          return newRevealedTitle;
+        });
       }
-      
+  
       // Revealing words in the lyrics
       if (lowerCaseLyrics.includes(lowerCaseGuess)) {
         setRevealedWords((prevRevealedWords) => {
           if (!prevRevealedWords.includes(lowerCaseGuess)) {
-            return [...prevRevealedWords, lowerCaseGuess]
+            return [...prevRevealedWords, lowerCaseGuess];
           } else {
-            return prevRevealedWords
+            return prevRevealedWords;
           }
-        })
+        });
       }
-      
-      if (!props.model.guesses.includes(lowerCaseGuess)) {
-        addGuess(lowerCaseGuess)
-        increaseScore()
+  
+      const guessedWord = props.model.guesses.find((guess) => guess.word === lowerCaseGuess);
+  
+      if (!guessedWord) {
+        // If the guessed word doesn't exist in the guesses array, add it with occurrences
+        addGuess({ word: lowerCaseGuess, occurrences: props.model.currentOccurence });
+        if (allWordsInArray(lowerCaseTitle, props.model.guesses)) {
+          window.location.href = "/login";
+        }
+        increaseScore();
       }
     }
   }
+  
   
   
 })
