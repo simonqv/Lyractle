@@ -139,6 +139,11 @@ tr {
   width: 70%;
 }
 
+.guessed-word {
+  font-weight: bold;
+  /* Add any other styling you want for guessed words */
+}
+
 /* GuessBarView style */
 .guess-bar-view {
   flex: 1;
@@ -146,6 +151,7 @@ tr {
   background-color: var(--primary);
   align-items: center;
   position:relative;
+  
 }
 
 .user-guesses {
@@ -153,6 +159,8 @@ tr {
   color: var(--secondary);
   font-family: 'Kameron', serif;
   font-size: 20px;
+  max-height: 50vh;
+  overflow: auto;
 }
 
 .guess-title{
@@ -269,6 +277,9 @@ tr {
   border: 1px solid;
 }
 
+.red-button {
+  background-color: var(--red);
+}
 
 
 
@@ -286,7 +297,7 @@ button:hover {
   border-radius: 18px;
   font-family: 'Kameron', serif;
   font-size: 4vh;
-  font-weight: bold;
+  font-weight: normal;
   color: black;
   overflow: hidden;
   resize: none;
@@ -401,3 +412,7 @@ button:hover {
 .nav-list:hover {
   transform: scaleY(1);
 }
+
+
+
+

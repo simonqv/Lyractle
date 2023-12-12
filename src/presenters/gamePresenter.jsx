@@ -5,12 +5,16 @@ import LyricsView from "../views/lyricsView"
 import Lyrics from "./lyricsPresenter"
 
 export default observer(function Game(props) {
-    return <div>
-        {place_holder(props.model.currentTrack, props.model.currentLyrics)}
-            
-        </div>
+
+    return  <div>
+    {place_holder(props.model.currentTrack, props.model.currentLyrics)}
+        
+    </div>
     
-    function place_holder(currentTrack, currentLyrics) {     
+    function place_holder(currentTrack, currentLyrics) {   
+        console.log("place_holder called");
+        console.log("currentTrack:", currentTrack);
+        console.log("currentLyrics:", currentLyrics);
 
         if (!currentTrack || !currentLyrics) {
             return <img src="https://zingy-bublanina-005f23.netlify.app/playBarArtist.gif"/>// "https://brfenergi.se/iprog/loading.gif"/>
@@ -27,8 +31,8 @@ export default observer(function Game(props) {
     }
 
     function getHint() {
-        // TODO: Hint logic
-        props.model.nbrHints ++;
+        // TODO: Get hint logic
+       props.model.nbrHints ++;
     }
 
     function giveUp() {

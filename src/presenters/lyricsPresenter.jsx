@@ -11,6 +11,7 @@ export default observer(function Lyrics(props) {
   const [title, setTitle] = useState('')
   const [revealedTitle, setRevealedTitle] = useState([])
   
+
   useEffect(() => {
     const words = Array.from(new Set(props.currentLyrics.toLowerCase().match(/\w+/g)))
     
@@ -26,7 +27,8 @@ export default observer(function Lyrics(props) {
     setTitle(props.currentTitle)
     setRevealedWords(initialRevealedWords)
     setRevealedTitle(initialRevealedTitle)
-  }, [])
+}, []);
+
 
   return (
     <div className='lyrics-and-guess-input'>
@@ -76,7 +78,6 @@ export default observer(function Lyrics(props) {
 
     return allWordsInArray;
 }
-
 
 function handleGuess() {
     if (props.model.currentGuess.trim() !== '') {

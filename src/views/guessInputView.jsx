@@ -3,6 +3,7 @@ import '/src/style.css';
 
 function GuessInputView(props) {
   return (
+
     <div className="textarea-container">
         <textarea
           className="search-bar"

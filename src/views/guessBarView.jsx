@@ -20,15 +20,15 @@ function GuessBarView(props) {
 
       {/* Include buttons for showing hints and quitting the game */}
       <div className="guess-bar-button-container">
-        <button disabled={props.hints >= 3} className='hint-button' onClick={getHintACB}>
+        <button disabled={props.hints >= 3} className='button' onClick={getHintACB}>
           Hints {props.hints}/3
         </button>
-        <button className='giveup-button' onClick={giveUpACB}>Give up</button>
+        <button className='button red-button' onClick={giveUpACB}>Give up</button>
       </div>
     </div>
   );
 
-
+  
 
   function getHintACB() {
     props.onHintClick()
@@ -37,8 +37,6 @@ function GuessBarView(props) {
   function giveUpACB() {
     props.onGiveUpClick()
   }
-
-
 
   function showGuessCB(guess, index) {
     return (
@@ -49,7 +47,7 @@ function GuessBarView(props) {
       </tr>
     );
   }
-  
+
 }
 
 export default GuessBarView
