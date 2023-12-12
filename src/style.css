@@ -51,6 +51,7 @@
   font-size: 30px;
 }
 
+
 /* LoginView style*/
 
 .login-content {
@@ -413,6 +414,41 @@ button:hover {
   transform: scaleY(1);
 }
 
+/* style for highScore view */
 
 
+.high-score-title{
+  margin-top: 30px;
+  color: white;
+  font-family: 'Kameron', serif;
+  font-size: 40px;
+  text-align: center;
+}
 
+.high-score-container{
+  background-color: white;
+  width: 35%;
+  height: 70%;
+  align-items: center;
+  margin:auto;
+  border-radius: 10px;
+  position:relative;
+
+}
+
+
+.return-button {
+  margin: 4px;
+  padding: 20px;
+  bottom: 15px;
+  left: 15px;
+  position:absolute;
+  min-width: 240px;
+  color: var(--secondary);
+  font-family: 'Lexend peta', sans-serif;
+  font-size: 20px;
+  background-color: var(--accent);
+  border-radius: 20px;
+  border: none;
+  cursor: pointer;
+}
