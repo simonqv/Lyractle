@@ -1,6 +1,9 @@
+import '/src/style.css';
+
 
 function GuessInputView(props) {
   return (
+
     <div className="textarea-container">
         <textarea
           className="search-bar"
@@ -9,12 +12,13 @@ function GuessInputView(props) {
           onChange={setCurrentGuessACB}
           ></textarea>
 
-        <div className="button-container">
+        <div className="guess-input-button-container">
           <button className="guess-button" onClick={handleGuessACB}>
-            Guess
+              Guess
           </button>
         </div>
-      </div>
+        
+    </div>
   )
     function handleGuessACB() {
         props.onHandleGuess()

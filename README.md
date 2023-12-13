@@ -1,4 +1,9 @@
 # Lyractle
+## Problem at the moment...
+To run the app you have to install a CORS blocker.
+This one works: 
+[https://webextension.org/listing/access-control.html](https://chromewebstore.google.com/detail/cors-unblock/lfhmikememgdcahcdlaciloancbhjino)
+
 
 ## Short description
 This is a game based on the Redactle game. The goal is to to determine the title of a song from either a random artist or a chosen artist.
