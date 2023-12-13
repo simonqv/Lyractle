@@ -51,6 +51,12 @@
   font-size: 30px;
 }
 
+.p {
+  color: white;
+  font-family: 'Kameron', serif;
+  font-size: 18px;
+}
+
 
 /* LoginView style*/
 
@@ -79,6 +85,7 @@ body.primary-background {
 body {
   margin: 0;
   background-color: var(--secondary);
+  height: 100%;
 }
 
 li{
@@ -108,7 +115,7 @@ tr {
 .game-view {
   display: flex;
   flex-direction: column;
-  height: 100vh; /* Full height of the viewport */
+  height: 100vh;
 }
 
 
@@ -123,7 +130,7 @@ tr {
 .game-title{
   font-family: 'Kameron', serif;
   text-align: left;
-  font-size: 5vh;
+  font-size: 40px;
   color: var(--primary);
 }
 
@@ -184,10 +191,6 @@ tr {
   margin: 0px;
   max-height: 70vh;
   overflow: auto;}
-
-.lyrics-text {
-  color: white;
-}
 
 /* .textarea-container {
   width: 90%;
@@ -322,7 +325,7 @@ button:hover {
   align-items: center;
   background-color: white;
   padding: 15px;
-  height: 3%;
+  height: 24px;
 }
 
 /* Hamburger menu styling */
@@ -340,8 +343,9 @@ button:hover {
   transition: 0.4s;
 }
 
+
 /* Navigation list styling */
-.nav-list {
+/* .nav-list {
   display: flex;
   flex-direction: column;
   align-items: right;
@@ -354,7 +358,7 @@ button:hover {
   transform: scaleY(0);
   transform-origin: top;
   transition: transform 0.4s ease-in-out;
-}
+}  */
 
 .nav-list a {
   display: block;
@@ -374,12 +378,12 @@ button:hover {
   display: flex;
   flex-direction: column;
   align-items: right;
-  background-color: transparent; 
-  
+  background-color: tran; 
+
   position: absolute;
-  top: 35px; /* Adjusted to place it below the navbar */
+  top: 37px; /* Adjusted to place it below the navbar */
   right: 0;
-  width: 10%;
+  width: 185px;
   text-align: center;
   transform: scaleY(0);
   transform-origin: top;
@@ -390,7 +394,7 @@ button:hover {
 .dropdown-button {
   font-family: 'Lexend peta', sans-serif;
   text-align: center;
-  font-size: 10px;
+  font-size: 12px;
   letter-spacing: tight;
   background-color: white;
   justify-content: center;
@@ -398,12 +402,16 @@ button:hover {
   padding: 5px;
   padding-right: 2px;
   width: 100%;
-  height: 20%;
+  height: 40%;
   color: var(--secondary);
-  border-radius: 5px;
+  border-radius: 0px;
   font-weight: bold;
   line-height: 4vh;
-  border: 0.5px solid;
+  border: 0px;
+}
+
+.dropdown-button:hover {
+  background-color: var(--hoverColor);
 }
 
 /* .navbar:hover .nav-list {
@@ -451,4 +459,21 @@ button:hover {
   border-radius: 20px;
   border: none;
   cursor: pointer;
+}
+
+
+.instructions-button {
+  margin-left: 18px;
+  width: 20px;
+}
+
+.info-modal {
+  padding: 45px;
+  width: 500px;
+  border-radius: 20px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: var(--secondary);
 }

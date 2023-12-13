@@ -19,7 +19,7 @@ function LyricsView(props) {
         {processedLyrics
           .split('\n') // Split the lyrics into lines
           .map((line, index) => (
-            <p key={index} className='lyrics-text' >
+            <p key={index} className='p' >
               {line
                 .split(/\s+/)
                 .map((word, index) =>

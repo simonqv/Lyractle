@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import Modal from "react-modal"
-import { searchArtist } from "../../geniusSource"
+import { searchArtist } from "../musicSource"
 import PlayBarArtistView from "./playByArtistView"
 
 
@@ -25,7 +25,7 @@ function MainMenuView(props) {
             <button className='button' onClick={randomSongACB}>start random game</button>
             <button className='button' style={{minWidth: "326px"}} onClick={playByArtistACB}>play by artist</button>
             {props.model.user ? <button className='button' style={{minWidth: "326px"}} onClick={highScoresACB}>high scores</button> : <div/>} 
-            {/* <PlayBarArtistView model={props.model} isOpen={showModal} onRequestClose={closeModal} onSearch={search} onInputChange={artistInput}/> */}
+            <PlayBarArtistView model={props.model} isOpen={showModal} onRequestClose={closeModal} onSearch={search} onInputChange={artistInput}/>
             {/* <Modal isOpen={showModal} onRequestClose={closeModal}>
                 <div>
                     <input onChange={artistInput} defaultValue="search for artist"/>
@@ -53,7 +53,7 @@ function MainMenuView(props) {
 
     function playByArtistACB() {
         console.log("Should search for artist")
-        // setShowModal(true)
+        setShowModal(true)
     }
 
     function closeModal() {

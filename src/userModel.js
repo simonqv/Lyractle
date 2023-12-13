@@ -1,5 +1,5 @@
 import resolvePromise from "./resolvePromise"
-import { searchArtist, getArtistTracks, getGeniusLyrics } from "../geniusSource"
+import { searchArtist, getArtistTracks, getMusicLyrics } from "./musicSource"
 import artists from "./artists"
 
 /* 
@@ -122,8 +122,8 @@ export default {
         this.artistTrackPromiseState = resolvePromise(getArtistTracks(artistID, nbrSongs), this.artistTrackPromiseState)
     },
 
-    getLyrics(geniusURL) {
-        this.lyricsPromiseState = resolvePromise(getGeniusLyrics(geniusURL), this.lyricsPromiseState)
+    getLyrics(trackID) {
+        this.lyricsPromiseState = resolvePromise(getMusicLyrics(trackID), this.lyricsPromiseState)
     },
 
     getRandomSong() {
@@ -139,14 +139,17 @@ export default {
         this.doSearch(ranArtist)
         
         this.searchResultsPromiseState.promise.then(() => {
-
-            const foundArtists = this.searchResultsPromiseState.data.response.hits
+            console.log("search res: ", this.searchResultsPromiseState.data)
+            const foundArtists = this.searchResultsPromiseState.data.message.body.artist_list
             let artistID = null
 
             // Make sure the searched artist is the same as the found artist
             for (const foundArtist of foundArtists) {
-                if (ranArtist.toLowerCase() === foundArtist.result.primary_artist.name.toLowerCase()) {
-                    artistID = foundArtist.result.primary_artist.id
+                // If there isn't a "perfect match" of searched artist and primary artist name. 
+                artistID = foundArtist.artist.artist_id
+                if (ranArtist.toLowerCase() === foundArtist.artist.artist_name.toLowerCase()) {
+                    artistID = foundArtist.artist.artist_id
+                    console.log("artist id: ", artistID, foundArtist.artist.artist_name)
                     break
                 }
             }
@@ -154,11 +157,15 @@ export default {
             // Get a random song from the artist
             this.getArtistSongs(artistID, 30)
             this.artistTrackPromiseState.promise.then(() => {
-                const randomSong = getRandomElement(this.artistTrackPromiseState.data.response.songs)
+                console.log("artist songs: ", this.artistTrackPromiseState.data)
+                const randomSong = getRandomElement(this.artistTrackPromiseState.data.message.body.track_list)
+                console.log("ran song: ", randomSong)
                 this.setCurrentTrack(randomSong)
-                this.getLyrics(this.currentTrack.url)
+                console.log("curr track: ", this.currentTrack)
+                this.getLyrics(this.currentTrack.track.commontrack_id)
                 this.lyricsPromiseState.promise.then(() => {
-                    this.setCurrentLyrics(this.lyricsPromiseState.data)
+                    console.log("lyr: ", this.lyricsPromiseState.data.message.body.lyrics.lyrics_body)
+                    this.setCurrentLyrics(this.lyricsPromiseState.data.message.body.lyrics.lyrics_body)
                 })
             })
 
