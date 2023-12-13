@@ -15,6 +15,7 @@ const db = getDatabase(app);
 const PATH = "users/";
 
 function modelToPersistence(model) {
+  console.log("model to pers", model.nbrHints)
   return {
     currTrack: model.currentTrack ? model.currentTrack.id : 0,
     userGuesses: model.guesses,
@@ -51,7 +52,8 @@ function persistenceToModel(data, model) {
       });
   }
 
-  model.setNbrHints(data?.userHints || 0)
+  data?.userHints ? model.setNbrHints(data?.userHints) : model.setNbrHints(0)
+  // model.setNbrHints(data?.userHints || 0)
 
   model.setGuesses(data?.userGuesses || [])
 

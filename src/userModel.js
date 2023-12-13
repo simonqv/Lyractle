@@ -56,7 +56,8 @@ export default {
     },
 
     setNbrHints(nr) {
-        if (nr < 3) {
+        console.log("in model", nr, this.nbrHints)
+        if (nr <= 3) {
             this.nbrHints = nr
         }
     },
