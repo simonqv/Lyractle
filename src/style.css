@@ -154,14 +154,16 @@ tr {
   position:relative;
   
 }
+.guesses-container{
+  max-height: 70vh;
+  overflow-y: auto;
+}
 
 .user-guesses {
   margin-top: 0px;
   color: var(--secondary);
   font-family: 'Kameron', serif;
   font-size: 20px;
-  max-height: 50vh;
-  overflow: auto;
 }
 
 .guess-title{
@@ -233,9 +235,10 @@ tr {
 
 
 .guess-bar-button-container {
-  position: absolute;
-  bottom: 20px;
   margin-left: 5px;
+  display: flex;
+  justify-content: space-between; /* Align buttons next to each other */
+  margin-top: 10px;
 }
 
 .hint-button {
@@ -282,7 +285,12 @@ tr {
   background-color: var(--red);
 }
 
-
+.small-button {
+  padding: 10px; 
+  font-size: 16px; 
+  max-width: 180px;
+  min-width:150px
+}
 
 button:hover {
   transform: scale(1.05);
