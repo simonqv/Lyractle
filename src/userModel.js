@@ -24,7 +24,7 @@ export default {
     currentOccurence: null,
     nbrHints: 0,
     guesses: [],
-    scores: [],
+    scores: {},
     
     gameState: null, // Playing, win, given up
     searchArtistQuery: null,
