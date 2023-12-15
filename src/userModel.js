@@ -80,7 +80,8 @@ export default {
     },
 
     addToScores(newScore) {
-        this.scores = sortScores([...this.scores, newScore])
+        // this.scores = sortScores([...this.scores, newScore])
+        this.scores[this.currentTrack.title] = newScore;
     },
     
     removeFromScores() {

@@ -2,6 +2,8 @@ import '/src/style.css';
 
 
 function HighScoresView(props){
+
+   
    
     return <div className='high-score-view'>
                 <h2 className='high-score-title'> Your high scores</h2>
