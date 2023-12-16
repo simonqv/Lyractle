@@ -41,7 +41,8 @@ export default observer(function Game(props) {
     function giveUp() {
         // TODO: Give up logic
         
-      
+        
         window.location.href = "/login";
+        
     }
 })
