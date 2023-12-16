@@ -8,7 +8,7 @@ function HighScoresView(props){
     return <div className='high-score-view'>
                 <h2 className='high-score-title'> Your high scores</h2>
                 <div className="high-score-container">
-                    <table>
+                    <table className="score-table">
                         <thead>
                             <tr>
                                 <th>Rank</th>

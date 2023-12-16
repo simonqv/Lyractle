@@ -452,3 +452,10 @@ button:hover {
   border: none;
   cursor: pointer;
 }
+
+
+.score-table{
+  top: 15px;
+  left: 10%;
+  position:absolute;
+}
