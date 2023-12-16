@@ -20,7 +20,7 @@ function HighScoresView(props){
                             {/* {props.model.scores.map((index) => showScoreACB(index))} */}
                             {Object.entries(sortScores()).map(([key, value], index) => (
                                 <tr key={index}>
-                                    <td>{index}</td>
+                                    <td>{index+1}</td>
                                     <td>{key}</td>
                                     <td>{value}</td>
                                 </tr>
@@ -46,7 +46,7 @@ function HighScoresView(props){
         }
 
         scores.sort(function compare(kv1, kv2) {
-            return kv2[1] - kv1[1]
+            return kv1[1] - kv2[1]
         })
 
         const sortedScoreDict = scores.reduce((acc, [key, value]) => {
