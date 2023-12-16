@@ -3,7 +3,7 @@ import '/src/style.css';
 
 function HighScoresView(props){
 
-    console.log(props.model.scores["Biggie"])
+    
 
     return <div className='high-score-view'>
                 <h2 className='high-score-title'> Your high scores</h2>
@@ -18,7 +18,7 @@ function HighScoresView(props){
                         </thead>
                         <tbody>
                             {/* {props.model.scores.map((index) => showScoreACB(index))} */}
-                            {Object.entries(props.model.scores).map(([key, value], index) => (
+                            {Object.entries(sortScores()).map(([key, value], index) => (
                                 <tr key={index}>
                                     <td>{index}</td>
                                     <td>{key}</td>
@@ -36,16 +36,29 @@ function HighScoresView(props){
 
 
             </div> 
+    
 
-    function showScoreACB() {
-        return (
-        <tr>
-            <th>1</th>
-            <th>2</th>
-            <th>3</th>
-        </tr>
-        );
+    function sortScores(){
+        const scores = []
+
+        for (let key in props.model.scores) {
+            scores.push([ key, props.model.scores[key] ])
+        }
+
+        scores.sort(function compare(kv1, kv2) {
+            return kv2[1] - kv1[1]
+        })
+
+        const sortedScoreDict = scores.reduce((acc, [key, value]) => {
+            acc[key] = value;
+            return acc;
+        }, {});
+
+        return sortedScoreDict;
+
     }
+
+ 
 }
 
 
