@@ -2,9 +2,9 @@ import '/src/style.css';
 
 function GuessBarView(props) {
   return (
-    <div className="guess-bar-view">
+    <div className="guess-bar-view">
       {/* Display the list of guessed words and the number of occurrences */}
-      <h2 className="guess-title">Your Guesses: </h2>
+      <h2 className="guess-title" style={{marginTop: "54px"}}>Your Guesses: </h2>
       <table>
         <thead>
           <tr>
