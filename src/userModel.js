@@ -24,7 +24,7 @@ export default {
     currentOccurence: null,
     nbrHints: 0,
     guesses: [],
-    scores: [],
+    scores: {},
     
     gameState: null, // Playing, win, given up
     searchArtistQuery: null,
@@ -79,8 +79,9 @@ export default {
         this.scores = scores
     },
 
-    addToScores(newScore) {
-        this.scores = sortScores([...this.scores, newScore])
+    addToScores(track, newScore) {
+        // this.scores = sortScores([...this.scores, newScore])
+        this.scores[track] = newScore;
     },
     
     removeFromScores() {
