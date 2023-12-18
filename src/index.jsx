@@ -16,3 +16,5 @@ createRoot(document.getElementById('root'))
 window.myModel = reactiveModel;
 
 connectToFirebase(reactiveModel, reaction);
+
+

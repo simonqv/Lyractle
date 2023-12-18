@@ -6,6 +6,8 @@ import Lyrics from "./lyricsPresenter"
 
 export default observer(function Game(props) {
 
+    
+
     return  <div>
     {place_holder(props.model.currentTrack, props.model.currentLyrics)}
         
@@ -32,11 +34,15 @@ export default observer(function Game(props) {
 
     function getHint() {
         // TODO: Get hint logic
+       
        props.model.nbrHints ++;
     }
 
     function giveUp() {
         // TODO: Give up logic
+        
+        
         window.location.href = "/login";
+        
     }
 })
