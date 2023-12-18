@@ -54,7 +54,7 @@ function HighScoresView(props){
 
 
 function returnButtonACB(){
-    window.location.href = "mainMenu";
+    props.onReturn()
 }
 
 export default HighScoresView
