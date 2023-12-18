@@ -33,10 +33,10 @@ function HamburgerView(props) {
   }, [isActive, toggleDropdown]);
 
   return (
-    <div style={{position: "fixed", width: "100%"}} className={`navbar ${isActive ? 'active' : ''}`} ref={menuRef} >
+    <div style={{position: "fixed", width: "100%", zIndex: "10"}} className={`navbar ${isActive ? 'active' : ''}`} ref={menuRef} >
       <div>
-      <span className="game-title">Lyractle</span>
-      <img src="/src/images/info.png" className="instructions-button" onClick={infoACB}/>
+      <span className="game-title" onClick={toMainMenuACB}>Lyractle</span>
+      <span className="instructions-button" onClick={infoACB}>instructions</span>
       </div>
 
       <div className="hamburger-menu" onClick={toggleDropdown}>
@@ -61,12 +61,16 @@ function HamburgerView(props) {
                   The goal is to find out the title of the song in as few guesses as possible.
                   Input is not case sensitive.</p>
                 
-                <button className='button' style={{padding: "2px", marginBottom: "4px", minWidth: "102px"}} onClick={closeModal}>Close</button>
+                <button className='small-button' onClick={closeModal}>close</button>
             </div>
       </Modal>
 
     </div>
   )
+
+  function toMainMenuACB() {
+    props.onMainMenu()
+  }
 
   function infoACB() {
     setShowModal(true) 

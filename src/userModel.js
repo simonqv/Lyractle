@@ -126,23 +126,60 @@ export default {
         this.lyricsPromiseState = resolvePromise(getMusicLyrics(trackID), this.lyricsPromiseState)
     },
 
-    getRandomSong() {
+    cleanLyrics(lyrics) {
+        // Remove the last part starting from "*******" to the end
+        const cleanedLyrics = lyrics.replace(/\*{7,}[\s\S]*$/, '');
+        console.log("cleaned lyrics: ", cleanedLyrics)
+      
+        // Remove any trailing three dots
+        const finalLyrics = cleanedLyrics.replace(/\.{3}\s*$/, '');
+        console.log("final lyrics", finalLyrics)
+      
+        return finalLyrics.trim();
+    },
 
-        function getRandomElement(list) {
-            const randomIndex = Math.floor(Math.random() * list.length);
-            return list[randomIndex];
-        }
+    getRandomElement(list) {
+        const randomIndex = Math.floor(Math.random() * list.length);
+        return list[randomIndex];
+    },
+
+    getSongFromArtist(artistID) {
+        // Get a random song from the artist
+        this.getArtistSongs(artistID, 30)
+        this.artistTrackPromiseState.promise.then(() => {
+            console.log("artist songs: ", this.artistTrackPromiseState.data)
+            const randomSong = this.getRandomElement(this.artistTrackPromiseState.data.message.body.track_list)
+            console.log("ran song: ", randomSong)
+            if (randomSong === undefined) {
+                console.log("Something went wrong :( try another artist")
+            }
+            else {
+                this.setCurrentTrack(randomSong)
+                console.log("curr track: ", this.currentTrack)
+                this.getLyrics(this.currentTrack.track.commontrack_id)
+                this.lyricsPromiseState.promise.then(() => {
+                    console.log("lyr: ", this.lyricsPromiseState.data.message.body.lyrics.lyrics_body)
+                    // REGEX
+                    const cleanLyrics = this.cleanLyrics(this.lyricsPromiseState.data.message.body.lyrics.lyrics_body)
+                    this.setCurrentLyrics(cleanLyrics)
+                    this.searchResultsPromiseState = {}
+                })
+            }
+        })
+    },
+
+    getRandomSong() {
 
         this.wipeModelForNewGame()
 
-        const ranArtist = getRandomElement(artists)
+        const ranArtist = this.getRandomElement(artists)
         this.doSearch(ranArtist)
         
         this.searchResultsPromiseState.promise.then(() => {
             console.log("search res: ", this.searchResultsPromiseState.data)
             const foundArtists = this.searchResultsPromiseState.data.message.body.artist_list
             let artistID = null
-
+            console.log("found artist: ", foundArtists)
             // Make sure the searched artist is the same as the found artist
             for (const foundArtist of foundArtists) {
                 // If there isn't a "perfect match" of searched artist and primary artist name. 
@@ -153,22 +190,8 @@ export default {
                     break
                 }
             }
-            
-            // Get a random song from the artist
-            this.getArtistSongs(artistID, 30)
-            this.artistTrackPromiseState.promise.then(() => {
-                console.log("artist songs: ", this.artistTrackPromiseState.data)
-                const randomSong = getRandomElement(this.artistTrackPromiseState.data.message.body.track_list)
-                console.log("ran song: ", randomSong)
-                this.setCurrentTrack(randomSong)
-                console.log("curr track: ", this.currentTrack)
-                this.getLyrics(this.currentTrack.track.commontrack_id)
-                this.lyricsPromiseState.promise.then(() => {
-                    console.log("lyr: ", this.lyricsPromiseState.data.message.body.lyrics.lyrics_body)
-                    this.setCurrentLyrics(this.lyricsPromiseState.data.message.body.lyrics.lyrics_body)
-                })
-            })
 
+            this.getSongFromArtist(artistID)
           });
         
     },

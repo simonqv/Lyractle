@@ -28,6 +28,23 @@
     background-color: var(--hoverColor);
  }
 
+.small-button {
+  color: var(--secondary);
+  font-family: 'Lexend peta', sans-serif;
+  font-size: 20px;
+  background-color: var(--accent);
+  padding: 2px;
+  margin-bottom: 4px;
+  min-width: 102px;
+  border-radius: 20px;
+  border: none;
+  cursor: pointer;
+}
+
+.small-button:hover {
+  background-color: var(--hoverColor);
+}
+
 .h1 {
   margin-bottom: 0px;
   margin-top: 75px;
@@ -132,6 +149,7 @@ tr {
   text-align: left;
   font-size: 40px;
   color: var(--primary);
+  cursor: pointer;
 }
 
 .menu{
@@ -158,8 +176,7 @@ tr {
   padding: 20px;
   background-color: var(--primary);
   align-items: center;
-  position:relative;
-  
+  position: relative;
 }
 
 .user-guesses {
@@ -189,8 +206,10 @@ tr {
   align-items: center;
   justify-content: center;
   margin: 0px;
+  margin-top: 56px;
   max-height: 70vh;
-  overflow: auto;}
+  overflow: auto;
+}
 
 /* .textarea-container {
   width: 90%;
@@ -203,7 +222,6 @@ tr {
   position: relative;
   margin-bottom: 30px;
   margin-left: 30px;
-  
 }
 
 
@@ -285,8 +303,6 @@ tr {
   background-color: var(--red);
 }
 
-
-
 button:hover {
   transform: scale(1.05);
   font-weight: bolder;
@@ -307,6 +323,30 @@ button:hover {
   resize: none;
   line-height: 4vh;
  
+}
+
+.search-result {
+  margin: 10px 0px 25px 0px;
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+}
+
+.search-result-button {
+  font-family: 'Kameron', serif;
+  font-size: 2.2vh;
+  font-weight: normal;
+  text-align: left;
+  background-color: var(--secondary);
+  outline-width: 0px;
+  border: none;
+  color: white;
+  border-radius: 20px;
+}
+
+.search-result-button:hover {
+  font-weight: bolder;
+  background-color: var(--hoverColor);
 }
 
 .search-bar::placeholder {
@@ -341,6 +381,7 @@ button:hover {
   background-color: var(--secondary);
   margin: 3px 0;
   transition: 0.4s;
+  margin-right: 35px;
 }
 
 
@@ -465,9 +506,26 @@ button:hover {
 .instructions-button {
   margin-left: 18px;
   width: 20px;
+  color: var(--secondary);
+  cursor: pointer;
+}
+
+.instructions-button:hover {
+  color: var(--hoverColor);
 }
 
 .info-modal {
+  padding: 45px;
+  width: 500px;
+  border-radius: 20px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: var(--secondary);
+}
+
+.search-modal {
   padding: 45px;
   width: 500px;
   border-radius: 20px;

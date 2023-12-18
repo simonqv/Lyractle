@@ -1,12 +1,6 @@
-import { useEffect, useState } from "react"
-import Modal from "react-modal"
-import { searchArtist } from "../musicSource"
-import PlayBarArtistView from "./playByArtistView"
-
+import { useEffect } from "react"
 
 function MainMenuView(props) {
-
-    const [showModal, setShowModal] = useState(false);
 
     useEffect(() => {
         // Update body classList when the component mounts
@@ -25,8 +19,9 @@ function MainMenuView(props) {
             <button className='button' onClick={randomSongACB}>start random game</button>
             <button className='button' style={{minWidth: "326px"}} onClick={playByArtistACB}>play by artist</button>
             {props.model.user ? <button className='button' style={{minWidth: "326px"}} onClick={highScoresACB}>high scores</button> : <div/>} 
-            <PlayBarArtistView model={props.model} isOpen={showModal} onRequestClose={closeModal} onSearch={search} onInputChange={artistInput}/>
-            {/* <Modal isOpen={showModal} onRequestClose={closeModal}>
+            {/* <PlayByArtistView model={props.model} isOpen={showModal} onRequestClose={closeModal} onSearch={search} onInputChange={artistInput}/> */}
+            
+            {/* <Modal className="search-modal" isOpen={showModal} onRequestClose={closeModal}>
                 <div>
                     <input onChange={artistInput} defaultValue="search for artist"/>
                     <button className='button' onClick={search}>search</button>
@@ -47,42 +42,12 @@ function MainMenuView(props) {
         props.onRandomClick()
     }
 
-    function artistInput(evt) {
-        props.onArtistInputACB(evt.target.value)
-    }
-
     function playByArtistACB() {
-        console.log("Should search for artist")
-        setShowModal(true)
-    }
-
-    function closeModal() {
-        setShowModal(false)
+        props.onPlayArtist()
     }
 
     function highScoresACB() {
         props.onHighScoresClick()
-    }
-    
-    function search() {
-        props.onSearchClick()
-    }
-
-    function awaitResults(state) {
-        console.log("state: ", state)
-        if (!state.promise) {
-            return "No data"
-        }
-
-        if (!state.data && !state.error) {
-            return <img src="https://brfenergi.se/iprog/loading.gif"></img>
-        }
-
-        if (state.error) {
-            return state.error
-        }
-    
-        return <ArtistSearchResultView res={state.data}></ArtistSearchResultView>
     }
 
 }
