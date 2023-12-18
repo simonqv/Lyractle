@@ -165,7 +165,7 @@ tr {
 }
 
 .guess-title{
- 
+
   color: var(--secondary);
   font-family: 'Kameron', serif;
   
@@ -195,19 +195,58 @@ tr {
   bottom: 0px;
 } */
 
-.textarea-container{
+
+
+.textarea-container {
+  display: flex;
+  flex-direction: column;
   width: 80%;
   position: relative;
   margin-bottom: 30px;
   margin-left: 30px;
-  
+}
+
+.search-bar-container {
+  position: relative;
+}
+
+.search-bar {
+  width: 100%;
+  height: 40px;
+  padding: 10px;
+  background-color: white;
+  border: 1px solid transparent;
+  border-radius: 18px;
+  font-family: 'Kameron', serif;
+  font-size: 3vh;
+  font-weight: normal;
+  color: black;
+  overflow: hidden;
+  resize: none;
+  line-height: 3vh;
+  outline: none; 
+}
+
+.search-bar::placeholder {
+  color: black;
+}
+
+.search-bar:focus {
+  outline: none;
+  border-color: var(--secondary);
+}
+
+.button-container {
+  position: absolute;
+  top: 0;
+  right: 0;
 }
 
 
 .guess-input-button-container{
   position: absolute;
-  bottom: 0px;
-  right: 0px;
+  bottom: -15px;
+  right: -7px;
 }
 
 
@@ -231,11 +270,23 @@ tr {
   
 }
 
+.guesses-container{
+  flex: 1;
+  padding: 20px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0px;
+  max-height: 60vh;
+  overflow: auto;}
+
 
 .guess-bar-button-container {
   position: absolute;
-  bottom: 20px;
-  margin-left: 5px;
+  display: flex;
+  justify-content: space-between; /* Align buttons next to each other */
+  bottom:15px;
+  margin-top: 10px; /* Add spacing between the buttons and the table */
 }
 
 .hint-button {
@@ -282,38 +333,18 @@ tr {
   background-color: var(--red);
 }
 
-
+.small-button {
+  padding: 10px; /* Adjust the padding for a smaller button */
+  font-size: 16px; /* Adjust the font size */
+  max-width: 140px;
+  min-width:120px; /* Use max-width instead of width */
+}
 
 button:hover {
   transform: scale(1.05);
   font-weight: bolder;
 }
 
-.search-bar {
-  width: 100%;
-  height: 52px;
-  padding: 10px;
-  background-color: white;
-  border: 1px solid;
-  border-radius: 18px;
-  font-family: 'Kameron', serif;
-  font-size: 4vh;
-  font-weight: normal;
-  color: black;
-  overflow: hidden;
-  resize: none;
-  line-height: 4vh;
- 
-}
-
-.search-bar::placeholder {
-  color: black;
-}
-
-.search-bar:focus {
-  outline: none;
-  border-color: var(--secondary);
-}
 
 /* Basic styling for the navbar */
 .navbar {
