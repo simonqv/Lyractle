@@ -148,11 +148,17 @@ tr {
 /* GuessBarView style */
 .guess-bar-view {
   flex: 1;
-  padding: 20px;
+  padding: 15px;
   background-color: var(--primary);
   align-items: center;
   position:relative;
   
+}
+.guesses-container{
+  min-height:70vh;
+  max-height: 70vh;
+  overflow-y: auto;
+  padding: 25px;
 }
 
 .user-guesses {
@@ -160,8 +166,6 @@ tr {
   color: var(--secondary);
   font-family: 'Kameron', serif;
   font-size: 20px;
-  max-height: 50vh;
-  overflow: auto;
 }
 
 .guess-title{
@@ -177,7 +181,7 @@ tr {
 
 .lyrics-view {
   flex: 2;
-  padding: 20px;
+  padding: 19px;
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -195,8 +199,7 @@ tr {
   bottom: 0px;
 } */
 
-
-
+/*design for searchbar in game page*/
 .textarea-container {
   display: flex;
   flex-direction: column;
@@ -208,6 +211,13 @@ tr {
 
 .search-bar-container {
   position: relative;
+  outline: none;
+}
+
+.button-container {
+  position: absolute;
+  top: -4;
+  right: -4;
 }
 
 .search-bar {
@@ -224,24 +234,8 @@ tr {
   overflow: hidden;
   resize: none;
   line-height: 3vh;
-  outline: none; 
-}
-
-.search-bar::placeholder {
-  color: black;
-}
-
-.search-bar:focus {
   outline: none;
-  border-color: var(--secondary);
 }
-
-.button-container {
-  position: absolute;
-  top: 0;
-  right: 0;
-}
-
 
 .guess-input-button-container{
   position: absolute;
@@ -282,11 +276,10 @@ tr {
 
 
 .guess-bar-button-container {
-  position: absolute;
+  margin-left: 5px;
   display: flex;
   justify-content: space-between; /* Align buttons next to each other */
-  bottom:15px;
-  margin-top: 10px; /* Add spacing between the buttons and the table */
+  margin-top: 10px;
 }
 
 .hint-button {
@@ -334,10 +327,10 @@ tr {
 }
 
 .small-button {
-  padding: 10px; /* Adjust the padding for a smaller button */
-  font-size: 16px; /* Adjust the font size */
-  max-width: 140px;
-  min-width:120px; /* Use max-width instead of width */
+  padding: 10px; 
+  font-size: 16px; 
+  max-width: 180px;
+  min-width:150px;
 }
 
 button:hover {
@@ -345,6 +338,15 @@ button:hover {
   font-weight: bolder;
 }
 
+
+.search-bar::placeholder {
+  color: black;
+}
+
+.search-bar:focus {
+  outline: none;
+  border-color: var(--secondary);
+}
 
 /* Basic styling for the navbar */
 .navbar {
@@ -483,3 +485,4 @@ button:hover {
   border: none;
   cursor: pointer;
 }
+
