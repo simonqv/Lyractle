@@ -366,6 +366,7 @@ button:hover {
   background-color: white;
   padding: 15px;
   height: 24px;
+  
 }
 
 /* Hamburger menu styling */
@@ -467,7 +468,7 @@ button:hover {
 
 
 .high-score-title{
-  margin-top: 30px;
+  margin-top: 80px;
   color: white;
   font-family: 'Kameron', serif;
   font-size: 40px;
@@ -476,13 +477,14 @@ button:hover {
 
 .high-score-container{
   background-color: white;
-  width: 35%;
+  width: 70%;
   height: 70%;
   align-items: center;
-  margin:auto;
   border-radius: 10px;
   position:relative;
-
+  top: 35%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 
@@ -533,10 +535,11 @@ button:hover {
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: var(--secondary);
+}
 
 .score-table{
   top: 15px;
   left: 10%;
-  position:absolute;
-
+  position: absolute;
+  overflow: auto;
 }

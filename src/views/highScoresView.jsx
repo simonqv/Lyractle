@@ -2,10 +2,7 @@ import '/src/style.css';
 
 
 function HighScoresView(props){
-
-    
-
-    return <div className='high-score-view'>
+    return <div className='game-view'> 
                 <h2 className='high-score-title'> Your high scores</h2>
                 <div className="high-score-container">
                     <table className="score-table">
@@ -17,7 +14,6 @@ function HighScoresView(props){
                             </tr>
                         </thead>
                         <tbody>
-                            {/* {props.model.scores.map((index) => showScoreACB(index))} */}
                             {Object.entries(sortScores()).map(([key, value], index) => (
                                 <tr key={index}>
                                     <td>{index+1}</td>
@@ -29,12 +25,7 @@ function HighScoresView(props){
                     </table>
 
                     <button className="return-button"onClick={returnButtonACB}>Return</button>
-
-
                 </div>
-
-
-
             </div> 
     
 
