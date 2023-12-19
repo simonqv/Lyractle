@@ -3,6 +3,7 @@ import { observer } from 'mobx-react-lite'
 import LyricsView from '../views/lyricsView'
 import '/src/style.css'
 import GuessInputView from '../views/guessInputView'
+import { GameStates } from "../userModel"
 
 // TODO: Always show guessed words, maybe implement a list of words that are always shown and not randomize
 export default observer(function Lyrics(props) {
@@ -130,11 +131,11 @@ function handleGuess() {
         });
       }
 
-      if (allWordsInArray(lowerCaseTitle, props.model.guesses)) {
-        props.model.setGameState(GameStates.WIN);
-        console.log ("Game State changed to WIN");
-        return;  
-      }
+      // if (allWordsInArray(lowerCaseTitle, props.model.guesses)) {
+      //   props.model.setGameState(GameStates.WIN);
+      //   console.log ("Game State changed to WIN");
+      //   return;  
+      // }
   
       // Revealing words in the lyrics
       if (lowerCaseLyrics.includes(lowerCaseGuess)) {
@@ -151,11 +152,18 @@ function handleGuess() {
   
       if (!guessedWord) {
         // If the guessed word doesn't exist in the guesses array, add it with occurrences
+        increaseScore();
         addGuess({ word: lowerCaseGuess, occurrences: props.model.currentOccurence });
-        if (allWordsInArray(lowerCaseTitle, props.model.guesses)) {
+       
+        const wordsArray = props.model.guesses.map(entry => entry.word);
+     
+       
+        if (allWordsInArray(lowerCaseTitle, wordsArray)) {
+          props.model.addToScores(props.currentTitle, props.model.currentScore);
+          props.model.setGameState(GameStates.WIN);
           window.location.href = "/login";
         }
-        increaseScore();
+        
       }
     }
   }
