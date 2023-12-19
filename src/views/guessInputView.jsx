@@ -29,6 +29,7 @@ function GuessInputView(props) {
 
  
   function handleGuessACB() {
+    //console.log(props.model.currentScore)
     props.onHandleGuess();
   }
 

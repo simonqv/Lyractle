@@ -39,9 +39,9 @@ export default observer(function Game(props) {
         const hintWord = props.model.getHint(); 
         if (hintWord) {
             props.model.nbrHints ++;
-
+        }
     }
-}
+
 
     function giveUp() {
         // TODO: Give up logic

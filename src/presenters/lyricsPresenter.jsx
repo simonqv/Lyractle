@@ -100,6 +100,8 @@ const isGameWon = props.model.gameState === 'WIN';
 }
 
 function handleGuess() {
+    
+   
     if (props.model.currentGuess.trim() !== '') {
       const lowerCaseGuess = props.model.currentGuess.trim().toLowerCase();
       const lowerCaseLyrics = lyrics.toLowerCase();
@@ -109,6 +111,8 @@ function handleGuess() {
       const occurrencesInTitle = countOccurrences(lowerCaseTitle, lowerCaseGuess);
   
       props.model.currentOccurence = occurrencesInLyrics + occurrencesInTitle;
+      
+      
   
       // Revealing only the guessed word in the title
       if (lowerCaseTitle.includes(lowerCaseGuess)) {
