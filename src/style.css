@@ -399,6 +399,7 @@ button:hover {
   transform-origin: top;
   transition: transform 0.4s ease-in-out;
   z-index: 2;
+  margin-right: 30px;
 }
 
 .dropdown-button {

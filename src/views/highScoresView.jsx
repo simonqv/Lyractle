@@ -49,12 +49,12 @@ function HighScoresView(props){
 
     }
 
+    function returnButtonACB(){
+        props.onReturn()
+    }
  
 }
 
 
-function returnButtonACB(){
-    props.onReturn()
-}
 
 export default HighScoresView
