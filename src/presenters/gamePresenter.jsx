@@ -46,8 +46,6 @@ export default observer(function Game(props) {
     function giveUp() {
         // TODO: Give up logic
         props.model.setGameState(GameStates.GIVEN_UP)
-        console.log("Game has been given up!");
-
         window.location.href = "/login";
         
     }

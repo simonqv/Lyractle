@@ -41,8 +41,6 @@ function GuessBarView(props) {
   }
 
   function giveUpACB() {
-    props.setGameState(GameStates.GIVEN_UP)
-    console.log("Game has been given up!");
     props.onGiveUpClick();
   }
 
