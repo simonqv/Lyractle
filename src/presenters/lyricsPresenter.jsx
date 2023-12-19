@@ -10,33 +10,53 @@ export default observer(function Lyrics(props) {
   const [revealedWords, setRevealedWords] = useState([])
   const [title, setTitle] = useState('')
   const [revealedTitle, setRevealedTitle] = useState([])
-  
+  const DEFAULT_VISIBLE_WORDS = ["a", "are", "I", "I'm", "in", "is", "it", "the", "this", "to", "was", "you"];
 
   useEffect(() => {
     const words = Array.from(new Set(props.currentLyrics.toLowerCase().match(/\w+/g)))
     
     const hidePercentage = 40
+
+    const wordsToHide = words.filter(word => !DEFAULT_VISIBLE_WORDS.includes(word));
+
+    const initialRevealedWords = wordsToHide
+       .sort(() => Math.random() - 0.5)
+       .slice(0, (hidePercentage / 100) * wordsToHide.length)
+       .concat(DEFAULT_VISIBLE_WORDS); 
+ 
+    const uniqueInitialRevealedWords = Array.from(new Set(initialRevealedWords));
+ 
+    const initialRevealedTitle = Array(props.currentTitle.split(/\s+/).length).fill(false);
+ 
     
-    const initialRevealedWords = words
-    .sort(() => Math.random() - 0.5)
-    .slice(0, (hidePercentage / 100) * words.length)
-    
-    const initialRevealedTitle = Array(props.currentTitle.split(/\s+/).length).fill(false)
-    
-    setLyrics(props.currentLyrics)
-    setTitle(props.currentTitle)
-    setRevealedWords(initialRevealedWords)
-    setRevealedTitle(initialRevealedTitle)
+   setLyrics(props.currentLyrics);
+   setTitle(props.currentTitle);
+   setRevealedWords(uniqueInitialRevealedWords);
+   setRevealedTitle(initialRevealedTitle);
 }, []);
 
+const isGameWon = props.model.gameState === 'WIN';
 
   return (
     <div className='lyrics-and-guess-input'>
-      <LyricsView title={title} lyrics={lyrics} revealedTitle={revealedTitle} revealedWords={revealedWords}/>
+      <LyricsView 
+      title={title} 
+      lyrics={lyrics} 
+      revealedTitle={revealedTitle} 
+      revealedWords={revealedWords}
+      gameState={props.model.gameState}
+      onHintClick={handleHint}
+      />
       <GuessInputView currentGuess={props.model.currentGuess} onHandleGuess={handleGuess} onSetGurrentGuess={setCurrentGuess} />
     </div>
   )
   
+  function handleHint() {
+    if (props.onHintClick) {
+      props.onHintClick();
+    }
+  }
+
   function setCurrentGuess(val) {
     props.model.setCurrentGuess(val)
   }
@@ -104,6 +124,12 @@ function handleGuess() {
   
           return newRevealedTitle;
         });
+      }
+
+      if (allWordsInArray(lowerCaseTitle, props.model.guesses)) {
+        props.model.setGameState(GameStates.WIN);
+        console.log ("Game State changed to WIN");
+        return;  
       }
   
       // Revealing words in the lyrics

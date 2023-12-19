@@ -2,6 +2,9 @@ import resolvePromise from "./resolvePromise"
 import { searchArtist, getArtistTracks, getMusicLyrics } from "./musicSource"
 import artists from "./artists"
 
+
+const localStorageKey = "gameState";
+
 /* 
    The Model keeps only abstract data and has no notions of graphics or interaction
 */
@@ -98,16 +101,32 @@ export default {
     setGuesses(guesses) {
         this.guesses = guesses
     },
+
+    init() {
+        const savedState = localStorage.getItem(localStorageKey);
+        if (savedState) {
+            const parsedState = JSON.parse(savedState);
+            Object.assign(this, parsedState);
+        }
+    },
+
     
+      
+    saveGameState() {
+        localStorage.setItem(localStorageKey, JSON.stringify(this));
+    },
+
+    clearSavedState() {
+        localStorage.removeItem(localStorageKey);
+    },
+
     setGameState(state) {
-        /*
-        playing, win or give up
-        when calling, use yourObject.setGameState(GameStates.PLAYING);
-        */
-       if (Object.values(GameStates).includes(state)) {
-           this.gameState = state
+        console.log(`Setting game state to: ${state}`);
+        if (Object.values(GameStates).includes(state)) {
+            this.gameState = state;
+            this.saveGameState(); // Save the game state whenever it changes
         } else {
-            throw new Error(`Invalid game state: ${state}`)
+            throw new Error(`Invalid game state: ${state}`);
         }
     },
     
