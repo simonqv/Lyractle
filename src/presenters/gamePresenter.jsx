@@ -7,6 +7,8 @@ import { GameStates } from "../userModel"
 
 export default observer(function Game(props) {
 
+    
+
     return  <div>
     {place_holder(props.model.currentTrack, props.model.currentLyrics)}
         
@@ -23,8 +25,8 @@ export default observer(function Game(props) {
         return (
             <div className="game-view">
                 <div className="main-content">
-                    <Lyrics model={props.model}
-                     currentLyrics={props.model.currentLyrics} currentTitle={props.model.currentTrack.title}/>
+
+                    <Lyrics model={props.model} currentLyrics={props.model.currentLyrics} currentTitle={props.model.currentTrack.track.track_name}/>
                     <GuessBarView setGameState={props.model.setGameState} currentOccurence={props.model.currentOccurence} currentGuess= {props.model.currentGuess} guesses={props.model.guesses} hints={props.model.nbrHints} onHintClick={getHint} onGiveUpClick={giveUp}/>
                     
                 </div>
@@ -37,6 +39,7 @@ export default observer(function Game(props) {
         const hintWord = props.model.getHint(); 
         if (hintWord) {
             props.model.nbrHints ++;
+
     }
 }
 
@@ -44,7 +47,9 @@ export default observer(function Game(props) {
         // TODO: Give up logic
         props.model.setGameState(GameStates.GIVEN_UP)
         console.log("Game has been given up!");
+
         window.location.href = "/login";
+        
     }
 
 

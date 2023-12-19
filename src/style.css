@@ -28,6 +28,23 @@
     background-color: var(--hoverColor);
  }
 
+.small-button {
+  color: var(--secondary);
+  font-family: 'Lexend peta', sans-serif;
+  font-size: 20px;
+  background-color: var(--accent);
+  padding: 2px;
+  margin-bottom: 4px;
+  min-width: 102px;
+  border-radius: 20px;
+  border: none;
+  cursor: pointer;
+}
+
+.small-button:hover {
+  background-color: var(--hoverColor);
+}
+
 .h1 {
   margin-bottom: 0px;
   margin-top: 75px;
@@ -49,6 +66,12 @@
   color: white;
   font-family: 'Kameron', serif;
   font-size: 30px;
+}
+
+.p {
+  color: white;
+  font-family: 'Kameron', serif;
+  font-size: 18px;
 }
 
 
@@ -79,6 +102,7 @@ body.primary-background {
 body {
   margin: 0;
   background-color: var(--secondary);
+  height: 100%;
 }
 
 li{
@@ -108,7 +132,7 @@ tr {
 .game-view {
   display: flex;
   flex-direction: column;
-  height: 100vh; /* Full height of the viewport */
+  height: 100vh;
 }
 
 
@@ -123,8 +147,9 @@ tr {
 .game-title{
   font-family: 'Kameron', serif;
   text-align: left;
-  font-size: 5vh;
+  font-size: 40px;
   color: var(--primary);
+  cursor: pointer;
 }
 
 .menu{
@@ -150,8 +175,7 @@ tr {
   padding: 15px;
   background-color: var(--primary);
   align-items: center;
-  position:relative;
-  
+  position: relative;
 }
 .guesses-container{
   min-height:70vh;
@@ -183,11 +207,9 @@ tr {
   align-items: center;
   justify-content: center;
   margin: 0px;
+  margin-top: 56px;
   max-height: 70vh;
-  overflow: auto;}
-
-.lyrics-text {
-  color: white;
+  overflow: auto;
 }
 
 
@@ -257,6 +279,7 @@ tr {
   background-color: var(--red);
 }
 
+
 .small-button {
   padding: 10px; 
   font-size: 16px; 
@@ -269,6 +292,30 @@ button:hover {
   font-weight: bolder;
 }
 
+
+.search-result {
+  margin: 10px 0px 25px 0px;
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+}
+
+.search-result-button {
+  font-family: 'Kameron', serif;
+  font-size: 2.2vh;
+  font-weight: normal;
+  text-align: left;
+  background-color: var(--secondary);
+  outline-width: 0px;
+  border: none;
+  color: white;
+  border-radius: 20px;
+}
+
+.search-result-button:hover {
+  font-weight: bolder;
+  background-color: var(--hoverColor);
+}
 
 .search-bar::placeholder {
   color: black;
@@ -286,7 +333,8 @@ button:hover {
   align-items: center;
   background-color: white;
   padding: 15px;
-  height: 3%;
+  height: 24px;
+  
 }
 
 /* Hamburger menu styling */
@@ -302,10 +350,12 @@ button:hover {
   background-color: var(--secondary);
   margin: 3px 0;
   transition: 0.4s;
+  margin-right: 35px;
 }
 
+
 /* Navigation list styling */
-.nav-list {
+/* .nav-list {
   display: flex;
   flex-direction: column;
   align-items: right;
@@ -318,7 +368,7 @@ button:hover {
   transform: scaleY(0);
   transform-origin: top;
   transition: transform 0.4s ease-in-out;
-}
+}  */
 
 .nav-list a {
   display: block;
@@ -338,12 +388,12 @@ button:hover {
   display: flex;
   flex-direction: column;
   align-items: right;
-  background-color: transparent; 
-  
+  background-color: tran; 
+
   position: absolute;
-  top: 35px; /* Adjusted to place it below the navbar */
+  top: 37px; /* Adjusted to place it below the navbar */
   right: 0;
-  width: 10%;
+  width: 185px;
   text-align: center;
   transform: scaleY(0);
   transform-origin: top;
@@ -354,7 +404,7 @@ button:hover {
 .dropdown-button {
   font-family: 'Lexend peta', sans-serif;
   text-align: center;
-  font-size: 10px;
+  font-size: 12px;
   letter-spacing: tight;
   background-color: white;
   justify-content: center;
@@ -362,12 +412,16 @@ button:hover {
   padding: 5px;
   padding-right: 2px;
   width: 100%;
-  height: 20%;
+  height: 40%;
   color: var(--secondary);
-  border-radius: 5px;
+  border-radius: 0px;
   font-weight: bold;
   line-height: 4vh;
-  border: 0.5px solid;
+  border: 0px;
+}
+
+.dropdown-button:hover {
+  background-color: var(--hoverColor);
 }
 
 /* .navbar:hover .nav-list {
@@ -382,7 +436,7 @@ button:hover {
 
 
 .high-score-title{
-  margin-top: 30px;
+  margin-top: 80px;
   color: white;
   font-family: 'Kameron', serif;
   font-size: 40px;
@@ -391,13 +445,14 @@ button:hover {
 
 .high-score-container{
   background-color: white;
-  width: 35%;
+  width: 70%;
   height: 70%;
   align-items: center;
-  margin:auto;
   border-radius: 10px;
   position:relative;
-
+  top: 35%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 
@@ -415,5 +470,46 @@ button:hover {
   border-radius: 20px;
   border: none;
   cursor: pointer;
+}
+
+
+.instructions-button {
+  margin-left: 18px;
+  width: 20px;
+  color: var(--secondary);
+  cursor: pointer;
+}
+
+.instructions-button:hover {
+  color: var(--hoverColor);
+}
+
+.info-modal {
+  padding: 45px;
+  width: 500px;
+  border-radius: 20px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: var(--secondary);
+}
+
+.search-modal {
+  padding: 45px;
+  width: 500px;
+  border-radius: 20px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: var(--secondary);
+}
+
+.score-table{
+  top: 15px;
+  left: 10%;
+  position: absolute;
+  overflow: auto;
 }
 

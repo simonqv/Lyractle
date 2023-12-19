@@ -3,7 +3,7 @@ import { initializeApp } from "firebase/app";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { getDatabase, ref, get, set } from "/src/teacherFirebase.js";
 import firebaseConfig from "./firebaseConfig";
-import { getGeniusLyrics, getGeniusTrack } from "../geniusSource";
+import { getMusicLyrics, getTrack } from "./musicSource";
 import { GameStates } from "./userModel";
 import resolvePromise from "./resolvePromise";
 
@@ -17,7 +17,7 @@ const PATH = "users/";
 function modelToPersistence(model) {
   console.log("model to pers", model.nbrHints)
   return {
-    currTrack: model.currentTrack ? model.currentTrack.id : 0,
+    currTrack: model.currentTrack.track.commontrack_id ? model.currentTrack.track.commontrack_id : 0,
     userGuesses: model.guesses,
     userGameState: model.gameState,
     userScores: model.scores,
@@ -30,22 +30,22 @@ function persistenceToModel(data, model) {
   data?.userScores ? model.setScores(data?.userScores) : model.clearScores()
   
   if (data?.currTrack) {
-    getGeniusTrack(data?.currTrack).then(saveToModelACB).then(getLyricsACB)
+    getTrack(data?.currTrack).then(saveToModelACB).then(getLyricsACB)
   }
   else {
     model.setCurrentTrack(null)
   }
 
   function saveToModelACB(track) {
-    model.setCurrentTrack(track.response.song)
+    model.setCurrentTrack(track.message.body)
   }
 
   function getLyricsACB() {
-    const lyricsPromiseState = resolvePromise(getGeniusLyrics(model.currentTrack.url), {})
+    const lyricsPromiseState = resolvePromise(getMusicLyrics(model.currentTrack.track.commontrack_id), {})
     
     lyricsPromiseState.promise
       .then(() => {
-        model.setCurrentLyrics(lyricsPromiseState.data)
+        model.setCurrentLyrics(lyricsPromiseState.data.message.body.lyrics.lyrics_body)
       })
       .catch((error) => {
         console.error("Error fetching lyrics from fb to model:", error)
