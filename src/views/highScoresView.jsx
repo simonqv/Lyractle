@@ -30,6 +30,10 @@ function HighScoresView(props){
     
 
     function sortScores(){
+        if (props.model.scores.length === 0 ) {
+            return []
+        }
+    
         const scores = []
 
         for (let key in props.model.scores) {
@@ -52,7 +56,7 @@ function HighScoresView(props){
     function returnButtonACB(){
         props.onReturn()
     }
- 
+    
 }
 
 

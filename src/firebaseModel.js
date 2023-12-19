@@ -15,9 +15,9 @@ const db = getDatabase(app);
 const PATH = "users/";
 
 function modelToPersistence(model) {
-  console.log("model to pers", model.nbrHints)
+  console.log("tre " , model.currentTrack)
   return {
-    currTrack: model.currentTrack.track.commontrack_id ? model.currentTrack.track.commontrack_id : 0,
+    currTrack: model.currentTrack?.track.commontrack_id ? model.currentTrack.track.commontrack_id : 0,
     userGuesses: model.guesses,
     userGameState: model.gameState,
     userScores: model.scores,
@@ -27,7 +27,7 @@ function modelToPersistence(model) {
 
 function persistenceToModel(data, model) {
   
-  data?.userScores ? model.setScores(data?.userScores) : model.clearScores()
+  data?.userScores ? model.setScores(data?.userScores) : model.setScores({})
   
   if (data?.currTrack) {
     getTrack(data?.currTrack).then(saveToModelACB).then(getLyricsACB)
@@ -58,6 +58,8 @@ function persistenceToModel(data, model) {
   model.setGuesses(data?.userGuesses || [])
 
   model.setGameState(data?.userGameState || GameStates.PLAYING)
+
+  model.setScores(data?.userScores || {})
     
   return null;
 }
