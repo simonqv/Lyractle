@@ -156,11 +156,12 @@ function handleGuess() {
         addGuess({ word: lowerCaseGuess, occurrences: props.model.currentOccurence });
        
         const wordsArray = props.model.guesses.map(entry => entry.word);
-     
+        const guessNum = props.model.currentScore
        
         if (allWordsInArray(lowerCaseTitle, wordsArray)) {
           props.model.addToScores(props.currentTitle, props.model.currentScore);
           props.model.setGameState(GameStates.WIN);
+          alert("Congratulations, you guessed the title with " + JSON.stringify(guessNum) + " guesses!")
           window.location.href = "/login";
         }
         
