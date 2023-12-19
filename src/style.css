@@ -142,7 +142,6 @@ tr {
 
 .guessed-word {
   font-weight: bold;
-  /* Add any other styling you want for guessed words */
 }
 
 /* GuessBarView style */
@@ -169,10 +168,8 @@ tr {
 }
 
 .guess-title{
-
   color: var(--secondary);
   font-family: 'Kameron', serif;
-  
 }
 
 
@@ -193,11 +190,6 @@ tr {
   color: white;
 }
 
-/* .textarea-container {
-  width: 90%;
-  position: relative;
-  bottom: 0px;
-} */
 
 /*design for searchbar in game page*/
 .textarea-container {
@@ -243,27 +235,6 @@ tr {
   right: -7px;
 }
 
-
-.guess-button {
-    font-family: 'Lexend peta', sans-serif;
-    text-align: center;
-    font-size: 4vh;
-    letter-spacing: tight;
-    background-color: var(--accent);
-    justify-content: center;
-    align-items: stretch;
-    padding: 5px;
-    padding-right: 2px;
-    width: 164px;
-    height: 52px;
-    color: var(--secondary);
-    border-radius: 20px;
-    font-weight: bold;
-    line-height: 4vh;
-    border: 1px solid;
-  
-}
-
 .guesses-container{
   flex: 1;
   padding: 20px;
@@ -278,48 +249,8 @@ tr {
 .guess-bar-button-container {
   margin-left: 5px;
   display: flex;
-  justify-content: space-between; /* Align buttons next to each other */
+  justify-content: space-between; 
   margin-top: 10px;
-}
-
-.hint-button {
-  font-family: 'Lexend peta', sans-serif;
-  text-align: center;
-  font-size: 3vh;
-  letter-spacing: tight;
-  background-color: var(--accent);
-  justify-content: center;
-  align-items: stretch;
-  padding: 5px;
-  padding-right: 2px;
-  width: 164px;
-  height: 52px;
-  color: var(--secondary);
-  border-radius: 20px;
-  font-weight: bold;
-  line-height: 4vh;
-  border: 1px solid;
-  margin-right: 20px; 
-  margin-left: 40px;
-}
-
-.giveup-button {
-  font-family: 'Lexend peta', sans-serif;
-  text-align: center;
-  font-size: 3vh;
-  letter-spacing: tight;
-  background-color: var(--red);
-  justify-content: center;
-  align-items: stretch;
-  padding: 5px;
-  padding-right: 2px;
-  width: 164px;
-  height: 52px;
-  color: var(--secondary);
-  border-radius: 20px;
-  font-weight: bold;
-  line-height: 4vh;
-  border: 1px solid;
 }
 
 .red-button {

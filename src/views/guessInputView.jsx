@@ -27,10 +27,12 @@ function GuessInputView(props) {
     </div>
   );
 
+ 
   function handleGuessACB() {
     props.onHandleGuess();
   }
 
+  
   function setCurrentGuessACB(evt) {
     props.onSetGurrentGuess(evt.target.value);
   }

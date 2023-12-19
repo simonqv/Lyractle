@@ -23,7 +23,8 @@ export default observer(function Game(props) {
         return (
             <div className="game-view">
                 <div className="main-content">
-                    <Lyrics model={props.model} currentLyrics={props.model.currentLyrics} currentTitle={props.model.currentTrack.title}/>
+                    <Lyrics model={props.model}
+                     currentLyrics={props.model.currentLyrics} currentTitle={props.model.currentTrack.title}/>
                     <GuessBarView setGameState={props.model.setGameState} currentOccurence={props.model.currentOccurence} currentGuess= {props.model.currentGuess} guesses={props.model.guesses} hints={props.model.nbrHints} onHintClick={getHint} onGiveUpClick={giveUp}/>
                     
                 </div>
@@ -33,8 +34,11 @@ export default observer(function Game(props) {
 
     function getHint() {
         // TODO: Get hint logic
-       props.model.nbrHints ++;
+        const hintWord = props.model.getHint(); 
+        if (hintWord) {
+            props.model.nbrHints ++;
     }
+}
 
     function giveUp() {
         // TODO: Give up logic
@@ -42,5 +46,6 @@ export default observer(function Game(props) {
         console.log("Game has been given up!");
         window.location.href = "/login";
     }
+
 
 })

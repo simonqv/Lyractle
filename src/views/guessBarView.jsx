@@ -2,10 +2,6 @@ import '/src/style.css';
 import { GameStates } from '../userModel';
 
 
-function giveUpACB() {
-  props.setGameState(GameStates.GIVEN_UP)
-  props.onGiveUpClick();
-}
 function GuessBarView(props) {
   return (
     <div className="guess-bar-view">
@@ -29,6 +25,7 @@ function GuessBarView(props) {
 
       {/* Include buttons for showing hints and quitting the game */}
       <div className="guess-bar-button-container">
+        
         <button disabled={props.hints >= 3} className='button small-button' onClick={getHintACB}>
           Hints {props.hints}/3
         </button>
@@ -36,7 +33,6 @@ function GuessBarView(props) {
       </div>
     </div>
   );
-
 
 
   function getHintACB() {
@@ -59,7 +55,6 @@ function GuessBarView(props) {
       </tr>
     );
   }
-
 }
 
 export default GuessBarView
