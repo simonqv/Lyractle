@@ -15,7 +15,6 @@ const db = getDatabase(app);
 const PATH = "users/";
 
 function modelToPersistence(model) {
-  console.log("tre " , model.currentTrack)
   return {
     currTrack: model.currentTrack?.track.commontrack_id ? model.currentTrack.track.commontrack_id : 0,
     userGuesses: model.guesses,

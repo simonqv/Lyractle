@@ -22,13 +22,18 @@ export default observer(function Hamburger(props) {
       navigate("/highScores")
     }
     
+    function login() {
+      props.model.wipeModel()
+      navigate("/login")
+    }
+    
     function logout() {
-        signOut(auth).then((result) => {
-            console.log("SIGN OUT", props.model)
-            props.model.wipeModel()
+      signOut(auth).then((result) => {
+        props.model.wipeModel()
 
-            navigate("/login")
+        navigate("/login")
         })
-      }
-    return <HamburgerView active={isActive} dropdown={toggleDropdown} onMainMenu={mainMenu} onHighScores={highScores} onLogout={logout} />
+    }
+    
+    return <HamburgerView active={isActive} guest={props.model.guest} dropdown={toggleDropdown} onMainMenu={mainMenu} onHighScores={highScores} onLogout={logout} onLogin={login} />
 })
