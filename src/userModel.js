@@ -169,7 +169,7 @@ export default {
 
     getSongFromArtist(artistID) {
         // Get a random song from the artist
-        this.getArtistSongs(artistID, 30)
+        this.getArtistSongs(artistID, 10)
         this.artistTrackPromiseState.promise.then(() => {
             console.log("artist songs: ", this.artistTrackPromiseState.data)
             const randomSong = this.getRandomElement(this.artistTrackPromiseState.data.message.body.track_list)
