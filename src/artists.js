@@ -47,7 +47,6 @@ var artists = [
     "Halsey",
     "Sia",
     "Doja Cat",
-    "Maluma",
     "Marshmello",
     "Katy Perry",
     "SZA",
