@@ -34,9 +34,9 @@ function HamburgerView(props) {
 
   return (
     <div style={{position: "fixed", width: "100%", zIndex: "10"}} className={`navbar ${isActive ? 'active' : ''}`} ref={menuRef} >
-      <div>
-      <span className="game-title" onClick={toMainMenuACB}>Lyractle</span>
-      <span className="instructions-button" onClick={infoACB}>instructions</span>
+      <div style={{display: "flex", justifyContent: "center", alignItems: "center"}}>
+        <span className="game-title" onClick={toMainMenuACB}>Lyractle</span>
+        <button className="instructions-button" onClick={infoACB}>instructions</button>
       </div>
 
       <div className="hamburger-menu" onClick={toggleDropdown}>
@@ -47,8 +47,8 @@ function HamburgerView(props) {
  
       <ul className="nav-list">
         <li><button className='dropdown-button' onClick={mainMenuACB}>main menu</button></li>
-        <li><button className='dropdown-button' onClick={highScoresACB}>high scores</button></li>
-        <li><button className='dropdown-button' onClick={logoutACB}>log out</button></li>
+        {!props.guest ? <li><button className='dropdown-button' onClick={highScoresACB}>high scores</button></li> : <div/>}
+        {!props.guest ? <li><button className='dropdown-button' onClick={logoutACB}>log out</button></li> : <li><button className='dropdown-button' onClick={loginACB}>log in</button></li>}
       </ul> 
 
       <Modal className="info-modal" isOpen={showModal} onRequestClose={closeModal}>
@@ -91,9 +91,12 @@ function HamburgerView(props) {
   }
   
   function logoutACB() {
-        props.onLogout()
-    }
-  
+    props.onLogout()
+  }
+
+  function loginACB() {
+    props.onLogin()
+  }
 }
 
 export default HamburgerView

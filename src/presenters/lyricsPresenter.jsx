@@ -10,32 +10,33 @@ export default observer(function Lyrics(props) {
   const [revealedWords, setRevealedWords] = useState([])
   const [title, setTitle] = useState('')
   const [revealedTitle, setRevealedTitle] = useState([])
-  const DEFAULT_VISIBLE_WORDS = ["a", "are", "I", "I'm", "in", "is", "it", "the", "this", "to", "was", "you"];
+  const DEFAULT_VISIBLE_WORDS = ["a", "are", "i", "i'm", "in", "is", "it", "the", "this", "to", "was", "you", "what", "and", "be", "my", "mine"];
 
   useEffect(() => {
-    const words = Array.from(new Set(props.currentLyrics.toLowerCase().match(/\w+/g)))
+    //const words = Array.from(new Set(props.currentLyrics.toLowerCase().match(/\w+/g)))
     
-    const hidePercentage = 40
+    console.log("gesses", props.model.guesses)
+    // Extract "word" property from each object in word_dict
+    const new_words = props.model.guesses.map(obj => obj.word)
 
-    const wordsToHide = words.filter(word => !DEFAULT_VISIBLE_WORDS.includes(word));
+    // Concatenate arrays
+    const initialRevealedWords = DEFAULT_VISIBLE_WORDS.concat(new_words)
+    console.log("init words" , initialRevealedWords)
 
-    const initialRevealedWords = wordsToHide
-       .sort(() => Math.random() - 0.5)
-       .slice(0, (hidePercentage / 100) * wordsToHide.length)
-       .concat(DEFAULT_VISIBLE_WORDS); 
+    console.log(initialRevealedWords)
  
-    const uniqueInitialRevealedWords = Array.from(new Set(initialRevealedWords));
+    //const uniqueInitialRevealedWords = Array.from(new Set(initialRevealedWords));
  
-    const initialRevealedTitle = Array(props.currentTitle.split(/\s+/).length).fill(false);
- 
+    const initialRevealedTitle = props.currentTitle.toLowerCase().split(/\s+/).map(word => initialRevealedWords.includes(word))
+    console.log("init title", initialRevealedTitle)
     
-   setLyrics(props.currentLyrics);
-   setTitle(props.currentTitle);
-   setRevealedWords(uniqueInitialRevealedWords);
-   setRevealedTitle(initialRevealedTitle);
+   setLyrics(props.currentLyrics)
+   setTitle(props.currentTitle)
+   setRevealedWords(initialRevealedWords)
+   setRevealedTitle(initialRevealedTitle)
 }, []);
 
-const isGameWon = props.model.gameState === 'WIN';
+const isGameWon = props.model.gameState === 'WIN'
 
   return (
     <div className='lyrics-and-guess-input'>
@@ -80,8 +81,8 @@ const isGameWon = props.model.gameState === 'WIN';
     let count = 0;
     
     // Iterate through the array and count occurrences
-    for (let i = 0; i < wordsArray.length; i++) {
-        if (wordsArray[i] === word) {
+    for (const element of wordsArray) {
+        if (element === word) {
             count++;
         }
     }
@@ -121,29 +122,29 @@ function handleGuess() {
               newRevealedTitle[index] = true;
             }
           });
-  
+          console.log("T", newRevealedTitle)
           return newRevealedTitle;
         });
       }
 
-      if (allWordsInArray(lowerCaseTitle, props.model.guesses)) {
-        props.model.setGameState(GameStates.WIN);
-        console.log ("Game State changed to WIN");
-        return;  
+      if (revealedTitle.every(word => word === true)) {
+        props.model.setGameState(GameStates.WIN)
+        console.log ("Game State changed to WIN")
+        return
       }
   
       // Revealing words in the lyrics
       if (lowerCaseLyrics.includes(lowerCaseGuess)) {
         setRevealedWords((prevRevealedWords) => {
           if (!prevRevealedWords.includes(lowerCaseGuess)) {
-            return [...prevRevealedWords, lowerCaseGuess];
+            return [...prevRevealedWords, lowerCaseGuess]
           } else {
-            return prevRevealedWords;
+            return prevRevealedWords
           }
-        });
+        })
       }
   
-      const guessedWord = props.model.guesses.find((guess) => guess.word === lowerCaseGuess);
+      const guessedWord = props.model.guesses.find((guess) => guess.word === lowerCaseGuess)
   
       if (!guessedWord) {
         // If the guessed word doesn't exist in the guesses array, add it with occurrences
