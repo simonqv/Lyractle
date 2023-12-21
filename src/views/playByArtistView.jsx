@@ -26,11 +26,12 @@ function PlayByArtistView(props) {
     }
 
     function awaitResults(state) {
-        console.log("state: ", state)
-        if (!state.data && !state.error) {
-            return <img src="https://brfenergi.se/iprog/loading.gif"></img>
-        }
+        console.log("state RESULT: ", state)
+        return <img src="https://zingy-bublanina-005f23.netlify.app/playBarArtist.gif"></img>
 
+        if (!state.data && !state.error) {
+        }
+        
         if (state.error) {
             return state.error
         }

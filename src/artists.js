@@ -1,6 +1,5 @@
 var artists = [
     "Drake",
-    "Bad Bunny",
     "Taylor Swift",
     "The Weeknd",
     "Ed Sheeran",
@@ -10,7 +9,6 @@ var artists = [
     "Post Malone",
     "BTS",
     "Kanye West",
-    "J Balvin",
     "Billie Eilish",
     "Coldplay",
     "Juice WRLD",
@@ -19,7 +17,6 @@ var artists = [
     "Travis Scott",
     "Rihanna",
     "XXXTENTACION",
-    "Ozuna",
     "David Guetta",
     "Khalid",
     "Maroon 5",
@@ -41,14 +38,11 @@ var artists = [
     "Chris Brown",
     "Adele",
     "Nicki Minaj",
-    "Anuel AA",
-    "Rauw Alejandro",
     "The Chainsmokers",
     "Shakira",
     "Selena Gomez",
     "The Beatles",
     "Linkin Park",
-    "Lil Uzi Vert",
     "Arctic Monkeys",
     "Halsey",
     "Sia",
@@ -66,12 +60,10 @@ var artists = [
     "Olivia Rodrigo",
     "Kygo",
     "Red Hot Chili Peppers",
-    "Farruko",
     "Lil Baby",
     "OneRepublic",
     "Michael Jackson",
     "Myke Towers",
-    "Arijit Singh",
     "Jason Derulo",
     "Demi Lovato",
     "Mac Miller",
@@ -97,8 +89,8 @@ var artists = [
     "James Arthur",
     "Sech",
     "Young Thug",
-    "Pritam",
-    "YoungBoy Never Broke Again"
+    "YoungBoy Never Broke Again",
+    "ABBA"
   ];
 
   export default artists

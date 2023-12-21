@@ -19,31 +19,17 @@ observer(
         </div>
         
         function checkState(track) {
-            /*
-            if (!track) {
-                console.log("track" , track)
-                console.log("guest", props.model.guest)
-                return <img src= "https://zingy-bublanina-005f23.netlify.app/playBarArtist.gif"></img>
-            }*/
-            
-/*
-        return <div>
-            <SearchFormView text={props.model.searchParams.query} type={props.model.searchParams.type}  dishTypeOptions={["starter", "main course", "dessert"]} onSearchTextACB={searchQueryACB} onTypeChangeACB={searchTypeACB} onClickSearchACB={searchACB}/>  
-            
-            {shouldRenderSearchResults(props.model.searchResultsPromiseState)}
-
-            </div>*/
 
             return <div>
                 <MainMenuView model={props.model} onContinueGameClick={continueGameACB} onHighScoresClick={goToHighScoresACB} onRandomClick={randomTrackACB} onPlayArtist={openModal}></MainMenuView>
                 <Modal className="search-modal" isOpen={showModal} onRequestClose={closeModal}>
                 <div>
                     <div style={{ display: "flex", flexDirection: "row"}}>
-                        <input className="search-bar" style={{margin: "0px 8px 4px 0px", height: "48px", fontSize: "25px"}}onChange={searchArtistACB} placeholder="search for artist"/>
+                        <input className="search-bar" style={{margin: "0px 8px 4px 0px", height: "48px", fontSize: "25px"}} onChange={searchArtistACB} placeholder="search for artist"/>
                         <button className='small-button' style={{width: "115px"}} onClick={searchACB}>search</button>
                     </div>
                     {shouldRenderSearchArtist(props.model.searchResultsPromiseState)}
-                    <button className='small-button' onClick={closeModal}>close</button>
+                    <button className='small-button' style={{marginTop: "10px"}} onClick={closeModal}>close</button>
                 </div>
             </Modal>
             </div>
@@ -87,7 +73,7 @@ observer(
         function shouldRenderSearchArtist(state) {
             console.log("state: ", state)
             if (!state.data && !state.error) {
-                return <div/>
+                return <div></div>
             }
     
             if (state.error) {

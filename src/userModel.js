@@ -75,7 +75,7 @@ export default {
     },
 
     setCurrentLyrics(lyrics) {
-        this.currentLyrics = lyrics
+        this.currentLyrics = this.cleanLyrics(lyrics)
     },
 
     setScores(scores) {
@@ -83,7 +83,6 @@ export default {
     },
 
     addToScores(track, newScore) {
-        // this.scores = sortScores([...this.scores, newScore])
         this.scores[track] = newScore;
         console.log(this.scores)
     },
@@ -148,7 +147,12 @@ export default {
     },
 
     cleanLyrics(lyrics) {
+        if (!lyrics) {
+            return null
+        }
+        
         // Remove the last part starting from "*******" to the end
+        console.log("clean lyrics: ", lyrics)
         const cleanedLyrics = lyrics.replace(/\*{7,}[\s\S]*$/, '');
         console.log("cleaned lyrics: ", cleanedLyrics)
       
@@ -180,9 +184,7 @@ export default {
                 this.getLyrics(this.currentTrack.track.commontrack_id)
                 this.lyricsPromiseState.promise.then(() => {
                     console.log("lyr: ", this.lyricsPromiseState.data.message.body.lyrics.lyrics_body)
-                    // REGEX
-                    const cleanLyrics = this.cleanLyrics(this.lyricsPromiseState.data.message.body.lyrics.lyrics_body)
-                    this.setCurrentLyrics(cleanLyrics)
+                    this.setCurrentLyrics(this.lyricsPromiseState.data.message.body.lyrics.lyrics_body)
                     this.searchResultsPromiseState = {}
                 })
             }
@@ -217,19 +219,6 @@ export default {
         
     },
     
-    clearScores() {
-        if (this.scores) {
-            this.scores.length = 0
-        }
-    },
-    
-    
-    clearLyrics() {
-        if (this.lyrics) {
-            this.lyrics.length = 0;
-        }
-    },
-    
     clearGuesses() {
         if (this.guesses) {
             this.guesses.length = 0
@@ -251,7 +240,7 @@ export default {
         this.setNbrHints(0)
         this.setCurrentTrack(null)
         this.setCurrentLyrics(null)
-        this.clearScores()
+        this.setScores({})
         this.clearGuesses()
         this.gameState = null
         this.searchArtistQuery = null

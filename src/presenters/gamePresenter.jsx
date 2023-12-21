@@ -4,10 +4,12 @@ import GameView from "../views/gameView"
 import LyricsView from "../views/lyricsView"
 import Lyrics from "./lyricsPresenter"
 import { GameStates } from "../userModel"
+import { useNavigate } from "react-router-dom"
+
 
 export default observer(function Game(props) {
 
-    
+    const navigate = useNavigate()
 
     return  <div>
     {place_holder(props.model.currentTrack, props.model.currentLyrics)}
@@ -18,9 +20,13 @@ export default observer(function Game(props) {
         console.log("place_holder called");
         console.log("currentTrack:", currentTrack);
         console.log("currentLyrics:", currentLyrics);
-
+        
         if (!currentTrack || !currentLyrics) {
-            return <img src="https://zingy-bublanina-005f23.netlify.app/playBarArtist.gif"/>// "https://brfenergi.se/iprog/loading.gif"/>
+            return (
+            <div className="loading-view">
+                <img src="https://zingy-bublanina-005f23.netlify.app/playBarArtist.gif"/>
+                <h3 className="h3">loading...</h3>
+            </div>)
         }
         return (
             <div className="game-view">
@@ -46,8 +52,7 @@ export default observer(function Game(props) {
     function giveUp() {
         // TODO: Give up logic
         props.model.setGameState(GameStates.GIVEN_UP)
-        window.location.href = "/login";
-        
+        console.log("Game has been given up!")
     }
 
 

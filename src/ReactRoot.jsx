@@ -6,6 +6,7 @@ import HighScores from "./presenters/highScoresPresenter.jsx";
 import Game from "./presenters/gamePresenter.jsx";
 import { PrivateRoute } from './PrivateRoute';
 import { observer } from "mobx-react-lite";
+import LoadingView from "./views/loadingView.jsx";
 
 function makeRouter(model) {
   return (
@@ -37,10 +38,7 @@ export default observer(function ReactRoot(props) {
     // Firebase auth layers not yet initialized
     return (
       // Loading gif
-      <img
-        src="https://zingy-bublanina-005f23.netlify.app/playBarArtist.gif" //"https://cdn.dribbble.com/users/379146/screenshots/7958815/media/f9132d75f0f4eeb9a7f63bc7e80e02dc.gif"
-        alt="Loading..."
-      />
+      LoadingView()
     );
   }
 
@@ -56,7 +54,7 @@ export default observer(function ReactRoot(props) {
         </div>
         
       ) : (
-        <img src="https://zingy-bublanina-005f23.netlify.app/playBarArtist.gif" /*"https://cdn.dribbble.com/users/379146/screenshots/7958815/media/f9132d75f0f4eeb9a7f63bc7e80e02dc.gif"*//>
+        LoadingView()
       )}
     </BrowserRouter>
   );

@@ -74,6 +74,15 @@
   font-size: 18px;
 }
 
+.loading-view {
+  position:relative;
+  padding-top: 35vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
 
 /* LoginView style*/
 
@@ -294,7 +303,7 @@ button:hover {
 
 
 .search-result {
-  margin: 10px 0px 25px 0px;
+  margin: 10px 0px 10px 0px;
   display: flex;
   flex-direction: column;
   justify-content: left;
@@ -475,14 +484,24 @@ button:hover {
 
 
 .instructions-button {
-  margin-left: 18px;
-  width: 20px;
+  font-family: 'Lexend peta', sans-serif;
+  font-size: 12px;
+  margin-left: 25px;
+  margin-top: 6px;
+  border-width: 1px;
+  border-color: var(--secondary);
+  border-style: solid;
   color: var(--secondary);
+  background: transparent;
   cursor: pointer;
+
 }
 
 .instructions-button:hover {
   color: var(--hoverColor);
+  transform: none;
+  font-weight: normal;
+  border-color: var(--hoverColor);
 }
 
 .info-modal {
@@ -498,6 +517,7 @@ button:hover {
 
 .search-modal {
   padding: 45px;
+  padding-bottom: 30px;
   width: 500px;
   border-radius: 20px;
   position: fixed;
