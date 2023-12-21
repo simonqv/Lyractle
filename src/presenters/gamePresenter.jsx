@@ -12,14 +12,10 @@ export default observer(function Game(props) {
     const navigate = useNavigate()
 
     return  <div>
-    {place_holder(props.model.currentTrack, props.model.currentLyrics)}
-        
+        {renderGame(props.model.currentTrack, props.model.currentLyrics)}  
     </div>
     
-    function place_holder(currentTrack, currentLyrics) {   
-        console.log("place_holder called");
-        console.log("currentTrack:", currentTrack);
-        console.log("currentLyrics:", currentLyrics);
+    function renderGame(currentTrack, currentLyrics) {
         
         if (!currentTrack || !currentLyrics) {
             return (
@@ -33,7 +29,7 @@ export default observer(function Game(props) {
                 <div className="main-content">
 
                     <Lyrics model={props.model} currentLyrics={props.model.currentLyrics} currentTitle={props.model.currentTrack.track.track_name}/>
-                    <GuessBarView setGameState={props.model.setGameState} currentOccurence={props.model.currentOccurence} currentGuess= {props.model.currentGuess} guesses={props.model.guesses} hints={props.model.nbrHints} onHintClick={getHint} onGiveUpClick={giveUp}/>
+                    <GuessBarView gameState={props.model.gameState} setGameState={props.model.setGameState} currentOccurence={props.model.currentOccurence} currentGuess= {props.model.currentGuess} guesses={props.model.guesses} hints={props.model.nbrHints} onHintClick={getHint} onGiveUpClick={giveUp}/>
                     
                 </div>
             </div>

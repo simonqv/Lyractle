@@ -2,6 +2,7 @@ import Lyrics from '../presenters/lyricsPresenter'
 import GuessBarView from './guessBarView'
 import '/src/style.css'
 
+
 function GameView(props) {
   return (
     <div className="game-view">

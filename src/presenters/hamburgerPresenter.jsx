@@ -4,6 +4,7 @@ import { observer } from "mobx-react-lite"
 import { auth } from "../firebaseModel";
 import { useNavigate } from "react-router-dom";
 import HamburgerView from "../views/hamburgerView";
+import { GameStates } from '../userModel';
 
 export default observer(function Hamburger(props) {
     const navigate = useNavigate()
@@ -15,10 +16,12 @@ export default observer(function Hamburger(props) {
     }
 
     function mainMenu() {
+      props.model.setGameState(GameStates.PLAYING);
       navigate("/")
     }
 
     function highScores() {
+      props.model.setGameState(GameStates.PLAYING);
       navigate("/highScores")
     }
     
