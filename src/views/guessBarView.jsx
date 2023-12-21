@@ -41,8 +41,6 @@ function GuessBarView(props) {
   }
 
   function giveUpACB() {
-    props.setGameState(GameStates.GIVEN_UP)
-    console.log("Game has been given up!");
     props.onGiveUpClick();
   }
 
@@ -50,7 +48,7 @@ function GuessBarView(props) {
   function showGuessCB(guess, index) {
     return (
       <tr key={index}>
-        <th>{index}</th>
+        <th>{index+1}</th>
         <th>{guess.word}</th>
         <th>{guess.occurrences}</th>
       </tr>

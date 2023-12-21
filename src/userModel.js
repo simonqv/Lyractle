@@ -84,6 +84,7 @@ export default {
 
     addToScores(track, newScore) {
         this.scores[track] = newScore;
+        console.log(this.scores)
     },
     
     removeFromScores() {

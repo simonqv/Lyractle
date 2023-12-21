@@ -3,6 +3,7 @@ import { observer } from 'mobx-react-lite'
 import LyricsView from '../views/lyricsView'
 import '/src/style.css'
 import GuessInputView from '../views/guessInputView'
+import { GameStates } from "../userModel"
 
 // TODO: Always show guessed words, maybe implement a list of words that are always shown and not randomize
 export default observer(function Lyrics(props) {
@@ -101,6 +102,8 @@ const isGameWon = props.model.gameState === 'WIN'
 }
 
 function handleGuess() {
+    
+   
     if (props.model.currentGuess.trim() !== '') {
       const lowerCaseGuess = props.model.currentGuess.trim().toLowerCase();
       const lowerCaseLyrics = lyrics.toLowerCase();
@@ -110,6 +113,8 @@ function handleGuess() {
       const occurrencesInTitle = countOccurrences(lowerCaseTitle, lowerCaseGuess);
   
       props.model.currentOccurence = occurrencesInLyrics + occurrencesInTitle;
+      
+      
   
       // Revealing only the guessed word in the title
       if (lowerCaseTitle.includes(lowerCaseGuess)) {
@@ -126,6 +131,13 @@ function handleGuess() {
           return newRevealedTitle;
         });
       }
+
+
+      // if (allWordsInArray(lowerCaseTitle, props.model.guesses)) {
+      //   props.model.setGameState(GameStates.WIN);
+      //   console.log ("Game State changed to WIN");
+      //   return;  
+      // }
 
       if (revealedTitle.every(word => word === true)) {
         props.model.setGameState(GameStates.WIN)
@@ -148,11 +160,19 @@ function handleGuess() {
   
       if (!guessedWord) {
         // If the guessed word doesn't exist in the guesses array, add it with occurrences
+        increaseScore();
         addGuess({ word: lowerCaseGuess, occurrences: props.model.currentOccurence });
-        if (allWordsInArray(lowerCaseTitle, props.model.guesses)) {
+       
+        const wordsArray = props.model.guesses.map(entry => entry.word);
+        const guessNum = props.model.currentScore
+       
+        if (allWordsInArray(lowerCaseTitle, wordsArray)) {
+          props.model.addToScores(props.currentTitle, props.model.currentScore);
+          props.model.setGameState(GameStates.WIN);
+          alert("Congratulations, you guessed the title with " + JSON.stringify(guessNum) + " guesses!")
           window.location.href = "/login";
         }
-        increaseScore();
+        
       }
     }
   }
