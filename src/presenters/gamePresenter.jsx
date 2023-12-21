@@ -45,16 +45,14 @@ export default observer(function Game(props) {
         const hintWord = props.model.getHint(); 
         if (hintWord) {
             props.model.nbrHints ++;
-
+        }
     }
-}
+
 
     function giveUp() {
         // TODO: Give up logic
         props.model.setGameState(GameStates.GIVEN_UP)
-        console.log("Game has been given up!");
-
-        
+        console.log("Game has been given up!")
     }
 
 
