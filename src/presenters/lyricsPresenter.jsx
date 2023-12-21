@@ -105,75 +105,81 @@ function handleGuess() {
     
    
     if (props.model.currentGuess.trim() !== '') {
-      const lowerCaseGuess = props.model.currentGuess.trim().toLowerCase();
-      const lowerCaseLyrics = lyrics.toLowerCase();
-      const lowerCaseTitle = title.toLowerCase();
-  
-      const occurrencesInLyrics = countOccurrences(lowerCaseLyrics, lowerCaseGuess);
-      const occurrencesInTitle = countOccurrences(lowerCaseTitle, lowerCaseGuess);
-  
-      props.model.currentOccurence = occurrencesInLyrics + occurrencesInTitle;
-      
-      
-  
-      // Revealing only the guessed word in the title
-      if (lowerCaseTitle.includes(lowerCaseGuess)) {
-        setRevealedTitle((prevRevealedTitle) => {
-          const newRevealedTitle = [...prevRevealedTitle];
-          const titleWords = title.toLowerCase().split(/\s+/);
-  
-          titleWords.forEach((word, index) => {
-            if (word === lowerCaseGuess) {
-              newRevealedTitle[index] = true;
-            }
-          });
-          console.log("T", newRevealedTitle)
-          return newRevealedTitle;
-        });
-      }
-
-
-      // if (allWordsInArray(lowerCaseTitle, props.model.guesses)) {
-      //   props.model.setGameState(GameStates.WIN);
-      //   console.log ("Game State changed to WIN");
-      //   return;  
-      // }
-
-      if (revealedTitle.every(word => word === true)) {
-        props.model.setGameState(GameStates.WIN)
-        console.log ("Game State changed to WIN")
-        return
-      }
-  
-      // Revealing words in the lyrics
-      if (lowerCaseLyrics.includes(lowerCaseGuess)) {
-        setRevealedWords((prevRevealedWords) => {
-          if (!prevRevealedWords.includes(lowerCaseGuess)) {
-            return [...prevRevealedWords, lowerCaseGuess]
-          } else {
-            return prevRevealedWords
-          }
-        })
-      }
-  
+      const lowerCaseGuess = props.model.currentGuess.trim().toLowerCase()
       const guessedWord = props.model.guesses.find((guess) => guess.word === lowerCaseGuess)
-  
+
       if (!guessedWord) {
-        // If the guessed word doesn't exist in the guesses array, add it with occurrences
+        const lowerCaseLyrics = lyrics.toLowerCase()
+        const lowerCaseTitle = title.toLowerCase()
+  
+        const occurrencesInLyrics = countOccurrences(lowerCaseLyrics, lowerCaseGuess)
+        const occurrencesInTitle = countOccurrences(lowerCaseTitle, lowerCaseGuess)
+        const totOccurences = occurrencesInLyrics + occurrencesInTitle
+
         increaseScore();
-        addGuess({ word: lowerCaseGuess, occurrences: props.model.currentOccurence });
-       
-        const wordsArray = props.model.guesses.map(entry => entry.word);
-        const guessNum = props.model.currentScore
-       
-        if (allWordsInArray(lowerCaseTitle, wordsArray)) {
-          props.model.addToScores(props.currentTitle, props.model.currentScore);
-          props.model.setGameState(GameStates.WIN);
-          alert("Congratulations, you guessed the title with " + JSON.stringify(guessNum) + " guesses!")
-          window.location.href = "/login";
+        addGuess({ word: lowerCaseGuess, occurrences: totOccurences });
+
+        // Revealing only the guessed word in the title
+        if (lowerCaseTitle.includes(lowerCaseGuess)) {
+          console.log("Revealing only the guessed word in the title")
+          setRevealedTitle((prevRevealedTitle) => {
+            console.log(prevRevealedTitle)
+            const newRevealedTitle = [...prevRevealedTitle];
+            const titleWords = title.toLowerCase().split(/\s+/);
+
+            titleWords.forEach((word, index) => {
+              if (word === lowerCaseGuess) {
+                newRevealedTitle[index] = true;
+              }
+            });
+            console.log("T", newRevealedTitle)
+            return newRevealedTitle;
+          });
         }
-        
+        console.log("after title thing")
+
+        // Revealing words in the lyrics
+        if (lowerCaseLyrics.includes(lowerCaseGuess)) {
+          console.log("Revealing words in the lyrics"),
+          setRevealedWords((prevRevealedWords) => {
+            console.log("prev rev word:", prevRevealedWords)
+            if (!prevRevealedWords.includes(lowerCaseGuess)) {
+              return [...prevRevealedWords, lowerCaseGuess]
+            } else {
+              return prevRevealedWords
+            }
+          })
+        }
+
+        console.log("rev title: ", revealedTitle)
+        if (revealedTitle.every(word => word === true)) {
+          props.model.addToScores(props.currentTitle, props.model.currentScore);
+          props.model.setGameState(GameStates.WIN)
+          console.log("our old version :P ")
+          console.log ("Game State changed to WIN")
+          const guessNum = props.model.currentScore
+          alert("Congratulations, you guessed the title with " + JSON.stringify(guessNum) + " guesses!")
+          return
+        }
+
       }
+
+      // if (!guessedWord) {
+      //   // If the guessed word doesn't exist in the guesses array, add it with occurrences
+      //   console.log("in !guessedWord")
+        
+       
+      //   const wordsArray = props.model.guesses.map(entry => entry.word);
+      //   const guessNum = props.model.currentScore
+       
+      //   if (revealedTitle.every(word => word === true)) {
+      //     props.model.addToScores(props.currentTitle, props.model.currentScore);
+      //     console.log("allwordsinarray win version")
+      //     props.model.setGameState(GameStates.WIN);
+      //     alert("Congratulations, you guessed the title with " + JSON.stringify(guessNum) + " guesses!")
+      //   }
+        
+      // }
     }
   }
   

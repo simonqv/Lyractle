@@ -7,7 +7,6 @@ var artists = [
     "Ariana Grande",
     "Eminem",
     "Post Malone",
-    "BTS",
     "Kanye West",
     "Billie Eilish",
     "Coldplay",

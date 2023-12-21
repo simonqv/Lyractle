@@ -121,10 +121,10 @@ export default {
     },
 
     setGameState(state) {
-        console.log(`Setting game state to: ${state}`);
+        console.log(`Setting game state to: ${state}`)
         if (Object.values(GameStates).includes(state)) {
-            this.gameState = state;
-            this.saveGameState(); // Save the game state whenever it changes
+            this.gameState = state
+            this.saveGameState() // Save the game state whenever it changes
         } else {
             throw new Error(`Invalid game state: ${state}`);
         }
@@ -152,13 +152,10 @@ export default {
         }
         
         // Remove the last part starting from "*******" to the end
-        console.log("clean lyrics: ", lyrics)
         const cleanedLyrics = lyrics.replace(/\*{7,}[\s\S]*$/, '');
-        console.log("cleaned lyrics: ", cleanedLyrics)
       
         // Remove any trailing three dots
         const finalLyrics = cleanedLyrics.replace(/\.{3}\s*$/, '');
-        console.log("final lyrics", finalLyrics)
       
         return finalLyrics.trim();
     },
@@ -170,11 +167,9 @@ export default {
 
     getSongFromArtist(artistID) {
         // Get a random song from the artist
-        this.getArtistSongs(artistID, 10)
+        this.getArtistSongs(artistID, 2)
         this.artistTrackPromiseState.promise.then(() => {
-            console.log("artist songs: ", this.artistTrackPromiseState.data)
             const randomSong = this.getRandomElement(this.artistTrackPromiseState.data.message.body.track_list)
-            console.log("ran song: ", randomSong)
             if (randomSong === undefined) {
                 console.log("Something went wrong :( try another artist")
             }
@@ -183,7 +178,6 @@ export default {
                 console.log("curr track: ", this.currentTrack)
                 this.getLyrics(this.currentTrack.track.commontrack_id)
                 this.lyricsPromiseState.promise.then(() => {
-                    console.log("lyr: ", this.lyricsPromiseState.data.message.body.lyrics.lyrics_body)
                     this.setCurrentLyrics(this.lyricsPromiseState.data.message.body.lyrics.lyrics_body)
                     this.searchResultsPromiseState = {}
                 })

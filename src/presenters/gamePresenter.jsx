@@ -12,14 +12,10 @@ export default observer(function Game(props) {
     const navigate = useNavigate()
 
     return  <div>
-    {place_holder(props.model.currentTrack, props.model.currentLyrics)}
-        
+        {renderGame(props.model.currentTrack, props.model.currentLyrics)}  
     </div>
     
-    function place_holder(currentTrack, currentLyrics) {   
-        console.log("place_holder called");
-        console.log("currentTrack:", currentTrack);
-        console.log("currentLyrics:", currentLyrics);
+    function renderGame(currentTrack, currentLyrics) {
         
         if (!currentTrack || !currentLyrics) {
             return (
