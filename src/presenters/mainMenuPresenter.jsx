@@ -4,6 +4,7 @@ import Modal from "react-modal"
 import MainMenuView from "../views/mainMenuView"
 import { useNavigate } from "react-router-dom"
 import ArtistSearchResultView from "../views/artistSearchResultView"
+import { GameStates } from "../userModel"
 
 Modal.setAppElement("#root"); // Set the root element for accessibility
 
@@ -37,10 +38,12 @@ observer(
         }
 
         function continueGameACB() {
+            props.model.setGameState(GameStates.PLAYING);
             navigate("/game")
         }
        
         function goToHighScoresACB() {
+            props.model.setGameState(GameStates.PLAYING);
             navigate("/highScores")
         }
 
@@ -56,7 +59,7 @@ observer(
 
         function randomTrackACB() {
             props.model.getRandomSong()
-            
+            props.model.setGameState(GameStates.PLAYING);
             navigate("/game")
 
         }
@@ -84,6 +87,7 @@ observer(
 
             function playArtist(artistID) {
                 props.model.getSongFromArtist(artistID)
+                props.model.setGameState(GameStates.PLAYING);
                 navigate("/game")
                 
             }

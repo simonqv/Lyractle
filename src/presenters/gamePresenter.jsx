@@ -29,7 +29,7 @@ export default observer(function Game(props) {
                 <div className="main-content">
 
                     <Lyrics model={props.model} currentLyrics={props.model.currentLyrics} currentTitle={props.model.currentTrack.track.track_name}/>
-                    <GuessBarView setGameState={props.model.setGameState} currentOccurence={props.model.currentOccurence} currentGuess= {props.model.currentGuess} guesses={props.model.guesses} hints={props.model.nbrHints} onHintClick={getHint} onGiveUpClick={giveUp}/>
+                    <GuessBarView gameState={props.model.gameState} setGameState={props.model.setGameState} currentOccurence={props.model.currentOccurence} currentGuess= {props.model.currentGuess} guesses={props.model.guesses} hints={props.model.nbrHints} onHintClick={getHint} onGiveUpClick={giveUp}/>
                     
                 </div>
             </div>

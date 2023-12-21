@@ -25,13 +25,14 @@ function GuessBarView(props) {
       </div>
 
       {/* Include buttons for showing hints and quitting the game */}
-      <div className="guess-bar-button-container">
-        
-        <button disabled={props.hints >= 3} className='button small-button' onClick={getHintACB}>
-          Hints {props.hints}/3
-        </button>
-        <button className='button red-button small-button' onClick={giveUpACB}>Give up</button>
-      </div>
+      
+      {props.gameState === GameStates.PLAYING && 
+        <div className="guess-bar-button-container">
+          <button disabled={props.hints >= 3} className='button small-button' onClick={getHintACB}>
+            Hints {props.hints}/3
+          </button>
+          <button className='button red-button small-button' onClick={giveUpACB}>Give up</button>
+      </div>}
     </div>
   );
 

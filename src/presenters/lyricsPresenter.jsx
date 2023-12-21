@@ -4,6 +4,7 @@ import LyricsView from '../views/lyricsView'
 import '/src/style.css'
 import GuessInputView from '../views/guessInputView'
 import { GameStates } from "../userModel"
+import FinalLyricsView from '../views/finalLyricsView'
 
 // TODO: Always show guessed words, maybe implement a list of words that are always shown and not randomize
 export default observer(function Lyrics(props) {
@@ -37,10 +38,22 @@ export default observer(function Lyrics(props) {
    setRevealedTitle(initialRevealedTitle)
 }, []);
 
+// This is to find that the revealedTitle has changed to all true
+useEffect(() => {
+  console.log("rev title:" ,revealedTitle)
+  if (revealedTitle.length > 0 && revealedTitle.every(word => word === true)) {
+    props.model.addToScores(props.currentTitle, props.model.currentScore);
+    props.model.setGameState(GameStates.WIN);
+    const guessNum = props.model.currentScore;
+    // alert("Congratulations, you guessed the title with " + JSON.stringify(guessNum) + " guesses!");
+  }
+}, [revealedTitle]);
+
 const isGameWon = props.model.gameState === 'WIN'
 
   return (
     <div className='lyrics-and-guess-input'>
+      {props.model.gameState === GameStates.PLAYING && (
       <LyricsView 
       title={title} 
       lyrics={lyrics} 
@@ -49,7 +62,21 @@ const isGameWon = props.model.gameState === 'WIN'
       gameState={props.model.gameState}
       onHintClick={handleHint}
       />
+      )}
+      {(props.model.gameState === GameStates.WIN || props.model.gameState === GameStates.GIVEN_UP) && (
+        <FinalLyricsView
+        title={title}
+        artist={props.model.currentTrack.track.artist_name}
+        lyrics={lyrics}
+        numGuess={props.model.currentScore}
+        revealedTitle={revealedTitle} 
+        revealedWords={revealedWords}
+        gameState={props.model.gameState}
+        />
+      )}
+      {props.model.gameState === GameStates.PLAYING && (
       <GuessInputView currentGuess={props.model.currentGuess} onHandleGuess={handleGuess} onSetGurrentGuess={setCurrentGuess} />
+      )}
     </div>
   )
   
@@ -91,16 +118,6 @@ const isGameWon = props.model.gameState === 'WIN'
     return count;
   }
 
-  function allWordsInArray(inputString, wordArray) {
-    // Split the input string into an array of words
-    const words = inputString.split(/\s+/);
-
-    // Check if every word is present in the array
-    const allWordsInArray = words.every(word => wordArray.includes(word));
-
-    return allWordsInArray;
-}
-
 function handleGuess() {
     
    
@@ -140,7 +157,7 @@ function handleGuess() {
 
         // Revealing words in the lyrics
         if (lowerCaseLyrics.includes(lowerCaseGuess)) {
-          console.log("Revealing words in the lyrics"),
+          console.log("Revealing words in the lyrics")
           setRevealedWords((prevRevealedWords) => {
             console.log("prev rev word:", prevRevealedWords)
             if (!prevRevealedWords.includes(lowerCaseGuess)) {
@@ -150,39 +167,7 @@ function handleGuess() {
             }
           })
         }
-
-        console.log("rev title: ", revealedTitle)
-        if (revealedTitle.every(word => word === true)) {
-          props.model.addToScores(props.currentTitle, props.model.currentScore);
-          props.model.setGameState(GameStates.WIN)
-          console.log("our old version :P ")
-          console.log ("Game State changed to WIN")
-          const guessNum = props.model.currentScore
-          alert("Congratulations, you guessed the title with " + JSON.stringify(guessNum) + " guesses!")
-          return
-        }
-
       }
-
-      // if (!guessedWord) {
-      //   // If the guessed word doesn't exist in the guesses array, add it with occurrences
-      //   console.log("in !guessedWord")
-        
-       
-      //   const wordsArray = props.model.guesses.map(entry => entry.word);
-      //   const guessNum = props.model.currentScore
-       
-      //   if (revealedTitle.every(word => word === true)) {
-      //     props.model.addToScores(props.currentTitle, props.model.currentScore);
-      //     console.log("allwordsinarray win version")
-      //     props.model.setGameState(GameStates.WIN);
-      //     alert("Congratulations, you guessed the title with " + JSON.stringify(guessNum) + " guesses!")
-      //   }
-        
-      // }
     }
   }
-  
-  
-  
 })

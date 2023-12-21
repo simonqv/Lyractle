@@ -1,20 +1,25 @@
 import React from 'react';
+import { GameStates } from '../userModel';
 
 function FinalLyricsView(props) {
   
-  const processedLyrics = removeContentInsideBrackets(props.lyrics)
-
-  console.log(props.title)
-  
+  const processedLyrics = removeContentInsideBrackets(props.lyrics);
 
   return (
     <div className="lyrics-view">
-      <h2 className='h2'>
-        {props.title.split(/\s+/).map((word, index) =>
-            props.revealedTitle[index] ? word : '_'.repeat(word.length)
-          )
-          .join(' ')}
-      </h2>
+      <span>
+        <h2 className='h2'>
+          {props.title.split(/\s+/).join(' ')} - {props.artist}
+        </h2>
+        {props.gameState === GameStates.WIN &&
+        ( 
+          <h3 className='h3' style={{fontSize: "24px", marginBottom: "24px", color: "#98D4D2"}}>You won in {props.numGuess} number of guesses</h3>
+        )}
+        {props.gameState === GameStates.GIVEN_UP &&
+        ( 
+          <h3 className='h3' style={{fontSize: "24px", marginBottom: "24px", color: "#B76D6D"}}>You gave up after {props.numGuess} number of guesses</h3>
+        )}
+      </span>
       <div>
         {processedLyrics
           .split('\n') // Split the lyrics into lines
@@ -22,25 +27,18 @@ function FinalLyricsView(props) {
             <p key={index} className='p' >
               {line
                 .split(/\s+/)
-                .map((word, index) =>
-                  props.revealedWords.includes(word.toLowerCase())
-                    ? word
-                    : '_'.repeat(word.length)
-                )
                 .join(' ')}
             </p>
           ))}
       </div>
     </div>
   );
-};
+}
 
 function removeContentInsideBrackets(longString) {
   // Use a regular expression to match content inside square brackets and replace it with an empty string
   const result = longString.replace(/\[[^\]]*\]/g, '');
   return result;
-
-  
 }
 
-export default LyricsView;
+export default FinalLyricsView;
