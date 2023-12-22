@@ -9,6 +9,7 @@ function GuessInputView(props) {
         handleGuessACB();
       }
     };
+
   return (
     <div className="textarea-container">
       <div className="search-bar-container">
@@ -17,7 +18,7 @@ function GuessInputView(props) {
           placeholder="Write your guess..."
           value={props.currentGuess}
           onChange={setCurrentGuessACB}
-          onKeyPress={handleKeyPress} 
+          onKeyDown={handleKeyPress} 
         ></textarea>
          <div className="button-container">
           <button className="button small-button" onClick={handleGuessACB}>
@@ -30,7 +31,6 @@ function GuessInputView(props) {
 
  
   function handleGuessACB() {
-    //console.log(props.model.currentScore)
     props.onHandleGuess();
     props.onSetGurrentGuess('');
   }

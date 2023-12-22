@@ -60,7 +60,6 @@ export default {
     },
 
     setNbrHints(nr) {
-        console.log("in model", nr, this.nbrHints)
         if (nr <= 3) {
             this.nbrHints = nr
         }
@@ -84,7 +83,6 @@ export default {
 
     addToScores(track, newScore) {
         this.scores[track.commontrack_id] = [track.track_name, newScore]
-        console.log(this.scores)
     },
     
     removeFromScores() {
@@ -119,7 +117,6 @@ export default {
     },
 
     setGameState(state) {
-        console.log(`Setting game state to: ${state}`)
         if (Object.values(GameStates).includes(state)) {
             this.gameState = state
             this.saveGameState() // Save the game state whenever it changes
@@ -137,7 +134,6 @@ export default {
     },
 
     getArtistSongs(artistID, nbrSongs) {
-        console.log("get artist songs")
         this.artistTrackPromiseState = resolvePromise(getArtistTracks(artistID, nbrSongs), this.artistTrackPromiseState)
     },
 
@@ -174,7 +170,6 @@ export default {
             }
             else {
                 this.setCurrentTrack(randomSong)
-                console.log("curr track: ", this.currentTrack)
                 this.getLyrics(this.currentTrack.track.commontrack_id)
                 this.lyricsPromiseState.promise.then(() => {
                     this.setCurrentLyrics(this.lyricsPromiseState.data.message.body.lyrics.lyrics_body)
@@ -192,17 +187,14 @@ export default {
         this.doSearch(ranArtist)
         
         this.searchResultsPromiseState.promise.then(() => {
-            console.log("search res: ", this.searchResultsPromiseState.data)
             const foundArtists = this.searchResultsPromiseState.data.message.body.artist_list
             let artistID = null
-            console.log("found artist: ", foundArtists)
             // Make sure the searched artist is the same as the found artist
             for (const foundArtist of foundArtists) {
                 // If there isn't a "perfect match" of searched artist and primary artist name. 
                 artistID = foundArtist.artist.artist_id
                 if (ranArtist.toLowerCase() === foundArtist.artist.artist_name.toLowerCase()) {
                     artistID = foundArtist.artist.artist_id
-                    console.log("artist id: ", artistID, foundArtist.artist.artist_name)
                     break
                 }
             }

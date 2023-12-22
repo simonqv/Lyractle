@@ -97,7 +97,6 @@ function readFromFirebase(model) {
 }
 
 function connectToFirebase(model, watchFunction) {
-  console.log("connect to fb")
   onAuthStateChanged(auth, loginOrOutACB)
   watchFunction(checkChangeACB, updateFirebaseACB)
 

@@ -25,12 +25,10 @@ function LoginView(props) {
 
     function loginACB() {
         props.onLoginClick()
-        console.log("login")
     }
 
     function guestACB() {
         props.onGuestClick()
-        console.log("Guest")
     }
 
 }

@@ -19,18 +19,6 @@ function MainMenuView(props) {
             <button className='button' onClick={randomSongACB}>start random game</button>
             <button className='button' style={{minWidth: "326px"}} onClick={playByArtistACB}>play by artist</button>
             {props.model.user ? <button className='button' style={{minWidth: "326px"}} onClick={highScoresACB}>high scores</button> : <div/>} 
-            {/* <PlayByArtistView model={props.model} isOpen={showModal} onRequestClose={closeModal} onSearch={search} onInputChange={artistInput}/> */}
-            
-            {/* <Modal className="search-modal" isOpen={showModal} onRequestClose={closeModal}>
-                <div>
-                    <input onChange={artistInput} defaultValue="search for artist"/>
-                    <button className='button' onClick={search}>search</button>
-                    <button onClick={closeModal}>Close</button>
-                    {awaitResults(props.model.searchResultsPromiseState)}
-                </div>
-            </Modal> */}
-            {/* <input onChange={artistInputACB} defaultValue="Search for artist"/> */}
-            {/* <button className='button' onClick={searchACB}>Search</button> */}
         </div>
     )
 

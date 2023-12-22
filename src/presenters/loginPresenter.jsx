@@ -23,12 +23,9 @@ export default observer(function Login(props) {
         //const accessToken = result.user.accessToken;
     
         const user = result.user
-        console.log("login user: ", user.uid)
         props.model.setUser(user.uid)
         props.model.removeGuest()
         
-        // TODO: props.model.setScores, .setGuesses, and other model updates
-
         // Navigate to the desired page after a successful login
         navigate("/mainMenu")
       })

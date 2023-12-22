@@ -19,14 +19,22 @@ observer(
             {checkState(props.model.currentTrack)}
         </div>
         
+        
+        
         function checkState(track) {
-
+            const handleKeyPress = (event) => {
+                if (event.key === 'Enter') {
+                event.preventDefault();
+                searchACB();
+                }
+            };
+            
             return <div>
                 <MainMenuView model={props.model} onContinueGameClick={continueGameACB} onHighScoresClick={goToHighScoresACB} onRandomClick={randomTrackACB} onPlayArtist={openModal}></MainMenuView>
                 <Modal className="search-modal" isOpen={showModal} onRequestClose={closeModal}>
                 <div>
                     <div style={{ display: "flex", flexDirection: "row"}}>
-                        <input className="search-bar" style={{margin: "0px 8px 4px 0px", height: "48px", fontSize: "25px"}} onChange={searchArtistACB} placeholder="search for artist"/>
+                        <input className="search-bar" onKeyDown={handleKeyPress} style={{margin: "0px 8px 4px 0px", height: "48px", fontSize: "25px"}} onChange={searchArtistACB} placeholder="search for artist"/>
                         <button className='small-button' style={{width: "115px"}} onClick={searchACB}>search</button>
                     </div>
                     {shouldRenderSearchArtist(props.model.searchResultsPromiseState)}
@@ -46,12 +54,10 @@ observer(
         }
 
         function searchArtistACB(artistQuery) {
-            console.log("searchArtistACB, ", artistQuery.target.value)
             props.model.setSearchQuery(artistQuery.target.value)
         }
 
         function searchACB() {
-            console.log("search acb", props.model.searchArtistQuery)
             props.model.doSearch(props.model.searchArtistQuery)
         }
 
@@ -71,7 +77,6 @@ observer(
         }
 
         function shouldRenderSearchArtist(state) {
-            console.log("state: ", state)
             if (!state.data && !state.error) {
                 return <div></div>
             }

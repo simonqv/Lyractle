@@ -19,7 +19,7 @@ function GuessBarView(props) {
           </tr>
         </thead>
         <tbody>
-          {props.guesses.map((guess, index) => showGuessCB(guess, index))}
+          {props.guesses.slice().reverse().map((guess, index) => showGuessCB(guess, props.guesses.length - index))}
         </tbody>
       </table>
       </div>
@@ -50,7 +50,7 @@ function GuessBarView(props) {
   function showGuessCB(guess, index) {
     return (
       <tr key={index}>
-        <th>{index+1}</th>
+        <th>{index}</th>
         <th>{guess.word}</th>
         <th>{guess.occurrences}</th>
       </tr>
