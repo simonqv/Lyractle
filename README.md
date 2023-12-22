@@ -19,6 +19,9 @@ https://www.figma.com/file/9OnIGOtvT6YTU0O6y89pWp/Simon-Larspers-Qvist's-team-li
 
 Use Musixmatch API for tracks, lyrics and artists etc. 
 
+### At least one user-visible third-party component.
+We have use a Modal for search artist as well as the instructions pop up, and this is a third-party component.
+
 ## What we have done (before halftime evaluation)
 * Created a firebase project with google authentication and a user database
 * Implemented a user model that stores relevant information, such as the current track, lyrics, and guesses.
