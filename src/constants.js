@@ -61,7 +61,6 @@ var artists = [
     "Lil Baby",
     "OneRepublic",
     "Michael Jackson",
-    "Myke Towers",
     "Jason Derulo",
     "Demi Lovato",
     "Mac Miller",
