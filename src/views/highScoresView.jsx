@@ -33,12 +33,15 @@ function HighScoresView(props){
           return {}
         }
       
-        const sortedKeys = Object.keys(props.scores).sort((key1, key2) => props.scores[key1] - props.scores[key2])
-      
-        const sortedScoreDict = sortedKeys.reduce((acc, key) => {
-          acc[key] = props.scores[key]
-          return acc
-        }, {})
+        const sortedKeys = Object.keys(props.scores).sort(
+            (key1, key2) => props.scores[key1][1] - props.scores[key2][1]
+          );
+        
+          const sortedScoreDict = sortedKeys.reduce((acc, key) => {
+            const [songName, score] = props.scores[key];
+            acc[songName] = score;
+            return acc;
+          }, {});
       
         return sortedScoreDict
       }

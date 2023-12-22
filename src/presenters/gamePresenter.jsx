@@ -50,7 +50,7 @@ export default observer(function Game(props) {
     useEffect(() => {
         console.log("rev title:" ,revealedTitle)
         if (revealedTitle.length > 0 && revealedTitle.every(word => word === true)) {
-            props.model.addToScores(props.model.currentTrack.track.track_name, props.model.currentScore)
+            props.model.addToScores(props.model.currentTrack.track, props.model.currentScore)
             props.model.setGameState(GameStates.WIN)
         }
     }, [revealedTitle])
@@ -78,7 +78,7 @@ export default observer(function Game(props) {
                             <LyricsView title={title} lyrics={lyrics} revealedTitle={revealedTitle} revealedWords={revealedWords} gameState={props.model.gameState}/>
                         )}
                         {(props.model.gameState === GameStates.WIN || props.model.gameState === GameStates.GIVEN_UP) && (
-                            <FinalLyricsView title={title} artist={props.model.currentTrack.track.artist_name} lyrics={lyrics} numGuess={props.model.currentScore} revealedTitle={revealedTitle} revealedWords={revealedWords} gameState={props.model.gameState}/>
+                            <FinalLyricsView title={title} artist={props.model.currentTrack.track.artist_name} lyrics={lyrics} guesses={props.model.guesses} revealedTitle={revealedTitle} revealedWords={revealedWords} gameState={props.model.gameState}/>
                         )}
                         {props.model.gameState === GameStates.PLAYING && (
                             <GuessInputView currentGuess={props.model.currentGuess} onHandleGuess={handleGuess} onSetGurrentGuess={setCurrentGuess} />

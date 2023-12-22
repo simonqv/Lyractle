@@ -13,7 +13,7 @@ function FinalLyricsView(props) {
         </h2>
         {props.gameState === GameStates.WIN &&
         ( 
-          <h3 className='h3-won'>You solved it in {props.numGuess} guesses</h3>
+          <h3 className='h3-won'>You solved it in {props.guesses.length} guesses</h3>
         )}
         {props.gameState === GameStates.GIVEN_UP &&
         ( 

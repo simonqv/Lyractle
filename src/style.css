@@ -29,12 +29,14 @@
  }
 
 .button:disabled {
-  background-color: grey;
+  background-color: #9a9a9ab8;
+  color: #606060c7;
+  cursor: auto;
 }
 
 .button:disabled:hover {
   transform: none;
-  background-color: grey;
+  background-color: #9a9a9ab8;
 }
 
 

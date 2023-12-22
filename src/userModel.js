@@ -83,7 +83,7 @@ export default {
     },
 
     addToScores(track, newScore) {
-        this.scores[track] = newScore
+        this.scores[track.commontrack_id] = [track.track_name, newScore]
         console.log(this.scores)
     },
     
@@ -220,7 +220,6 @@ export default {
 
     prepareModelForNewGame() {
         this.setCurrentScore(0)
-        this.setHintWord("")
         this.setNbrHints(0)
         this.setCurrentTrack(null)
         this.setCurrentLyrics(null)
@@ -232,7 +231,6 @@ export default {
         this.setUser(null)
         this.removeGuest()
         this.setCurrentScore(0)
-        this.setHintWord("")
         this.setNbrHints(0)
         this.setCurrentTrack(null)
         this.setCurrentLyrics(null)

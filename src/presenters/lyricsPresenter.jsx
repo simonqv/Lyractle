@@ -46,7 +46,7 @@ export default observer(function Lyrics(props) {
 useEffect(() => {
   console.log("rev title:" ,revealedTitle)
   if (revealedTitle.length > 0 && revealedTitle.every(word => word === true)) {
-    props.model.addToScores(props.currentTitle, props.model.currentScore)
+    props.model.addToScores(props.model.currentTrack.track, props.model.currentScore)
     props.model.setGameState(GameStates.WIN)
     const guessNum = props.model.currentScore
   }
