@@ -1,6 +1,6 @@
-import '/src/style.css';
-import { GameStates } from '../userModel';
+import '/src/style.css'
 
+import { GameStates } from '../userModel'
 
 function GuessBarView(props) {
   return (
@@ -9,7 +9,6 @@ function GuessBarView(props) {
      
       <h2 className="guess-title" style={{marginTop: "54px"}}>Your Guesses: </h2>
       <div className ="guesses-container">
-
       <table>
         <thead>
           <tr>

@@ -59,7 +59,7 @@ function HamburgerView(props) {
                   Some words are visible, while others are hidden.
                   Each guess you make, where the word appears in the song lyrics,
                   will unveil the hidden words. If your guess does not appear in the song lyrics,
-                  nothing will be reveiled, but your guess count will increase.
+                  nothing will be revealed, but your guess count will increase.
                   Input is not case sensitive.</p>
                 
                 <button className='small-button' onClick={closeModal}>close</button>

@@ -1,9 +1,4 @@
 
-function sortScores(scores) {
-    const scoresArray = [...scores]
-    return scoresArray.sort((a, b) => b - a)
-}
-
 function countOccurrences(longString, word) {
     // Use a regular expression to split the string into an array of words
     // The regular expression \b ensures that only whole words are matched

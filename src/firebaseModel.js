@@ -102,7 +102,7 @@ function connectToFirebase(model, watchFunction) {
 
   function checkChangeACB() {
     return [
-      model.currentScore,
+      // model.currentScore,
       model.currentTrack,
       model.currentLyrics,
       model.nbrHints,

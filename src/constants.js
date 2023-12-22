@@ -90,7 +90,7 @@ var artists = [
     "ABBA"
   ];
 
-  const DEFAULT_VISIBLE_WORDS = [",", "'", "\"", "(", ")", ".", ";", ":", "?", "!", "-", "--", "a", "are", "i", "i'm", "in", "is", "it", "the", "this", "to", "was", "you", "what", "and", "be", "my", "mine"]
+  const DEFAULT_VISIBLE_WORDS = [",", "'", "\"", "/", "\\", "(", ")", ".", ";", ":", "?", "!", "-", "--", "a", "are", "i", "i'm", "in", "is", "it", "the", "this", "to", "was", "you", "what", "and", "be", "my", "mine"]
 
   const LYRICS_REGEX = /\b\w+\b|[^\w\s]/g
 

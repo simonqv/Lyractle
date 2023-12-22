@@ -22,7 +22,6 @@ export default {
     currentTrack: null, // Full track
     currentLyrics: null,
 
-    currentScore: null,
     currentGuess: "",
     currentOccurence: null,
     nbrHints: 0,
@@ -52,13 +51,6 @@ export default {
         this.guest = false
     },
 
-    setCurrentScore(nr) {
-        if(!Number.isInteger(nr) || nr < 0 ) {
-            throw new Error("Current score is not a positive integer")
-        }
-        this.currentScore = nr
-    },
-
     setNbrHints(nr) {
         if (nr <= 3) {
             this.nbrHints = nr
@@ -76,7 +68,7 @@ export default {
     setCurrentLyrics(lyrics) {
         this.currentLyrics = this.cleanLyrics(lyrics)
     },
-
+    
     setScores(scores) {
         this.scores = scores
     },
@@ -162,19 +154,35 @@ export default {
 
     getSongFromArtist(artistID) {
         // Get a random song from the artist
-        this.getArtistSongs(artistID, 2)
+        this.getArtistSongs(artistID, 3)
         this.artistTrackPromiseState.promise.then(() => {
-            const randomSong = this.getRandomElement(this.artistTrackPromiseState.data.message.body.track_list)
-            if (randomSong === undefined) {
-                console.log("Something went wrong :( try another artist")
-            }
-            else {
-                this.setCurrentTrack(randomSong)
-                this.getLyrics(this.currentTrack.track.commontrack_id)
-                this.lyricsPromiseState.promise.then(() => {
-                    this.setCurrentLyrics(this.lyricsPromiseState.data.message.body.lyrics.lyrics_body)
-                    this.searchResultsPromiseState = {}
-                })
+            let foundSongWithLyrics = false
+            const possibleSongs = this.artistTrackPromiseState.data.message.body.track_list
+            
+            while (!foundSongWithLyrics) {
+                const randomSong = this.getRandomElement(possibleSongs)
+
+                if (randomSong === undefined) {
+                    console.log("Something went wrong :( try another artist")
+                    break; // Break the loop if there are no more songs to try
+                }
+
+                if (randomSong.track.has_lyrics == 0) {
+                    console.log("Song has no lyrics")
+                    // Remove the current song from the list
+                    const index = possibleSongs.indexOf(randomSong)
+                    if (index !== -1) {
+                        possibleSongs.splice(index, 1)
+                    }
+                } else {
+                    foundSongWithLyrics = true
+                    this.setCurrentTrack(randomSong)
+                    this.getLyrics(this.currentTrack.track.commontrack_id)
+                    this.lyricsPromiseState.promise.then(() => {
+                        this.setCurrentLyrics(this.lyricsPromiseState.data.message.body.lyrics.lyrics_body)
+                        this.searchResultsPromiseState = {}
+                    })
+                }
             }
         })
     },
@@ -211,7 +219,6 @@ export default {
     },
 
     prepareModelForNewGame() {
-        this.setCurrentScore(0)
         this.setNbrHints(0)
         this.setCurrentTrack(null)
         this.setCurrentLyrics(null)
@@ -222,7 +229,6 @@ export default {
     wipeModel() {
         this.setUser(null)
         this.removeGuest()
-        this.setCurrentScore(0)
         this.setNbrHints(0)
         this.setCurrentTrack(null)
         this.setCurrentLyrics(null)

@@ -44,7 +44,7 @@ export default observer(function Game(props) {
     // This is to find that the revealedTitle has changed to all true
     useEffect(() => {
         if (revealedTitle.length > 0 && revealedTitle.every(word => word === true)) {
-            props.model.addToScores(props.model.currentTrack.track, props.model.currentScore)
+            props.model.addToScores(props.model.currentTrack.track, props.model.guesses.length)
             props.model.setGameState(GameStates.WIN)
         }
     }, [revealedTitle])
@@ -65,8 +65,6 @@ export default observer(function Game(props) {
         return (
             <div className="game-view">
                 <div className="main-content">
-                    {/* <Lyrics model={props.model} currentLyrics={props.model.currentLyrics} currentTitle={props.model.currentTrack.track.track_name}/> */}
-                    {/* <Lyrics model={props.model} currentTitle={'Live at the Rainbow, remastered\'s'}/> */}
                     <div className='lyrics-and-guess-input'>
                         {props.model.gameState === GameStates.PLAYING && (
                             <LyricsView title={title} lyrics={lyrics} revealedTitle={revealedTitle} revealedWords={revealedWords} gameState={props.model.gameState}/>
@@ -91,11 +89,6 @@ export default observer(function Game(props) {
     function addGuess(guess) {
         props.model.addToGuesses(guess)
     }
-    
-    function increaseScore() {
-        const nr = props.model.currentScore + 1
-        props.model.setCurrentScore(nr)
-    }
 
     function handleGuess() {
         const trimmedGuess = props.model.currentGuess.trim().toLowerCase()
@@ -117,7 +110,6 @@ export default observer(function Game(props) {
         const occurrencesInTitle = countOccurrences(lowerCaseTitle, trimmedGuess)
         const totOccurrences = occurrencesInLyrics + occurrencesInTitle
         
-        increaseScore()
         addGuess({ word: trimmedGuess, occurrences: totOccurrences })
         
         revealGuessedWordInTitle(lowerCaseTitle, trimmedGuess)
@@ -151,9 +143,9 @@ export default observer(function Game(props) {
 
     function getHint() {
         if (props.model.nbrHints < 3) {
-            const guesses = props.model.guesses.map(obj => obj.word)
-            const revealedWords = DEFAULT_VISIBLE_WORDS.concat(guesses)
+            const titleWords = title.toLowerCase().match(LYRICS_REGEX)
 
+            const revealedWords = DEFAULT_VISIBLE_WORDS.concat(props.model.guesses).concat(titleWords)
             const potentialWords = props.model.currentLyrics.match(/\b\w+\b/g) || []
 
             const unrevealedWords = potentialWords.filter((word) => !revealedWords.includes(word.toLowerCase()))
@@ -164,6 +156,7 @@ export default observer(function Game(props) {
                 setCurrentGuess(hintWord)
                 handleGuess()
                 props.model.setNbrHints(props.model.nbrHints + 1)
+                setCurrentGuess("")
             }
         }
     }
@@ -171,6 +164,5 @@ export default observer(function Game(props) {
     function giveUp() {
         props.model.setGameState(GameStates.GIVEN_UP)
     }
-
 
 })

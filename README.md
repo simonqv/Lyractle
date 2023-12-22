@@ -5,7 +5,7 @@ This is a game based on the Redactle game. The goal is to to determine the title
 
 
 ### Instructions
-You will be presented with 30% of the lyrics of a song. Your goal is to find the title of the song in as few guesses as possible! Some words are visible, while others are hidden. Each guess you make, where the word appears in the song lyrics, will unveil the hidden words. If your guess does not appear in the song lyrics, nothing will be reveiled, but your guess count will increase. Input is not case sensitive.
+You will be presented with 30% of the lyrics of a song. Your goal is to find the title of the song in as few guesses as possible! Some words are visible, while others are hidden. Each guess you make, where the word appears in the song lyrics, will unveil the hidden words. If your guess does not appear in the song lyrics, nothing will be revealed, but your guess count will increase. Input is not case sensitive.
 
 When you are testing and can't figure out the answer, you can cheat by opening the console and typing:
 myModel.currentTrack.track.track_name
@@ -56,7 +56,6 @@ We have use a Modal for search artist as well as the instructions pop up, and th
 │   ├── views
 │   │   ├── artistSearchResultView.jsx    // View of searched artists
 │   │   ├── finalLyricsView.jsx           // View for win or given up state
-│   │   ├── gameView.jsx                  // View of the game
 │   │   ├── guessBarView.jsx              // View of the guesses the player has made 
 │   │   ├── guessInputView.jsx            // View of the bar to make guesses
 │   │   ├── hamburgerView.jsx             // View of hamburger menu
@@ -102,3 +101,45 @@ We have use a Modal for search artist as well as the instructions pop up, and th
   * Return button (to main menu)
 
 (the list doesn't cover everything)
+
+
+## Set up
+To set up the project, first download it from GitHub.
+Run the following to install the required dependencies:
+
+```
+npm install
+```
+
+Create a filed called apiConfig.js with the following contents:
+
+```
+const MUSICXMATCH_KEY = 
+
+export {MUSICXMATCH_KEY} 
+```
+And add the key for the musicx match api.
+
+Create another file called firebaseConfig.js with the contents:
+
+```
+const firebaseConfig = {
+    apiKey: ,
+    authDomain: "lyractle.firebaseapp.com",
+    databaseURL: "https://lyractle-default-rtdb.europe-west1.firebasedatabase.app",
+    projectId: "lyractle",
+    storageBucket: "lyractle.appspot.com",
+    messagingSenderId: "1002325675402",
+    appId: "1:1002325675402:web:16ae99e6eadea42a3dcc73"
+  };
+
+  export default firebaseConfig
+```
+and add the apiKey.
+
+Finally, run:
+```
+npm run dev
+```
+
+And everything should be up and running on http://localhost:8080/
