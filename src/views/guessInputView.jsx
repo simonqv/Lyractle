@@ -5,6 +5,7 @@ function GuessInputView(props) {
   
   const handleKeyPress = (event) => {
       if (event.key === 'Enter') {
+        event.preventDefault();
         handleGuessACB();
       }
     };
@@ -31,6 +32,7 @@ function GuessInputView(props) {
   function handleGuessACB() {
     //console.log(props.model.currentScore)
     props.onHandleGuess();
+    props.onSetGurrentGuess('');
   }
 
   
