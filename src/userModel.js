@@ -154,7 +154,7 @@ export default {
 
     getSongFromArtist(artistID) {
         // Get a random song from the artist
-        this.getArtistSongs(artistID, 3)
+        this.getArtistSongs(artistID, 10)
         this.artistTrackPromiseState.promise.then(() => {
             let foundSongWithLyrics = false
             const possibleSongs = this.artistTrackPromiseState.data.message.body.track_list

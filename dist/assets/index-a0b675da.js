@@ -11916,7 +11916,7 @@ const model = {
     return list[randomIndex];
   },
   getSongFromArtist(artistID) {
-    this.getArtistSongs(artistID, 3);
+    this.getArtistSongs(artistID, 10);
     this.artistTrackPromiseState.promise.then(() => {
       let foundSongWithLyrics = false;
       const possibleSongs = this.artistTrackPromiseState.data.message.body.track_list;
@@ -34493,4 +34493,4 @@ const reactiveModel = observable(model);
 createRoot(document.getElementById("root")).render(/* @__PURE__ */ jsxRuntimeExports.jsx(ReactRoot, { model: reactiveModel }));
 window.myModel = reactiveModel;
 connectToFirebase(reactiveModel, reaction);
-//# sourceMappingURL=index-17a90032.js.map
+//# sourceMappingURL=index-a0b675da.js.map
