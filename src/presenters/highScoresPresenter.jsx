@@ -7,8 +7,6 @@ export default observer(function HighScores(props) {
     
     const navigate = useNavigate()
 
-    console.log("Scorces: ", props.model.scores)
-
     return <HighScoresView onReturn={returnClickACB} scores={props.model.scores}/>
     
     function returnClickACB() {

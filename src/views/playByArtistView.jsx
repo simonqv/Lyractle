@@ -26,7 +26,6 @@ function PlayByArtistView(props) {
     }
 
     function awaitResults(state) {
-        console.log("state RESULT: ", state)
         return <img src="https://zingy-bublanina-005f23.netlify.app/playBarArtist.gif"></img>
 
         if (!state.data && !state.error) {

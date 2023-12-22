@@ -3,7 +3,6 @@ import "/src/style.css"
 function ArtistSearchResultView(props) {
     return (
         <div className="search-result">
-            {console.log("artist res: ", props)}
             {props.res.message.body.artist_list.map(renderSearchResCB)}
             {/*props.res.response.hits.map(renderSearchResCB)*/}
         </div>

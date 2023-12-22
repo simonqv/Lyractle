@@ -17,7 +17,7 @@ function FinalLyricsView(props) {
         )}
         {props.gameState === GameStates.GIVEN_UP &&
         ( 
-          <h3 className='h3' style={{fontSize: "24px", marginBottom: "24px", color: "#B76D6D"}}>You gave up after {props.numGuess} guesses</h3>
+          <h3 className='h3' style={{fontSize: "24px", marginBottom: "24px", color: "#B76D6D"}}>You gave up after {props.guesses.length} guesses</h3>
         )}
       </span>
       <div>

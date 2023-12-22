@@ -22,22 +22,17 @@ export default observer(function Game(props) {
     useEffect(() => {
         if (props.model.currentTrack && props.model.currentLyrics) {
 
-            console.log("guesses", props.model.guesses)
             // Extract "word" property from each object in word_dict
             const new_words = props.model.guesses.map(obj => obj.word)
             
             // Concatenate arrays
             const initialRevealedWords = DEFAULT_VISIBLE_WORDS.concat(new_words)
-            console.log("init words" , initialRevealedWords)
             
-            console.log(initialRevealedWords)
             
             // Remove everyting in parentheses as that is most likely not relevant
             const cleanedTitle = cleanTitle(props.model.currentTrack.track.track_name)
-            console.log("cleaned title: ", cleanedTitle)
             
             const initialRevealedTitle = cleanedTitle.toLowerCase().match(LYRICS_REGEX).map(word => initialRevealedWords.includes(word))
-            console.log("init title", initialRevealedTitle)
             
             setLyrics(props.model.currentLyrics)
             setTitle(cleanedTitle)
@@ -48,7 +43,6 @@ export default observer(function Game(props) {
 
     // This is to find that the revealedTitle has changed to all true
     useEffect(() => {
-        console.log("rev title:" ,revealedTitle)
         if (revealedTitle.length > 0 && revealedTitle.every(word => word === true)) {
             props.model.addToScores(props.model.currentTrack.track, props.model.currentScore)
             props.model.setGameState(GameStates.WIN)
@@ -105,7 +99,6 @@ export default observer(function Game(props) {
 
     function handleGuess() {
         const trimmedGuess = props.model.currentGuess.trim().toLowerCase()
-        console.log("trimmed guess: ", trimmedGuess)
         
         if (trimmedGuess === '') {
             return
@@ -163,16 +156,12 @@ export default observer(function Game(props) {
             const revealedWords = DEFAULT_VISIBLE_WORDS.concat(guesses)
 
             const potentialWords = props.model.currentLyrics.match(/\b\w+\b/g) || []
-            console.log("potential words: ", potentialWords)
 
             const unrevealedWords = potentialWords.filter((word) => !revealedWords.includes(word.toLowerCase()))
-            console.log("unrevealed words: ", unrevealedWords)
 
             const hintWord = props.model.getRandomElement(unrevealedWords)
             
             if (hintWord) {
-                // TODO: Use the hintWord
-                console.log("Hint word:", hintWord)
                 setCurrentGuess(hintWord)
                 handleGuess()
                 props.model.setNbrHints(props.model.nbrHints + 1)
@@ -182,7 +171,6 @@ export default observer(function Game(props) {
 
     function giveUp() {
         props.model.setGameState(GameStates.GIVEN_UP)
-        console.log("Game has been given up!")
     }
 
 

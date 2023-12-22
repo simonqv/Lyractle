@@ -3,10 +3,7 @@ import { LYRICS_REGEX } from '../constants';
 
 function LyricsView(props) {
   
-  const processedLyrics = removeContentInsideBrackets(props.lyrics)
-
-  console.log(props.title)
-  
+  const processedLyrics = removeContentInsideBrackets(props.lyrics)  
 
   const resultArray = props.title.match(LYRICS_REGEX)
 

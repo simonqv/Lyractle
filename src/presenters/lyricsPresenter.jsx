@@ -18,23 +18,16 @@ export default observer(function Lyrics(props) {
   const [revealedTitle, setRevealedTitle] = useState([])
 
   useEffect(() => {
-    
-    console.log("guesses", props.model.guesses)
-    // Extract "word" property from each object in word_dict
+        // Extract "word" property from each object in word_dict
     const new_words = props.model.guesses.map(obj => obj.word)
 
     // Concatenate arrays
     const initialRevealedWords = DEFAULT_VISIBLE_WORDS.concat(new_words)
-    console.log("init words" , initialRevealedWords)
 
-    console.log(initialRevealedWords)
- 
     // Remove everyting in parentheses as that is most likely not relevant
     const cleanedTitle = cleanTitle(props.currentTitle)
-    console.log("cleaned title: ", cleanedTitle)
 
     const initialRevealedTitle = cleanedTitle.toLowerCase().match(LYRICS_REGEX).map(word => initialRevealedWords.includes(word))
-    console.log("init title", initialRevealedTitle)
     
    setLyrics(props.currentLyrics)
    setTitle(cleanedTitle)
@@ -44,7 +37,6 @@ export default observer(function Lyrics(props) {
 
 // This is to find that the revealedTitle has changed to all true
 useEffect(() => {
-  console.log("rev title:" ,revealedTitle)
   if (revealedTitle.length > 0 && revealedTitle.every(word => word === true)) {
     props.model.addToScores(props.model.currentTrack.track, props.model.currentScore)
     props.model.setGameState(GameStates.WIN)

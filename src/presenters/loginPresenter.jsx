@@ -23,7 +23,6 @@ export default observer(function Login(props) {
         //const accessToken = result.user.accessToken;
     
         const user = result.user
-        console.log("login user: ", user.uid)
         props.model.setUser(user.uid)
         props.model.removeGuest()
         

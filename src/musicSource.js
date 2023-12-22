@@ -33,9 +33,8 @@ const options = {
 // }
 
 function searchArtist(searchTerm) {
-    console.log("search term: ", searchTerm)
     const url = baseUrl + "artist.search?q_artist=" + new URLSearchParams(searchTerm) + "&page_size=10&format=json" + "&" + accessToken
-    console.log("url: ", url)
+    // console.log("url: ", url)
     return fetch(url, options).then(getJSON_ACB)
 }
 
@@ -49,7 +48,7 @@ function searchArtist(searchTerm) {
 function getArtistTracks(artistID, nbrSongs) {
     //const url = baseUrl + "artists/" + artistID + "/songs?sort=popularity&per_page=" + nbrSongs + "&" + accessToken 
     const url = baseUrl + "track.search?f_artist_id=" + artistID + "&f_has_lyrics=1&format=json&page_size=" + nbrSongs + "&" + accessToken
-    console.log("track url: ", url)
+    // console.log("track url: ", url)
     return fetch(url, options).then(getJSON_ACB)
 }
 
@@ -67,7 +66,7 @@ function getTrack(trackID) {
 
 function getMusicLyrics(trackID) {
     const url = baseUrl + "track.lyrics.get?commontrack_id=" + trackID + "&" + accessToken
-    console.log("lyrics url: ", url)
+    // console.log("lyrics url: ", url)
     return fetch(url, options).then(getJSON_ACB)
 
 }
