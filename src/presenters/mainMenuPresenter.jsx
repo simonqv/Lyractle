@@ -38,12 +38,10 @@ observer(
         }
 
         function continueGameACB() {
-            props.model.setGameState(GameStates.PLAYING);
             navigate("/game")
         }
        
         function goToHighScoresACB() {
-            props.model.setGameState(GameStates.PLAYING);
             navigate("/highScores")
         }
 
@@ -59,7 +57,6 @@ observer(
 
         function randomTrackACB() {
             props.model.getRandomSong()
-            props.model.setGameState(GameStates.PLAYING);
             navigate("/game")
 
         }
@@ -86,8 +83,8 @@ observer(
             return <ArtistSearchResultView res={state.data} onArtistClickACB={playArtist} ></ArtistSearchResultView>
 
             function playArtist(artistID) {
+                props.model.prepareModelForNewGame()
                 props.model.getSongFromArtist(artistID)
-                props.model.setGameState(GameStates.PLAYING);
                 navigate("/game")
                 
             }

@@ -48,7 +48,7 @@ function searchArtist(searchTerm) {
 // http://api.musixmatch.com/ws/1.1/track.search?q_artist=justin bieber&page_size=3&page=1&s_track_rating=desc
 function getArtistTracks(artistID, nbrSongs) {
     //const url = baseUrl + "artists/" + artistID + "/songs?sort=popularity&per_page=" + nbrSongs + "&" + accessToken 
-    const url = baseUrl + "track.search?f_artist_id=" + artistID + "&f_has_lyrics=true&format=json&page_size=" + nbrSongs + "&" + accessToken
+    const url = baseUrl + "track.search?f_artist_id=" + artistID + "&f_has_lyrics=1&format=json&page_size=" + nbrSongs + "&" + accessToken
     console.log("track url: ", url)
     return fetch(url, options).then(getJSON_ACB)
 }
@@ -67,6 +67,7 @@ function getTrack(trackID) {
 
 function getMusicLyrics(trackID) {
     const url = baseUrl + "track.lyrics.get?commontrack_id=" + trackID + "&" + accessToken
+    console.log("lyrics url: ", url)
     return fetch(url, options).then(getJSON_ACB)
 
 }

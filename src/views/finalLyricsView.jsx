@@ -13,11 +13,11 @@ function FinalLyricsView(props) {
         </h2>
         {props.gameState === GameStates.WIN &&
         ( 
-          <h3 className='h3' style={{fontSize: "24px", marginBottom: "24px", color: "#98D4D2"}}>You won in {props.numGuess} number of guesses</h3>
+          <h3 className='h3-won'>You solved it in {props.numGuess} guesses</h3>
         )}
         {props.gameState === GameStates.GIVEN_UP &&
         ( 
-          <h3 className='h3' style={{fontSize: "24px", marginBottom: "24px", color: "#B76D6D"}}>You gave up after {props.numGuess} number of guesses</h3>
+          <h3 className='h3' style={{fontSize: "24px", marginBottom: "24px", color: "#B76D6D"}}>You gave up after {props.numGuess} guesses</h3>
         )}
       </span>
       <div>

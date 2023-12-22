@@ -1,9 +1,9 @@
 import resolvePromise from "./resolvePromise"
 import { searchArtist, getArtistTracks, getMusicLyrics } from "./musicSource"
-import artists from "./artists"
+import {artists} from "./constants"
 
 
-const localStorageKey = "gameState";
+const localStorageKey = "gameState"
 
 /* 
    The Model keeps only abstract data and has no notions of graphics or interaction
@@ -40,7 +40,7 @@ export default {
 
     setUser(user) {
         this.user = user
-        this.removeGuest();
+        this.removeGuest()
     },
 
 
@@ -83,7 +83,7 @@ export default {
     },
 
     addToScores(track, newScore) {
-        this.scores[track] = newScore;
+        this.scores[track] = newScore
         console.log(this.scores)
     },
     
@@ -103,21 +103,19 @@ export default {
     },
 
     init() {
-        const savedState = localStorage.getItem(localStorageKey);
+        const savedState = localStorage.getItem(localStorageKey)
         if (savedState) {
-            const parsedState = JSON.parse(savedState);
-            Object.assign(this, parsedState);
+            const parsedState = JSON.parse(savedState)
+            Object.assign(this, parsedState)
         }
     },
 
-    
-      
     saveGameState() {
-        localStorage.setItem(localStorageKey, JSON.stringify(this));
+        localStorage.setItem(localStorageKey, JSON.stringify(this))
     },
 
     clearSavedState() {
-        localStorage.removeItem(localStorageKey);
+        localStorage.removeItem(localStorageKey)
     },
 
     setGameState(state) {
@@ -126,7 +124,7 @@ export default {
             this.gameState = state
             this.saveGameState() // Save the game state whenever it changes
         } else {
-            throw new Error(`Invalid game state: ${state}`);
+            throw new Error(`Invalid game state: ${state}`)
         }
     },
     
@@ -139,6 +137,7 @@ export default {
     },
 
     getArtistSongs(artistID, nbrSongs) {
+        console.log("get artist songs")
         this.artistTrackPromiseState = resolvePromise(getArtistTracks(artistID, nbrSongs), this.artistTrackPromiseState)
     },
 
@@ -152,17 +151,17 @@ export default {
         }
         
         // Remove the last part starting from "*******" to the end
-        const cleanedLyrics = lyrics.replace(/\*{7,}[\s\S]*$/, '');
+        const cleanedLyrics = lyrics.replace(/\*{7,}[\s\S]*$/, '')
       
         // Remove any trailing three dots
-        const finalLyrics = cleanedLyrics.replace(/\.{3}\s*$/, '');
+        const finalLyrics = cleanedLyrics.replace(/\.{3}\s*$/, '')
       
-        return finalLyrics.trim();
+        return finalLyrics.trim()
     },
 
     getRandomElement(list) {
-        const randomIndex = Math.floor(Math.random() * list.length);
-        return list[randomIndex];
+        const randomIndex = Math.floor(Math.random() * list.length)
+        return list[randomIndex]
     },
 
     getSongFromArtist(artistID) {
@@ -187,7 +186,7 @@ export default {
 
     getRandomSong() {
 
-        this.wipeModelForNewGame()
+        this.prepareModelForNewGame()
 
         const ranArtist = this.getRandomElement(artists)
         this.doSearch(ranArtist)
@@ -209,7 +208,7 @@ export default {
             }
 
             this.getSongFromArtist(artistID)
-          });
+          })
         
     },
     
@@ -219,18 +218,21 @@ export default {
         }
     },
 
-    wipeModelForNewGame() {
+    prepareModelForNewGame() {
         this.setCurrentScore(0)
+        this.setHintWord("")
         this.setNbrHints(0)
         this.setCurrentTrack(null)
         this.setCurrentLyrics(null)
         this.clearGuesses()
+        this.setGameState(GameStates.PLAYING)
     },
 
     wipeModel() {
         this.setUser(null)
         this.removeGuest()
         this.setCurrentScore(0)
+        this.setHintWord("")
         this.setNbrHints(0)
         this.setCurrentTrack(null)
         this.setCurrentLyrics(null)

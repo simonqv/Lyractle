@@ -28,6 +28,16 @@
     background-color: var(--hoverColor);
  }
 
+.button:disabled {
+  background-color: grey;
+}
+
+.button:disabled:hover {
+  transform: none;
+  background-color: grey;
+}
+
+
 .small-button {
   color: var(--secondary);
   font-family: 'Lexend peta', sans-serif;
@@ -219,6 +229,14 @@ tr {
   margin-top: 56px;
   max-height: 70vh;
   overflow: auto;
+}
+
+.h3-won {
+  margin-top: 0px;
+  color: var(--accent);
+  font-family: 'Kameron', serif;
+  font-size: 24px;
+  margin-bottom: 24px;
 }
 
 
@@ -463,6 +481,9 @@ button:hover {
   top: 35%;
   left: 50%;
   transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 
@@ -528,9 +549,10 @@ button:hover {
 }
 
 .score-table{
-  top: 15px;
+  top: 20px;
   left: 10%;
   position: absolute;
   overflow: auto;
+  width: inherit;
 }
 
