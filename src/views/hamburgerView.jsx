@@ -55,8 +55,8 @@ function HamburgerView(props) {
             <div>
                 <h3 className='h3'>Instructions</h3>
                 <p className='p'>Some words are visible, while others are hidden.
-                  Each guess you make, where the word appears in the song lyrics will,
-                  will unveil the hidden words.If your guess does not appear in the song lyrics,
+                  Each guess you make, where the word appears in the song lyrics,
+                  will unveil the hidden words. If your guess does not appear in the song lyrics,
                   nothing will be reveiled, but your guess count will increase.
                   The goal is to find out the title of the song in as few guesses as possible.
                   Input is not case sensitive.</p>

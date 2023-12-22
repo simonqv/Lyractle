@@ -1,18 +1,17 @@
-// firebaseModel.js
-import { initializeApp } from "firebase/app";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { getDatabase, ref, get, set } from "/src/teacherFirebase.js";
-import firebaseConfig from "./firebaseConfig";
-import { getMusicLyrics, getTrack } from "./musicSource";
-import { GameStates } from "./userModel";
-import resolvePromise from "./resolvePromise";
+import { initializeApp } from "firebase/app"
+import { getAuth, onAuthStateChanged } from "firebase/auth"
+import { getDatabase, ref, get, set } from "/src/teacherFirebase.js"
+import firebaseConfig from "./firebaseConfig"
+import { getMusicLyrics, getTrack } from "./musicSource"
+import { GameStates } from "./userModel"
+import resolvePromise from "./resolvePromise"
 
 
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getDatabase(app);
+const app = initializeApp(firebaseConfig)
+const auth = getAuth(app)
+const db = getDatabase(app)
 
-const PATH = "users/";
+const PATH = "users/"
 
 function modelToPersistence(model) {
   return {
@@ -21,7 +20,7 @@ function modelToPersistence(model) {
     userGameState: model.gameState,
     userScores: model.scores,
     userHints: model.nbrHints
-  };
+  }
 }
 
 function persistenceToModel(data, model) {
@@ -48,7 +47,7 @@ function persistenceToModel(data, model) {
       })
       .catch((error) => {
         console.error("Error fetching lyrics from fb to model:", error)
-      });
+      })
   }
 
   data?.userHints ? model.setNbrHints(data?.userHints) : model.setNbrHints(0)
@@ -60,73 +59,74 @@ function persistenceToModel(data, model) {
 
   model.setScores(data?.userScores || {})
     
-  return null;
+  return null
 }
 
 function saveToFirebase(model) {
   if (!model.user && !model.guest) {
-    model.wipeModel();
+    model.wipeModel()
   }
   if (model.ready) {
-    const uid = model.user ? model.user : null;
+    const uid = model.user ? model.user : null
     if (uid) {
-      const rf = ref(db, PATH + uid);
+      const rf = ref(db, PATH + uid)
       set(rf, modelToPersistence(model)).catch((error) => {
-        console.error("Error saving data to Firebase:", error);
-      });
+        console.error("Error saving data to Firebase:", error)
+      })
     }
   }
 }
 
 function readFromFirebase(model) {
   if (!model.user && !model.guest) {
-    model.wipeModel();
-    model.ready = true;
-    return;
+    model.wipeModel()
+    model.ready = true
+    return
   }
-  model.ready = false;
-  const uid = model.user;
-  const rf = ref(db, PATH + uid);
+  model.ready = false
+  const uid = model.user
+  const rf = ref(db, PATH + uid)
   get(rf)
     .then((snapshot) => persistenceToModel(snapshot.val(), model))
     .then(() => {
-      model.ready = true;
+      model.ready = true
     })
     .catch((error) => {
-      console.error("Error reading data from Firebase:", error);
-    });
+      console.error("Error reading data from Firebase:", error)
+    })
 }
 
 function connectToFirebase(model, watchFunction) {
-  console.log("connect to fb");
-  onAuthStateChanged(auth, loginOrOutACB);
-  watchFunction(checkChangeACB, updateFirebaseACB);
+  console.log("connect to fb")
+  onAuthStateChanged(auth, loginOrOutACB)
+  watchFunction(checkChangeACB, updateFirebaseACB)
 
   function checkChangeACB() {
     return [
       model.currentScore,
       model.currentTrack,
       model.currentLyrics,
+      model.nbrHints,
       model.scores,
       model.guesses,
       model.gameState,
-    ];
+    ]
   }
 
   function updateFirebaseACB() {
-    saveToFirebase(model);
+    saveToFirebase(model)
   }
 
   function loginOrOutACB(user) {
     if (user) {
-      model.user = user.uid;
-      readFromFirebase(model);
+      model.user = user.uid
+      readFromFirebase(model)
     } else {
-      model.user = null;
-      model.ready = true;
+      model.user = null
+      model.ready = true
     }
   }
 }
 
-export { modelToPersistence, persistenceToModel, saveToFirebase, readFromFirebase, auth };
-export default connectToFirebase;
+export { modelToPersistence, persistenceToModel, saveToFirebase, readFromFirebase, auth }
+export default connectToFirebase

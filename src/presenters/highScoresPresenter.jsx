@@ -7,12 +7,12 @@ export default observer(function HighScores(props) {
     
     const navigate = useNavigate()
 
-    return <HighScoresView onReturn={returnClickACB} model={props.model}/>
+    console.log("Scorces: ", props.model.scores)
+
+    return <HighScoresView onReturn={returnClickACB} scores={props.model.scores}/>
     
     function returnClickACB() {
-        props.model.setGameState(GameStates.PLAYING);
+        props.model.setGameState(GameStates.PLAYING)
         navigate("/")
     }
 })
-
-

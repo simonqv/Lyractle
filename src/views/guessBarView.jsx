@@ -31,6 +31,7 @@ function GuessBarView(props) {
           <button disabled={props.hints >= 3} className='button small-button' onClick={getHintACB}>
             Hints {props.hints}/3
           </button>
+
           <button className='button red-button small-button' onClick={giveUpACB}>Give up</button>
       </div>}
     </div>

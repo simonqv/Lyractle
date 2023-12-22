@@ -1,5 +1,4 @@
-import '/src/style.css';
-
+import '/src/style.css'
 
 function HighScoresView(props){
     return <div className='game-view'> 
@@ -8,9 +7,9 @@ function HighScoresView(props){
                     <table className="score-table">
                         <thead>
                             <tr>
-                                <th>Rank</th>
+                                <th style={{width: "20%"}}>Rank</th>
                                 <th>Song</th>
-                                <th>Score</th>
+                                <th style={{width: "20%"}}>Score</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -22,36 +21,30 @@ function HighScoresView(props){
                                 </tr>
                             ))}
                         </tbody>
-                    </table>
+                    </table> 
 
                     <button className="return-button"onClick={returnButtonACB}>Return</button>
                 </div>
             </div> 
-    
 
-    function sortScores(){
-        if (props.model.scores.length === 0 ) {
-            return []
+    function sortScores() {
+      
+        if (Object.keys(props.scores).length === 0) {
+          return {}
         }
-    
-        const scores = []
-
-        for (let key in props.model.scores) {
-            scores.push([ key, props.model.scores[key] ])
-        }
-
-        scores.sort(function compare(kv1, kv2) {
-            return kv1[1] - kv2[1]
-        })
-
-        const sortedScoreDict = scores.reduce((acc, [key, value]) => {
-            acc[key] = value;
+      
+        const sortedKeys = Object.keys(props.scores).sort(
+            (key1, key2) => props.scores[key1][1] - props.scores[key2][1]
+          );
+        
+          const sortedScoreDict = sortedKeys.reduce((acc, key) => {
+            const [songName, score] = props.scores[key];
+            acc[songName] = score;
             return acc;
-        }, {});
-
-        return sortedScoreDict;
-
-    }
+          }, {});
+      
+        return sortedScoreDict
+      }
 
     function returnButtonACB(){
         props.onReturn()

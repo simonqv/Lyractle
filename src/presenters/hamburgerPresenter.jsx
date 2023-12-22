@@ -16,12 +16,10 @@ export default observer(function Hamburger(props) {
     }
 
     function mainMenu() {
-      props.model.setGameState(GameStates.PLAYING);
       navigate("/")
     }
 
     function highScores() {
-      props.model.setGameState(GameStates.PLAYING);
       navigate("/highScores")
     }
     
