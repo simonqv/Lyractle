@@ -13,11 +13,6 @@ function ArtistSearchResultView(props) {
             <button className="search-result-button" key={artist.artist.artist_id} onClick={artistClickedACB}>
                 {artist.artist.artist_name}
             </button>
-            
-            /*<div key={artist.result.id}>
-                {artist.result.artist_names}
-                {artist.result.title}
-            </div>*/
         )
 
         function artistClickedACB(){

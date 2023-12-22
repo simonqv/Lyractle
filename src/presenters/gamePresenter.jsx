@@ -150,7 +150,6 @@ export default observer(function Game(props) {
       }
 
     function getHint() {
-        // TODO: Get hint logic
         if (props.model.nbrHints < 3) {
             const guesses = props.model.guesses.map(obj => obj.word)
             const revealedWords = DEFAULT_VISIBLE_WORDS.concat(guesses)
