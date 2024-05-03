@@ -33914,7 +33914,7 @@ try {
 }
 const { getDatabase, ref, get: get3, set: set4, onValue, child, onChildAdded, onChildRemoved, off } = z;
 const firebaseConfig = {
-  apiKey: "AIzaSyAjwFNB-AYsD4Jb5VWC0NYTMbcFiJ7LSrA",
+  apiKey: ,
   authDomain: "lyractle.firebaseapp.com",
   databaseURL: "https://lyractle-default-rtdb.europe-west1.firebasedatabase.app",
   projectId: "lyractle",
